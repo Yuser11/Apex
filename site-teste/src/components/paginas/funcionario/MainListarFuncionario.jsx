@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-function MainListarAluno() {
+function MainListarFuncionario() {
 
-    const urlDadosAluno = 'https://jsonplaceholder.typicode.com/users';
-    const [alunos, setAlunos] = useState([]);
+    const urlDadosFuncionario = 'https://jsonplaceholder.typicode.com/users';
+    const [Funcionarios, setFuncionarios] = useState([]);
 
     useEffect(() => {
-        async function buscarDadosAluno() {
+        async function buscarDadosFuncionario() {
             try {
-                let resposta = await fetch(urlDadosAluno);
-                let dadosAluno = await resposta.json();
-                setAlunos(dadosAluno);
+                let resposta = await fetch(urlDadosFuncionario);
+                let dadosFuncionario = await resposta.json();
+                setFuncionarios(dadosFuncionario);
             } catch (erro) {
                 console.log(erro);
             }
         }
-        buscarDadosAluno();
+        buscarDadosFuncionario();
     },[]);
 
 
@@ -25,7 +25,7 @@ function MainListarAluno() {
                 <div
                     className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                 >
-                    <h1 className="h2">Alunos Cadastrados</h1>
+                    <h1 className="h2">Funcionarios Cadastrados</h1>
                 </div>
                 <table className="table">
                     <thead className="table-dark">
@@ -39,13 +39,13 @@ function MainListarAluno() {
                     </thead>
                     <tbody>
                     {
-                        alunos.map( (aluno) => (
-                         <tr key={aluno.id}>
-                         <td>{aluno.id}</td>
-                         <td>{aluno.name}</td>
-                         <td>{aluno.username}</td>
+                        Funcionarios.map( (Funcionario) => (
+                         <tr key={Funcionario.id}>
+                         <td>{Funcionario.id}</td>
+                         <td>{Funcionario.name}</td>
+                         <td>{Funcionario.username}</td>
                          <td>
-                         <Link to={`/editar-aluno/${aluno.id}`}>Editar</Link>
+                         <Link to={`/editar-Funcionario/${Funcionario.id}`}>Editar</Link>
                          <button className="me-2">Editar</button>
                          <button>Excluir</button>
                          </td>
@@ -60,4 +60,4 @@ function MainListarAluno() {
         </>
     );
 }
-export default MainListarAluno;
+export default MainListarFuncionario;

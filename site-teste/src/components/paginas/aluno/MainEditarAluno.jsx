@@ -1,7 +1,8 @@
-import { useActionState, useState } from "react";
+import { useParams } from "react-router";
+import { useState, useActionState, useEffect } from "react";
+function MainEditarAluno() {
 
-function MainCadastrarAluno() {
-
+    const { id } = useParams();
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
     const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ function MainCadastrarAluno() {
         }
     }
 
-    const [estadoCadastro, acaoCadastro, pendente]
+    const [estadoAtualizar, acaoAtualizar, pendente]
         = useActionState(
             async (estadoAnterior, formData) => {
                 let dadosAluno = JSON.stringify(
@@ -35,7 +36,7 @@ function MainCadastrarAluno() {
                 ));
                 console.log(dadosAluno);
                 try {
-                    let resposta = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                    let resposta = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
                         method: 'POST',
                         body: dadosAluno,
                         headers: {
@@ -66,7 +67,23 @@ function MainCadastrarAluno() {
             }
         );
 
+     useEffect( () => {
+     async function getDadosAluno(){
+        let resposta = await 
+        fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+        let dadosAluno = await resposta.json();
+        console.log(dadosAluno);
+        setNome(dadosAluno.name);
+        setSobrenome(dadosAluno.username);
+        setEmail(dadosAluno.email);
+        setEndereco(dadosAluno.address.street);
+        setCidade(dadosAluno.address.city);
+        setEstado(dadosAluno.address.suite);
+    
+     }
+     getDadosAluno();
 
+     }, [id] );
 
     return (
         <>
@@ -74,9 +91,10 @@ function MainCadastrarAluno() {
                 <div
                     className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                 >
-                    <h1 className="h2">Cadastrar Aluno - {nome}</h1>
+                    <h1 className="h2">Editar Aluno: {id}</h1>
                 </div>
-                <form action={acaoCadastro} className="row g-3">
+
+                <form action={acaoAtualizar} className="row g-3">
                     <div className="col-md-6">
                         <label htmlFor="nome" className="form-label">Nome:</label>
                         <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" className="form-control" id="nome" name="nome" required />
@@ -110,15 +128,14 @@ function MainCadastrarAluno() {
 
                     <div className="col-12">
                         <button disabled={pendente} type="submit" className="btn btn-primary">
-                            {pendente ? 'Cadastrando...' : 'Cadastrar'}
+                            {pendente ? 'Atualizando...' : 'Atualizar'}
                         </button>
                     </div>
                 </form>
-
 
 
             </main>
         </>
     );
 }
-export default MainCadastrarAluno;
+export default MainEditarAluno;

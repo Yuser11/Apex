@@ -3,9 +3,9 @@ import { Link } from "react-router";
 function SidebarCollapse() {
     return (
         <>
-            <div className="sidebar rr-sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar rr-sidebar border border-right col-md-3 col-lg-2 p-0">
                 <div
-                    className="offcanvas-md offcanvas-end bg-body-tertiary"
+                    className="offcanvas-md offcanvas-end"
                     tabIndex="-1"
                     id="sidebarMenu"
                     aria-labelledby="sidebarMenuLabel"
@@ -25,53 +25,72 @@ function SidebarCollapse() {
 
                     <div className="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
                         <ul className="nav flex-column">
-                            <li className="mb-1">
-                                <button
-                                    className="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#dashboard-collapse"
-                                    aria-expanded="false"
-                                >
-                                    Aluno
-                                </button>
-                                <div className="collapse" id="dashboard-collapse">
-                                    <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li>
-                                            <Link
-                                                to="/cadastro-aluno"
-                                                className="link-body-emphasis d-inline-flex text-decoration-none rounded">
-                                                    Cadastrar
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link
-                                                to="#"
-                                                className="link-body-emphasis d-inline-flex text-decoration-none rounded">
-                                                    Listar
-                                            </Link                                            >
-                                        </li>
-                                        
-                                        
-                                    </ul>
-                                </div>
-                            </li>
-
-                        </ul>
-
-                        <hr className="my-3" />
-
-                        <ul className="nav flex-column mb-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link d-flex align-items-center gap-2" href="#">
-                                    <i className="bi bi-gear-wide-connected" aria-hidden="true"></i>
-                                    Settings
+                            <li >
+                                <Link to='/'>
+                                    <img src="/src/assets/img/sidebar/home.png" alt="" />
+                                    HOME
                                 </Link>
                             </li>
+                            <li >
+                                <Link to='/login'>
+                                    <img src="/src/assets/img/sidebar/Info.png" alt="" />
+                                    INFORMAÇÕES
+                                </Link>
+                            </li>
+                            <li >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                    CLIENTES
+                                </Link>
+                            </li>
+                            <li className="menu-hover" >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+                                    FUNCIONÁRIO
+                                </Link>
+                                <ul className="sub-menu">
+                                    <li >
+                                    <Link to='/login'>
+                                        <img src="/src/assets/img/sidebar/Info.png" alt="" />
 
-                            <li className="nav-item">
-                                <Link className="nav-link d-flex align-items-center gap-2" href="#">
-                                    <i className="bi bi-door-closed" aria-hidden="true"></i>
-                                    Sign out
+                                        INFORMAÇÕES
+
+                                    </Link>
+                                </li>
+                                <li >
+                                    <Link>
+                                        <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+
+                                        CLIENTES
+
+                                    </Link>
+                                </li>
+                                </ul>
+
+                                
+
+                            </li>
+                            <li >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/time circle.png" alt="" />
+
+                                    HISTÓRICO DE VENDAS
+
+                                </Link>
+                            </li>
+                            <li >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/bag 4.png" alt="" />
+                                    PRODUTOS
+
+                                </Link>
+                            </li>
+                            <li >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/logout.png" alt="" />
+
+                                    SAIR
+
                                 </Link>
                             </li>
                         </ul>
@@ -79,7 +98,7 @@ function SidebarCollapse() {
                 </div>
             </div>
         </>
-
     );
 }
+
 export default SidebarCollapse;

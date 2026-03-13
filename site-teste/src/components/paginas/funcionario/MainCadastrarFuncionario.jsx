@@ -1,6 +1,6 @@
 import { useActionState, useState } from "react";
 
-function MainCadastrarAluno() {
+function MainCadastrarFuncionario() {
 
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
@@ -27,17 +27,17 @@ function MainCadastrarAluno() {
     const [estadoCadastro, acaoCadastro, pendente]
         = useActionState(
             async (estadoAnterior, formData) => {
-                let dadosAluno = JSON.stringify(
+                let dadosFuncionario = JSON.stringify(
                     Object.fromEntries(formData.entries()));
                 // Simula uma espera em segundos
                 await new Promise((resolve) => setTimeout(
                     resolve, 2000
                 ));
-                console.log(dadosAluno);
+                console.log(dadosFuncionario);
                 try {
                     let resposta = await fetch('https://jsonplaceholder.typicode.com/posts', {
                         method: 'POST',
-                        body: dadosAluno,
+                        body: dadosFuncionario,
                         headers: {
                             'Content-type': 'application/json; charset=UTF-8',
                         },
@@ -74,7 +74,7 @@ function MainCadastrarAluno() {
                 <div
                     className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                 >
-                    <h1 className="h2">Cadastrar Aluno - {nome}</h1>
+                    <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
                 </div>
                 <form action={acaoCadastro} className="row g-3">
                     <div className="col-md-6">
@@ -121,4 +121,4 @@ function MainCadastrarAluno() {
         </>
     );
 }
-export default MainCadastrarAluno;
+export default MainCadastrarFuncionario;

@@ -1,15 +1,13 @@
-
+import Sidebar from "../../template/Sidebar";
 import Navbar from "../../template/Navbar";
-import AlternadorDeTema from "../../AlternadorDeTema";
 import SelecionarTema from "../../SelecionarTema";
-import SidebarCollapse from "../../template/SidebarCollapse";
+import AlternadorDeTema from "../../AlternadorDeTema";
 import MainCadastrarAluno from "./MainCadastrarAluno";
-
+import SidebarCollapse from "../../template/SidebarCollapse";
 function CadastrarAluno() {
     return (
-        <>
-            <title>Cadastro de Alunos</title>
-
+        <>  
+             <title>Cadastro de aluno</title>
             <AlternadorDeTema />
             <SelecionarTema />
             <Navbar />
@@ -19,7 +17,6 @@ function CadastrarAluno() {
                     <MainCadastrarAluno />
                 </div>
             </div>
-
 
         </>
     );

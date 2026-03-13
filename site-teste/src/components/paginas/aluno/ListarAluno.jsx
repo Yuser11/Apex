@@ -1,10 +1,10 @@
-import Navbar from "../template/Navbar";
-import AlternadorDeTema from "../AlternadorDeTema";
-import SelecionarTema from "../SelecionarTema";
-import MainHome from "./MainHome";
-import SidebarCollapse from "../template/SidebarCollapse";
-
-function CadastrarAluno() {
+import Sidebar from "../../template/Sidebar";
+import Navbar from "../../template/Navbar";
+import SelecionarTema from "../../SelecionarTema";
+import AlternadorDeTema from "../../AlternadorDeTema";
+import MainListarAluno from "./MainListarAluno";
+import SidebarCollapse from "../../template/SidebarCollapse";
+function ListarAluno() {
     return (
         <>
             <AlternadorDeTema />
@@ -13,12 +13,11 @@ function CadastrarAluno() {
             <div className="container-fluid">
                 <div className="row">
                     <SidebarCollapse />
-                    <MainHome />
+                    <MainListarAluno />
                 </div>
             </div>
-
 
         </>
     );
 }
-export default CadastrarAluno;
+export default ListarAluno;

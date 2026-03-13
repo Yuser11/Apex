@@ -3,6 +3,7 @@ import { Link } from "react-router";
 function Navbar() {
     return (
         <>
+            
             <header
                 className="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow justify-content-start"
                 data-bs-theme="dark"
@@ -11,7 +12,7 @@ function Navbar() {
                     className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
                     to="/"
                 >
-                    SENAI
+                    SESI SENAI
                 </Link>
 
                 <div className="ms-auto d-flex align-items-center gap-1 pe-2">
@@ -37,7 +38,7 @@ function Navbar() {
                             <li><a className="dropdown-item" href="#">Settings</a></li>
                             <li><a className="dropdown-item" href="#">Profile</a></li>
                             <li><hr className="dropdown-divider" /></li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <li><Link className="dropdown-item" to='/login'>Sign out</Link></li>
                         </ul>
                     </div>
                     <ul className="navbar-nav flex-row d-md-none mb-0">

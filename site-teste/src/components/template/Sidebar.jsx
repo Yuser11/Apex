@@ -1,8 +1,7 @@
 function Sidebar() {
-
     return (
         <>
-            <div className= "sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+            <div className="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
                 <div
                     className="offcanvas-md offcanvas-end bg-body-tertiary"
                     tabIndex="-1"
