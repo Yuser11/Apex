@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import { LineChart } from '@mui/x-charts/LineChart';
 function SidebarCollapse() {
     return (
         <>
@@ -42,7 +41,7 @@ function SidebarCollapse() {
                                     <img src="/src/assets/img/sidebar/3 user.png" alt="" />
                                     CLIENTES
                                 </Link>
-                                <ul className="sub-menu">
+                                <ul className="sub-menu ">
                                     <li >
                                         <Link to='/login'>
                                             <img src="/src/assets/img/sidebar/Add User.png" alt="" />
