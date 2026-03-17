@@ -209,11 +209,12 @@
      display: flex;
      flex-wrap: wrap;
      align-items: center;
-     gap: 0.2rem;
      width: fit-content;
      font-size: 13px;
      height: 100%;
      width: 100%;
+     padding: 0 0.5rem;
+
     }
     
     .nav li a {
@@ -237,6 +238,7 @@
  .menu-hover:hover .sub-menu{
     display: block;
     height: 100%;
+    animation: fall 0.2s linear forwards;
  }
 
  .nav a:hover .sub-menu,
@@ -254,3 +256,18 @@
      width: 1.5rem;
      height: 1.5rem;
  }
+
+ @keyframes fall {
+    from {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    to {
+      opacity: 1;
+    }
+}

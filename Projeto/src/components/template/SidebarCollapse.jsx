@@ -37,31 +37,49 @@ function SidebarCollapse() {
                                     INFORMAÇÕES
                                 </Link>
                             </li>
-                            <li >
+                            <li className="menu-hover" >
                                 <Link>
                                     <img src="/src/assets/img/sidebar/3 user.png" alt="" />
                                     CLIENTES
                                 </Link>
-                            </li>
-                            <li className="menu-hover" >
-                                <Link>
-                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
-                                    FUNCIONÁRIO
-                                </Link>
                                 <ul className="sub-menu">
                                     <li >
                                     <Link to='/login'>
-                                        <img src="/src/assets/img/sidebar/Info.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
 
-                                        INFORMAÇÕES
+                                        CADASTRAR
 
                                     </Link>
                                 </li>
                                 <li >
                                     <Link>
-                                        <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                        <img src="/src/assets/img/sidebar/edit.png" alt="" />
 
-                                        CLIENTES
+                                        EDITAR
+
+                                    </Link>
+                                </li>
+                                </ul>
+                            </li>
+                            <li className="menu-hover" >
+                                <Link>
+                                <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                    FUNCIONÁRIO
+                                </Link>
+                                <ul className="sub-menu">
+                                    <li >
+                                    <Link to='/login'>
+                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+
+                                        CADASTRAR
+
+                                    </Link>
+                                </li>
+                                <li >
+                                    <Link>
+                                        <img src="/src/assets/img/sidebar/edit.png" alt="" />
+
+                                        EDITAR
 
                                     </Link>
                                 </li>
