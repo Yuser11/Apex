@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-
+import { LineChart } from '@mui/x-charts/LineChart';
 function SidebarCollapse() {
     return (
         <>
@@ -44,48 +44,48 @@ function SidebarCollapse() {
                                 </Link>
                                 <ul className="sub-menu">
                                     <li >
-                                    <Link to='/login'>
-                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+                                        <Link to='/login'>
+                                            <img src="/src/assets/img/sidebar/Add User.png" alt="" />
 
-                                        CADASTRAR
+                                            CADASTRAR
 
-                                    </Link>
-                                </li>
-                                <li >
-                                    <Link>
-                                        <img src="/src/assets/img/sidebar/edit.png" alt="" />
+                                        </Link>
+                                    </li>
+                                    <li >
+                                        <Link>
+                                            <img src="/src/assets/img/sidebar/listar.png" alt="" />
 
-                                        EDITAR
+                                            LISTAR
 
-                                    </Link>
-                                </li>
+                                        </Link>
+                                    </li>
                                 </ul>
                             </li>
                             <li className="menu-hover" >
                                 <Link>
-                                <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/3 user.png" alt="" />
                                     FUNCIONÁRIO
                                 </Link>
                                 <ul className="sub-menu">
                                     <li >
-                                    <Link to='/login'>
-                                    <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+                                        <Link to='/cadastro-funcionario'>
+                                            <img src="/src/assets/img/sidebar/Add User.png" alt="" />
 
-                                        CADASTRAR
+                                            CADASTRAR
 
-                                    </Link>
-                                </li>
-                                <li >
-                                    <Link>
-                                        <img src="/src/assets/img/sidebar/edit.png" alt="" />
+                                        </Link>
+                                    </li>
+                                    <li >
+                                        <Link to='/listar-funcionario'>
+                                            <img src="/src/assets/img/sidebar/listar.png" alt="" />
 
-                                        EDITAR
+                                            LISTAR
 
-                                    </Link>
-                                </li>
+                                        </Link>
+                                    </li>
                                 </ul>
 
-                                
+
 
                             </li>
                             <li >

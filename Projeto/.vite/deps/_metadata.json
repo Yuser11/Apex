@@ -1,31 +1,37 @@
 {
-  "hash": "6d8544f4",
-  "configHash": "0fd055ae",
-  "lockfileHash": "1294816a",
-  "browserHash": "43535123",
+  "hash": "599efd2e",
+  "configHash": "10fe8a2c",
+  "lockfileHash": "6b5356c4",
+  "browserHash": "0584c1d9",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "2fe65001",
+      "fileHash": "7b30479a",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "2f215170",
+      "fileHash": "e7b66237",
       "needsInterop": true
+    },
+    "react-toastify": {
+      "src": "../../node_modules/react-toastify/dist/index.mjs",
+      "file": "react-toastify.js",
+      "fileHash": "24051fa2",
+      "needsInterop": false
     },
     "react-router": {
       "src": "../../node_modules/react-router/dist/development/index.mjs",
       "file": "react-router.js",
-      "fileHash": "0bb11ccd",
+      "fileHash": "3924a1fe",
       "needsInterop": false
     },
     "bootstrap/dist/js/bootstrap.bundle.min.js": {
       "src": "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
       "file": "bootstrap_dist_js_bootstrap__bundle__min__js.js",
-      "fileHash": "9393eae1",
+      "fileHash": "3dc49efa",
       "needsInterop": true
     }
   },
