@@ -224,10 +224,10 @@
     .nav li a img{
         margin-right: 0.5rem;        
  }
- .end{
-    justify-self: flex-end;
+ .fim{
+    align-self: center;
  }
-
+ 
  .nav a:hover {
      color: var(--bs-tertiary-bg);
      background-color: var(--bs-emphasis-color);

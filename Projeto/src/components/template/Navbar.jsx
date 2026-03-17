@@ -17,7 +17,7 @@ function Navbar() {
 
                 <div className="ms-auto d-flex align-items-center gap-1 pe-2">
                     
-                    <div className="dropdown text-end">
+                    <div className="dropdown text-end fim">
                         <a
                             href="#"
                             className="d-flex align-items-center text-decoration-none dropdown-toggle link-light"

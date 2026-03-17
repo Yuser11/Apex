@@ -24,12 +24,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/cadastro-Funcionario' element={<CadastrarFuncionario />} />
-        <Route path='/listar-Funcionario' element={<ListarFuncionario />} />
-        <Route path='/editar-Funcionario/:id' element={<EditarFuncionario />} />
-        <Route path='*' element={<Erro404 />} />
+        <Route path='/' element={<ValidaLogin pagina={<Home />}/>}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/cadastro-Funcionario' element={<ValidaLogin pagina={<CadastrarFuncionario />}/>}/>
+        <Route path='/listar-Funcionario' element={<ValidaLogin pagina={<ListarFuncionario />}/>}/>
+        <Route path='/editar-Funcionario/:id' element={<ValidaLogin pagina={<EditarFuncionario />}/>}/>
+        <Route path='/*' element={<ValidaLogin pagina={<Erro404 />}/>}/>
       </Routes>
     </>
   )
