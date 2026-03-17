@@ -221,6 +221,12 @@
      height: 100%;
      width: 100%;
  }
+    .nav li a img{
+        margin-right: 0.5rem;        
+ }
+ .end{
+    justify-self: flex-end;
+ }
 
  .nav a:hover {
      color: var(--bs-tertiary-bg);
