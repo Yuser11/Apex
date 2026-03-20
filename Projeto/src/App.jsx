@@ -14,6 +14,8 @@ import { Route, Routes } from 'react-router'
 import ValidaLogin from './components/ValidaLogin'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
+import Vendas from './components/paginas/vendas/Vendas'
+
 
 function App() {
   useEffect(() => {
@@ -29,6 +31,8 @@ function App() {
         <Route path='/cadastro-Funcionario' element={<ValidaLogin pagina={<CadastrarFuncionario />}/>}/>
         <Route path='/listar-Funcionario' element={<ValidaLogin pagina={<ListarFuncionario />}/>}/>
         <Route path='/editar-Funcionario/:id' element={<ValidaLogin pagina={<EditarFuncionario />}/>}/>
+        <Route path='vendas' element={<ValidaLogin pagina={<Vendas/>}/>}/>
+        <Route path='/vendas' element={<ValidaLogin pagina={<Vendas/>}/>}/>
         <Route path='/*' element={<ValidaLogin pagina={<Erro404 />}/>}/>
       </Routes>
     </>

@@ -299,7 +299,21 @@ height: 100%;
 width: 100%;
 }
 
-@keyframes fall {
+.conterDiv{
+    width: 1150px;
+    right: 130px;
+}
+.colorValor{
+    background-color: #3E729C;
+    border-radius: 2,4%;
+}
+.colorDIV{
+    background-color: #7FA1BC;
+    border-radius: 3%;
+}
+
+
+ @keyframes fall {
     from {
         opacity: 0;
     }
