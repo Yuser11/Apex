@@ -5,15 +5,16 @@ import './App.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 //import './assets/js/dashboard'
 import Home from './components/paginas/home/Home'
-import CadastrarFuncionario from './components/paginas/Funcionario/CadastrarFuncionario'
+import CadastrarFuncionario from './components/paginas/funcionario/CadastrarFuncionario'
 import Erro404 from './components/paginas/404/Erro404'
-import ListarFuncionario from './components/paginas/Funcionario/ListarFuncionario'
-import EditarFuncionario from './components/paginas/Funcionario/EditarFuncionario'
+import ListarFuncionario from './components/paginas/funcionario/ListarFuncionario'
+import EditarFuncionario from './components/paginas/funcionario/EditarFuncionario'
 import Login from './components/Login'
 import { Route, Routes } from 'react-router'
 import ValidaLogin from './components/ValidaLogin'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
+
 
 function App() {
   useEffect(() => {
