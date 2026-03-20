@@ -1,5 +1,8 @@
 import { Link } from "react-router";
+<<<<<<< HEAD
 
+=======
+>>>>>>> f4eacd299ba307016c3f31489d3bc4188569101b
 function SidebarCollapse() {
     return (
         <>
@@ -33,19 +36,19 @@ function SidebarCollapse() {
                             </li>
                             <li >
                                 <Link to='/login'>
-                                    <img src="/src/assets/img/sidebar/Info.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/info.png" alt="" />
                                     INFORMAÇÕES
                                 </Link>
                             </li>
                             <li className="menu-hover" >
                                 <Link>
-                                    <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/3-user.png" alt="" />
                                     CLIENTES
                                 </Link>
-                                <ul className="sub-menu">
+                                <ul className="sub-menu ">
                                     <li >
                                         <Link to='/login'>
-                                            <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+                                            <img src="/src/assets/img/sidebar/add-user.png" alt="" />
 
                                             CADASTRAR
 
@@ -63,13 +66,13 @@ function SidebarCollapse() {
                             </li>
                             <li className="menu-hover" >
                                 <Link>
-                                    <img src="/src/assets/img/sidebar/3 user.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/3-user.png" alt="" />
                                     FUNCIONÁRIO
                                 </Link>
                                 <ul className="sub-menu">
                                     <li >
                                         <Link to='/cadastro-funcionario'>
-                                            <img src="/src/assets/img/sidebar/Add User.png" alt="" />
+                                            <img src="/src/assets/img/sidebar/add-user.png" alt="" />
 
                                             CADASTRAR
 
@@ -90,7 +93,7 @@ function SidebarCollapse() {
                             </li>
                             <li >
                                 <Link>
-                                    <img src="/src/assets/img/sidebar/time circle.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/time-circle.png" alt="" />
 
                                     HISTÓRICO DE VENDAS
 
@@ -98,7 +101,7 @@ function SidebarCollapse() {
                             </li>
                             <li >
                                 <Link>
-                                    <img src="/src/assets/img/sidebar/bag 4.png" alt="" />
+                                    <img src="/src/assets/img/sidebar/bag.png" alt="" />
                                     PRODUTOS
 
                                 </Link>

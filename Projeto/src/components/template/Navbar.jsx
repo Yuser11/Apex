@@ -3,20 +3,22 @@ import { Link } from "react-router";
 function Navbar() {
     return (
         <>
-            
+
             <header
                 className="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow justify-content-start"
                 data-bs-theme="dark"
             >
                 <Link
-                    className="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
+                    className="col-md-3 col-lg-2 fs-6 text-white"
                     to="/"
                 >
-                    SESI SENAI
+
+APEX
+
                 </Link>
 
                 <div className="ms-auto d-flex align-items-center gap-1 pe-2">
-                    
+
                     <div className="dropdown text-end fim">
                         <a
                             href="#"
