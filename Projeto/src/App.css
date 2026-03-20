@@ -289,3 +289,7 @@
       opacity: 1;
     }
 }
+.img-login{
+    z-index: -1;
+    position: absolute;
+}

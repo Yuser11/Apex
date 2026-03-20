@@ -65,7 +65,7 @@ function MainHome() {
             type: 'bar',
             data: {
                 labels: ['Jan/Fev/Mar', 'Abr/Mai/Jun', 'Jul/Ago/Set', 'Out/Nov/Dez'],
-                datasets: [{ data: [100, 75, 95, 25], backgroundColor: purple, borderRadius: 5 }]
+                datasets: [{ data: [600, 400, 500, 300], backgroundColor: purple, borderRadius: 5 }]
             },
             options: {
                 maintainAspectRatio: false,
@@ -80,7 +80,7 @@ function MainHome() {
                         padding: { top: 10, bottom: 20 }
                     }
                 },
-                scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 100 } }
+                scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 1000 } }
             }
         });
 
