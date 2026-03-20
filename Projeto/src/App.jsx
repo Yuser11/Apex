@@ -15,6 +15,7 @@ import ValidaLogin from './components/ValidaLogin'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 
+
 function App() {
   useEffect(() => {
     toast.success('Aluno cadastrado com sucesso')

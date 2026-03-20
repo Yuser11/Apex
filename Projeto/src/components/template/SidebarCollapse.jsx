@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { LineChart } from '@mui/x-charts/LineChart';
+
 function SidebarCollapse() {
     return (
         <>
