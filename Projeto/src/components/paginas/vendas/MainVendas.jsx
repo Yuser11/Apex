@@ -12,18 +12,18 @@ function MainVendas() {
 
     return (
         <>
-            <div className="container-fluid py-5" >
-                <div className="container p-4 shadow" >
+            <div className="container-fluid py-5 conterDiv" >
+                <div className="container p-4 shadow colorDIV" >
 
-                    <h1 className="text-center mb-5" >
+                    <h1 className="text-center mb-5 colorDIV" >
                         VEÍCULOS VENDIDOS
                     </h1>
 
-                    <div className="row g-4 justify-content-center">
+                    <div className="row g-4 justify-content-center colorDIV">
 
 
-                        <div className="col-md-4 col-sm-6">
-                            <div className="card h-100 text-center border-0 shadow-sm">
+                        <div className="col-md-4 col-sm-6" >
+                            <div className="card h-100 text-center border-0 shadow-sm colorValor">
                                 <div className="card-body text-white">
                                     <h5 className="card-title">Carros SUV</h5>
                                     <img src={suv} className="img-fluid rounded my-2" alt="SUV Strong" />
@@ -35,7 +35,7 @@ function MainVendas() {
                         </div>
 
                         <div className="col-md-4 col-sm-6">
-                            <div className ="card h-100 text-center border-0 shadow-sm ">
+                            <div className ="card h-100 text-center border-0 shadow-sm colorValor">
                                 <div className="card-body text-white">
                                     <h5 className="card-title">Carros Hatchback</h5>
                                     <img src={hatch} className="img-fluid rounded my-2" alt="HATCH Aston" />
@@ -47,7 +47,7 @@ function MainVendas() {
                         </div>
 
                         <div className="col-md-4 col-sm-6">
-                            <div className="card h-100 text-center border-0 shadow-sm" >
+                            <div className="card h-100 text-center border-0 shadow-sm colorValor" >
                                 <div className="card-body text-white">
                                     <h5 className="card-title">Caminhotes Picapes</h5>
                                     <img src={picape} className="img-fluid rounded my-2" alt="PICAPE Triton" />
@@ -59,7 +59,7 @@ function MainVendas() {
                         </div>
 
                         <div className="col-md-4 col-sm-6">
-                            <div className="card h-100 text-center border-0 shadow-sm" >
+                            <div className="card h-100 text-center border-0 shadow-sm colorValor" >
                                 <div className="card-body text-white">
                                     <h5 className="card-title">Carro Esportivo</h5>
                                     <img src={esportivo} className="img-fluid rounded my-2" alt="Esportivo IMPULSE" />
@@ -71,7 +71,7 @@ function MainVendas() {
                         </div>
 
                         <div className="col-md-4 col-sm-6">
-                            <div className="card h-100 text-center border-0 shadow-sm" >
+                            <div className="card h-100 text-center border-0 shadow-sm colorValor" >
                                 <div className="card-body text-white">
                                     <h5 className="card-title">Nosso futuro PROJETO</h5>
                                     <img src={cross} className="img-fluid rounded my-2" alt="Apex CROSS" />
@@ -85,6 +85,7 @@ function MainVendas() {
                     </div>
                 </div>
             </div>
+            
         </>
     );
 }

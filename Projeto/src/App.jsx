@@ -31,7 +31,11 @@ function App() {
         <Route path='/cadastro-Funcionario' element={<ValidaLogin pagina={<CadastrarFuncionario />}/>}/>
         <Route path='/listar-Funcionario' element={<ValidaLogin pagina={<ListarFuncionario />}/>}/>
         <Route path='/editar-Funcionario/:id' element={<ValidaLogin pagina={<EditarFuncionario />}/>}/>
+<<<<<<< HEAD
         <Route path='vendas' element={<ValidaLogin pagina={<Vendas/>}/>}/>
+=======
+        <Route path='/vendas' element={<ValidaLogin pagina={<Vendas/>}/>}/>
+>>>>>>> 7febc3a876a622573ff3d2f5154fd9cceade4ad5
         <Route path='/*' element={<ValidaLogin pagina={<Erro404 />}/>}/>
       </Routes>
     </>

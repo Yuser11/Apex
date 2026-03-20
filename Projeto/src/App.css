@@ -275,6 +275,20 @@
     }
 
 
+.conterDiv{
+    width: 1150px;
+    right: 130px;
+}
+.colorValor{
+    background-color: #3E729C;
+    border-radius: 2,4%;
+}
+.colorDIV{
+    background-color: #7FA1BC;
+    border-radius: 3%;
+}
+
+
  @keyframes fall {
     from {
       opacity: 0;
@@ -288,5 +302,12 @@
     to {
       opacity: 1;
     }
+<<<<<<< HEAD
     
+=======
+}
+.img-login{
+    z-index: -1;
+    position: absolute;
+>>>>>>> 7febc3a876a622573ff3d2f5154fd9cceade4ad5
 }
