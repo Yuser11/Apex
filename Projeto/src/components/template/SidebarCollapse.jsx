@@ -1,8 +1,4 @@
 import { Link } from "react-router";
-<<<<<<< HEAD
-
-=======
->>>>>>> f4eacd299ba307016c3f31489d3bc4188569101b
 function SidebarCollapse() {
     return (
         <>
