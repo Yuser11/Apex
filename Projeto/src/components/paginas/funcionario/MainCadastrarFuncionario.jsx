@@ -1,5 +1,5 @@
 import { useActionState, useState } from "react";
-import DropzoneComponent from "../../DropzoneComponent";
+import Dropzone from "../../DropzoneComponent";
 
 function MainCadastrarFuncionario() {
   const [nome, setNome] = useState("");
@@ -238,9 +238,10 @@ function MainCadastrarFuncionario() {
             />
           </div>
 
-          <div className="col-12 file-sender">
-            <DropzoneComponent />
+          <div className="col-12 ">
+            <Dropzone />
           </div>
+          
           <div className="col-12 ">
             <button
               disabled={pendente}

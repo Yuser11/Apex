@@ -67,23 +67,23 @@ function MainEditarFuncionario() {
             }
         );
 
-     useEffect( () => {
-     async function getDadosFuncionario(){
-        let resposta = await 
-        fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-        let dadosFuncionario = await resposta.json();
-        console.log(dadosFuncionario);
-        setNome(dadosFuncionario.name);
-        setSobrenome(dadosFuncionario.username);
-        setEmail(dadosFuncionario.email);
-        setEndereco(dadosFuncionario.address.street);
-        setCidade(dadosFuncionario.address.city);
-        setEstado(dadosFuncionario.address.suite);
-    
-     }
-     getDadosFuncionario();
+    useEffect(() => {
+        async function getDadosFuncionario() {
+            let resposta = await
+                fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+            let dadosFuncionario = await resposta.json();
+            console.log(dadosFuncionario);
+            setNome(dadosFuncionario.name);
+            setSobrenome(dadosFuncionario.username);
+            setEmail(dadosFuncionario.email);
+            setEndereco(dadosFuncionario.address.street);
+            setCidade(dadosFuncionario.address.city);
+            setEstado(dadosFuncionario.address.suite);
 
-     }, [id] );
+        }
+        getDadosFuncionario();
+
+    }, [id]);
 
     return (
         <>
