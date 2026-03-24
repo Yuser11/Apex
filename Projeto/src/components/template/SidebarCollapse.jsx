@@ -31,7 +31,11 @@ function SidebarCollapse() {
                                 </Link>
                             </li>
                             <li >
-                                <Link to='/login'>
+                                <Link to='/login' className={
+                                    ({ isActive }) => (isActive
+                                        ? 'text-cyan-400 border-b-4 border-current'
+                                        : '')
+                                }>
                                     <img src="/src/assets/img/sidebar/info.png" alt="" />
                                     INFORMAÇÕES
                                 </Link>

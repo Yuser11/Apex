@@ -16,7 +16,7 @@ function MainListarFuncionario() {
             }
         }
         buscarDadosFuncionario();
-    },[]);
+    }, []);
 
 
     return (
@@ -38,20 +38,20 @@ function MainListarFuncionario() {
 
                     </thead>
                     <tbody>
-                    {
-                        Funcionarios.map( (Funcionario) => (
-                         <tr key={Funcionario.id}>
-                         <td>{Funcionario.id}</td>
-                         <td>{Funcionario.name}</td>
-                         <td>{Funcionario.username}</td>
-                         <td>
-                         <Link to={`/editar-Funcionario/${Funcionario.id}`}>Editar</Link>
-                         <button className="me-2">Editar</button>
-                         <button>Excluir</button>
-                         </td>
-                         </tr>
-                        ))
-                    }
+                        {
+                            Funcionarios.map((Funcionario) => (
+                                <tr key={Funcionario.id}>
+                                    <td>{Funcionario.id}</td>
+                                    <td>{Funcionario.name}</td>
+                                    <td>{Funcionario.username}</td>
+                                    <td>
+                                        <Link to={`/editar-Funcionario/${Funcionario.id}`}>Editar</Link>
+                                        <button className="me-2">Editar</button>
+                                        <button>Excluir</button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
 
                 </table>
