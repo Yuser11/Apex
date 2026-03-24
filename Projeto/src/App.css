@@ -274,6 +274,7 @@ a {
     justify-content: center;
     border-radius: 0.5rem;
     border: 2px dashed;
+    border-color: var(--bs-border-color);
 }
 .file-sender img{
     height: 75px;
@@ -289,10 +290,11 @@ a {
 
 .file-sender-button {
     cursor: pointer;
-    background-color: #D8D8D8;
-    color: #252529;
-    border-radius: 20px;
+    background-color: var(--bs-border-color);
+    color: var(--bs-body-color);
+    border-radius: 50px;
     padding: 1rem;
+    border: 0;
 }
 .fill{
 height: 100%;

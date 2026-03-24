@@ -24,7 +24,7 @@ function Dropzone(props) {
         <p>ou clique para selecionar<br></br>
           Formatos aceitos: PDF, JPG, PNG (máx. 10MB cada)</p>
         <button type="button" className='file-sender-button' onClick={open}>
-          Open File Dialog
+          Selecionar Arquivos
         </button>
       </div>
     </div>
