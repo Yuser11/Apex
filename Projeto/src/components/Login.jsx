@@ -1,14 +1,49 @@
-import React from 'react';
-// Certifique-se de que os nomes dos arquivos estão corretos nas suas pastas
+import React, { useState, useEffect } from 'react'; // Importação corrigida
+import { useNavigate } from 'react-router'; // Importação corrigida
 import ImagemCarro from "./../assets/img/dreamina-2026-02-13-8268-Reference Image 1, create a highly reali... 1.png"; 
 import LogoAsas from "./../assets/img/Untitled.png";
-// Importação do arquivo CSS separado
 
 function LoginApex() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let logado = localStorage.getItem('token');
+    if (logado) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+  async function fazerLogin() {
+    if (email.trim() === '' || senha.trim() === '') {
+      alert('VOCÊ NÃO COLOCOU EMAIL OU SENHA!');
+      return;
+    }
+
+    try {
+      let resposta = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({ email: email, senha: senha }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+
+      if (resposta.status === 201) {
+        let tokenBackend = Math.random().toString();
+        localStorage.setItem('token', tokenBackend);
+        navigate('/');
+      } else {
+        alert('Erro ao fazer login!');
+      }
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
+
   return (
     <div className="container-fluid p-0 vh-100 d-flex flex-column bg-white">
-      
-      {/* Cabeçalho - Estrutura de Grid Bootstrap */}
       <header className="row g-0">
         <div className="col-12 d-flex justify-content-end">
           <div className="apex-header-polygon">
@@ -17,37 +52,43 @@ function LoginApex() {
         </div>
       </header>
 
-      {/* Área Principal */}
-      <main className="row g-0 flex-grow-1 align-items-center" >
-        {/* Lado Esquerdo: Formulário de Login */}
+      <main className="row g-0 flex-grow-1 align-items-center">
         <div className="col-md-5 d-flex flex-column align-items-center">
           <div className="login-box">
             <p className="label-text">Digite seu E-mail:</p>
-            <input type="email" className="form-control rounded-pill apex-input mb-4" />
+            <input 
+              type="email" 
+              className="form-control rounded-pill apex-input mb-4" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} // Conecta ao estado
+            />
             
             <p className="label-text">Digite sua senha:</p>
-            <input type="password" className="form-control rounded-pill apex-input mb-4" />
+            <input 
+              type="password" 
+              className="form-control rounded-pill apex-input mb-4" 
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)} // Conecta ao estado
+            />
             
-            <button className="btn rounded-pill px-5 btn-entrar">
+            <button 
+              className="btn rounded-pill px-5 btn-entrar"
+              onClick={fazerLogin} // Adicionado o clique
+            >
               ENTRAR
             </button>
           </div>
         </div>
 
-        {/* Lado Direito: Imagem com recorte diagonal */}
         <div className="col-md-7 h-100 p-0 d-none d-md-block overflow-hidden">
           <img 
-            src="url_da_imagem_carro.jpg" 
+            src={ImagemCarro} // Usando a variável importada corretamente
             alt="Carro Apex" 
             className="w-100 h-100 image-clip"
+            style={{ objectFit: 'cover' }}
           />
         </div>
       </main>
-
-    
-       
-        
-      
     </div>
   );
 }
