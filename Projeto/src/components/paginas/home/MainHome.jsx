@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import Chart from 'chart.js/auto'; // Importa a biblioteca de gráficos
 
 function MainHome() {
+    // o que é necessário para o Chart.js desenhar os gráficos.
     const chartMetasRef = useRef(null);
     const chartPizzaRef = useRef(null);
     const chartVendasRef = useRef(null);
 
     useEffect(() => {
+        // Definição de cores ara manter o padrão do Figma
         const purple = '#9b51e0';
         const yellow = '#f2c94c';
         const lightBlue = '#3b82f6';
         const pink = '#ff6384';
 
+        // Estrutura do primeiro gráfico 
         const chart1 = new Chart(chartMetasRef.current, {
             type: 'bar',
             data: {
@@ -22,10 +25,9 @@ function MainHome() {
                 ]
             },
             options: {
-                aintainAspectRatio: false,
+                maintainAspectRatio: false, // Preenche a altura do container pai( Estilização do código)
                 plugins: { 
                     legend: { position: 'right', labels: { boxWidth: 15, font: { size: 12 } } },
-                    // TÍTULO ADICIONADO ABAIXO
                     title: {
                         display: true,
                         text: 'METAS DO MÊS',
@@ -38,6 +40,7 @@ function MainHome() {
             }
         });
 
+        // Estrutura do segundo gráfico 
         const chart2 = new Chart(chartPizzaRef.current, {
             type: 'pie',
             data: {
@@ -45,10 +48,9 @@ function MainHome() {
                 datasets: [{ data: [40, 25, 10, 25], backgroundColor: [lightBlue, yellow, pink, purple], borderWidth: 0 }]
             },
             options: {
-                maintainAspectRatio: false,
+                maintainAspectRatio: false, // Preenche a altura do container pai( Estilização do código)
                 plugins: { 
                     legend: { position: 'right', labels: { boxWidth: 15, font: { size: 15 } } },
-                    // TÍTULO ADICIONADO ABAIXO
                     title: {
                         display: true,
                         text: 'MODELOS MAIS VENDIDOS EM NOSSA EMPRESA',
@@ -61,6 +63,7 @@ function MainHome() {
             }
         });
 
+        // Estrutura do terceiro gráfico 
         const chart3 = new Chart(chartVendasRef.current, {
             type: 'bar',
             data: {
@@ -68,10 +71,9 @@ function MainHome() {
                 datasets: [{ data: [600, 400, 500, 300], backgroundColor: purple, borderRadius: 5 }]
             },
             options: {
-                maintainAspectRatio: false,
+                maintainAspectRatio: false, // Preenche a altura do container pai( Estilização do código)
                 plugins: { 
-                    legend: { display: false },
-                    // TÍTULO ADICIONADO ABAIXO
+                    legend: { display: false }, // Torna gráfico mais limpo sem a legenda, pois existi só um dataset (As informações relacionadas ao Gráfico)
                     title: {
                         display: true,
                         text: 'HISTÓRICO DE VENDAS ANUAL',
@@ -80,55 +82,56 @@ function MainHome() {
                         padding: { top: 10, bottom: 20 }
                     }
                 },
-                scales: { x: { grid: { display: false } }, y: { beginAtZero: true, max: 1000 } }
+                scales: { 
+                    x: { grid: { display: false } }, // Remove as linhas de grade verticais
+                    y: { beginAtZero: true, max: 1000 } 
+                }
             }
         });
 
+        // Evitar bugs no código
         return () => {
             chart1.destroy();
             chart2.destroy();
             chart3.destroy();
         };
-    }, []);
-
-    const styles = {
-        mainBg: { backgroundColor: '#7FA1BC', margin: '0', minHeight: '100vh', padding: '40px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', boxSizing: 'border-box' },
-        blueCard: { backgroundColor: '#3E729C', borderRadius: '20px', padding: '35px', marginBottom: '20px' },
-        labelHeader: { backgroundColor: '#7FA1BC', color: 'white', padding: '6px 25px', borderRadius: '25px', fontSize: '20px', display: 'inline-block', marginBottom: '20px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' },
-        whiteChartBox: { backgroundColor: 'white', borderRadius: '10px', padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }
-    };
+    }, []); // Array sozinho, para rodar só uma vez
 
     return (
-        <main className="col" style={styles.mainBg}>
+        <main className="main-bg col"> {/* Container principal com fundo azul claro */}
             <div style={{ width: '100%', maxWidth: '1100px' }}>
                 <div className="row justify-content-center g-4">
                     
+                    {/* Card de Metas */}
                     <div className="col-md-6">
-                        <div style={styles.blueCard} className="text-center shadow">
-                            <span style={styles.labelHeader}>Metas do mês</span>
-                            <div style={{ ...styles.whiteChartBox, height: '250px' }}>
+                        <div className="blue-card text-center shadow">
+                            <span className="label-header">Metas do mês</span>
+                            <div className="white-chart-box" style={{ height: '250px' }}>
                                 <canvas ref={chartMetasRef}></canvas>
                             </div>
                         </div>
                     </div>
-
+    
+                    {/* Card de Modelos (Pizza) */}
                     <div className="col-md-6">
-                        <div style={styles.blueCard} className="text-center shadow">
-                            <span style={styles.labelHeader}>Modelos mais vendidos</span>
-                            <div style={{ ...styles.whiteChartBox, height: '250px' }}>
+                        <div className="blue-card text-center shadow">
+                            <span className="label-header">Modelos mais vendidos</span>
+                            <div className="white-chart-box" style={{ height: '250px' }}>
                                 <canvas ref={chartPizzaRef}></canvas>
                             </div>
                         </div>
                     </div>
-
+    
+                    {/* Card de Vendas Anuais (Largo) */}
                     <div className="col-12">
-                        <div style={styles.blueCard} className="text-center shadow">
-                            <span style={styles.labelHeader}>Vendas no ano passado</span>
-                            <div style={{ ...styles.whiteChartBox, height: '300px' }}>
+                        <div className="blue-card text-center shadow">
+                            <span className="label-header">Vendas no ano passado</span>
+                            <div className="white-chart-box" style={{ height: '300px' }}>
                                 <canvas ref={chartVendasRef}></canvas>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </main>
