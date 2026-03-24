@@ -315,6 +315,65 @@ width: 100%;
 }
 
 
+
+
+/* Cores e Estilos de Texto */
+.apex-header-polygon {
+    background-color: #4a76a8;
+    padding: 20px 80px;
+    /* Cria o efeito diagonal do cabeçalho */
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.apex-title {
+    color: white;
+    margin: 0;
+    font-weight: bold;
+    border-bottom: 2px solid white;
+}
+
+.label-text {
+    color: #4a76a8;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+/* Estilização dos Inputs e Botões */
+.apex-input {
+    background-color: #89aac3 !important;
+    border: none !important;
+    height: 45px;
+}
+
+.btn-entrar {
+    background-color: #89aac3;
+    color: white;
+    font-weight: bold;
+}
+
+/* Efeito de recorte na imagem do carro */
+.image-clip {
+    object-fit: cover;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+/* Estilo do Rodapé */
+.apex-footer {
+    background-color: #4a76a8;
+}
+
+.apex-footer-logo {
+    border-bottom: 2px solid white;
+    display: inline-block;
+}
+
+.footer-info p, .footer-links p {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+
  @keyframes fall {
     from {
         opacity: 0;
