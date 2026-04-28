@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto'; // Importa a biblioteca de gráficos
 
 function MainHome() {
-    // o que é necessário para o Chart.js desenhar os gráficos.
+    // É necessário para o Chart.js desenhar os gráficos
     const chartMetasRef = useRef(null);
     const chartPizzaRef = useRef(null);
     const chartVendasRef = useRef(null);
 
     useEffect(() => {
-        // Definição de cores ara manter o padrão do Figma
+        // Definição de cores para manter o padrão do Figma
         const purple = '#9b51e0';
         const yellow = '#f2c94c';
         const lightBlue = '#3b82f6';

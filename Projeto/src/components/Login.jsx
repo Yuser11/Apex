@@ -82,7 +82,7 @@ function LoginApex() {
 
         <div className="col-md-7 h-100 p-0 d-none d-md-block overflow-hidden">
           <img 
-            src={ImagemCarro} // Usando a variável importada corretamente
+            src={ImagemCarro} 
             alt="Carro Apex" 
             className="w-100 h-100 image-clip"
             style={{ objectFit: 'cover' }}

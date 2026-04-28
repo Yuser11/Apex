@@ -100,14 +100,14 @@ function SidebarCollapse() {
                                 </Link>
                             </li>
                             <li >
-                                <Link>
+                                <Link to='/vendas'>
                                     <img src="/src/assets/img/sidebar/bag.png" alt="" />
                                     PRODUTOS
 
                                 </Link>
                             </li>
                             <li >
-                                <Link>
+                                <Link to='/login' onClick={() => localStorage.removeItem('token')}>
                                     <img src="/src/assets/img/sidebar/logout.png" alt="" />
 
                                     SAIR
