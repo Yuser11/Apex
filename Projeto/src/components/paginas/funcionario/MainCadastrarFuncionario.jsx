@@ -13,6 +13,7 @@ function MainCadastrarFuncionario() {
   const [estado, setEstado] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
+  const [arquivos, setArquivos] = useState([]);
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -75,7 +76,7 @@ function MainCadastrarFuncionario() {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
-        <form action={acaoCadastro} className="row g-3">
+        <form action={acaoCadastro} className="row g-3" id="meuForm" >
           <div className="col-md-4">
             <label htmlFor="nome" className="form-label">
               Nome Completo:

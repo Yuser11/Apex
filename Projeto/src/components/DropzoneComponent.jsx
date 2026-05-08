@@ -1,39 +1,78 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import fileIcon from './../assets/img/send-ico.png'
+import React, { useState } from "react";
 
-function Dropzone(props) {
-  const { getRootProps, getInputProps, open, acceptedFiles } = useDropzone({
-    // Disable click and keydown behavior
-    noClick: true,
-    noKeyboard: true
-  });
+function FileUploader() {
+  const [files, setFiles] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
 
-  const files = acceptedFiles.map(file => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
-    </li>
-  ));
+  const handleDragEnter = () => setIsDragging(true);
+  const handleDragLeave = () => setIsDragging(false);
 
-  return (<>
-    <div className="container file-sender">
-      <div {...getRootProps({ className: 'dropzone fill' })}>
-        <input {...getInputProps()} />
-        <p>Arraste os arquivos aqui</p>
-        <img src={fileIcon} alt="" />
-        <p>ou clique para selecionar<br></br>
-          Formatos aceitos: PDF, JPG, PNG (máx. 10MB cada)</p>
-        <button type="button" className='file-sender-button' onClick={open}>
-          Selecionar Arquivos
-        </button>
-      </div>
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const droppedFiles = Array.from(e.dataTransfer.files);
+    setFiles(droppedFiles);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const uploadFiles = async () => {
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file));
+    console.log(formData);
+    console.log(Object.fromEntries(formData));
+
+    const res = await fetch("http://localhost:3000/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      alert("Upload successful!");
+    } else {
+      alert("Upload failed.");
+    }
+  };
+
+  document.getElementById('meuForm').onsubmit = function() {
+    const input = document.getElementById('inputImg');
+    const file = input.files[0];
+
+    const formData = new FormData();    
+    formData.append('anexo', file);
+    formData.append('nome', 'teste');
+    // TODO chamada AJAX passando o FormData
+    
+};
+
+  return (
+    <div
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      style={{
+        border: "2px dashed #ccc",
+        padding: "20px",
+        textAlign: "center",
+        borderRadius: "10px",
+        backgroundColor: isDragging ? "#577ca1" : "#152533",
+      }}
+    >
+      <form method="post" enctype="multipart/form-data" id="meuForm">
+        <input type="file" id="inputImg" />
+        <input type="submit" value="Postar" />
+      </form>
+      <p>Drag and drop files here</p>
+      <button onClick={uploadFiles}>Upload Files</button>
+      <ul>
+        {files.map((file, index) => (
+          <li key={index}>{file.name}</li>
+        ))}
+      </ul>
     </div>
-    <aside>
-      <h4>Files</h4>
-      <ul>{files}</ul>
-    </aside>
-  </>
   );
 }
 
-export default Dropzone;
+export default FileUploader;

@@ -16,7 +16,6 @@ import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import Vendas from './components/paginas/vendas/Vendas'
 
-
 function App() {
   useEffect(() => {
     toast.success('Aluno cadastrado com sucesso')
@@ -28,7 +27,7 @@ function App() {
       <Routes>
         <Route path='/' element={<ValidaLogin pagina={<Home />}/>}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/cadastro-Funcionario' element={<ValidaLogin pagina={<CadastrarFuncionario />}/>}/>
+        <Route path='/cadastro-Funcionario' element={<CadastrarFuncionario />}/>
         <Route path='/listar-Funcionario' element={<ValidaLogin pagina={<ListarFuncionario />}/>}/>
         <Route path='/editar-Funcionario/:id' element={<ValidaLogin pagina={<EditarFuncionario />}/>}/>
         <Route path='/vendas' element={<ValidaLogin pagina={<Vendas/>}/>}/>

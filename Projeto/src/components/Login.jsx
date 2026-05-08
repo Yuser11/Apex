@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'; // Importação corrigida
 import { useNavigate } from 'react-router'; // Importação corrigida
-import ImagemCarro from "./../assets/img/dreamina-2026-02-13-8268-Reference Image 1, create a highly reali... 1.png"; 
+import ImagemCarro from "./../assets/img/dreamina-2026-02-13-8268-Reference Image 1, create a highly reali... 1.png";
 import LogoAsas from "./../assets/img/Untitled.png";
 
 function LoginApex() {
@@ -22,21 +22,27 @@ function LoginApex() {
     }
 
     try {
-      let resposta = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      console.log(JSON.stringify({ email: email, senha: senha }))
+      let resposta = await fetch('http://localhost:3001/login', {
         method: 'POST',
         body: JSON.stringify({ email: email, senha: senha }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
-
-      if (resposta.status === 201) {
-        let tokenBackend = Math.random().toString();
-        localStorage.setItem('token', tokenBackend);
+      const json = await resposta.json()
+      console.log(json)
+      if (resposta.status === 200) {
+        localStorage.setItem("token",json.acessToken );
         navigate('/');
-      } else {
-        alert('Erro ao fazer login!');
       }
+      else{
+        alert("Login invalido")
+      }
+
+
+
+
     } catch (erro) {
       console.log(erro);
     }
@@ -56,22 +62,22 @@ function LoginApex() {
         <div className="col-md-5 d-flex flex-column align-items-center">
           <div className="login-box">
             <p className="label-text">Digite seu E-mail:</p>
-            <input 
-              type="email" 
-              className="form-control rounded-pill apex-input mb-4" 
+            <input
+              type="email"
+              className="form-control rounded-pill apex-input mb-4"
               value={email}
               onChange={(e) => setEmail(e.target.value)} // Conecta ao estado
             />
-            
+
             <p className="label-text">Digite sua senha:</p>
-            <input 
-              type="password" 
-              className="form-control rounded-pill apex-input mb-4" 
+            <input
+              type="password"
+              className="form-control rounded-pill apex-input mb-4"
               value={senha}
               onChange={(e) => setSenha(e.target.value)} // Conecta ao estado
             />
-            
-            <button 
+
+            <button
               className="btn rounded-pill px-5 btn-entrar"
               onClick={fazerLogin} // Adicionado o clique
             >
@@ -81,9 +87,9 @@ function LoginApex() {
         </div>
 
         <div className="col-md-7 h-100 p-0 d-none d-md-block overflow-hidden">
-          <img 
+          <img
             src={ImagemCarro} // Usando a variável importada corretamente
-            alt="Carro Apex" 
+            alt="Carro Apex"
             className="w-100 h-100 image-clip"
             style={{ objectFit: 'cover' }}
           />
