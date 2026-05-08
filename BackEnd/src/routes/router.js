@@ -4,6 +4,7 @@ import controllerUsuario from '../controller/controllerUsuario.js';
 import controllerProduto from '../controller/controllerProduto.js';
 import controllerColaborador from '../controller/controllerColaborador.js';
 import controllerImage from '../controller/controllerImage.js';
+import controllerVeiculo from '../controller/controllerVeiculo.js';
 
 const routers = express();
 
@@ -21,6 +22,8 @@ routers.put('/produto/:id', controllerProduto.atualizarPorID)
 routers.get('/produto/:id', controllerProduto.listarPorID)
 
 routers.post('/colaborador', controllerColaborador.cadastrar)
+
+routers.get('/veiculos', controllerVeiculo.listar)
 
 routers.post('/image', controllerImage.salvar)
 
