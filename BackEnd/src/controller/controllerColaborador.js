@@ -9,7 +9,7 @@ const controllerColaborador = {
         !nome ||
         !idade ||
         !cidade ||
-        !estado || 
+        !estado ||
         !bairro ||
         !nif
       ) {
@@ -39,6 +39,18 @@ const controllerColaborador = {
       console.log(error.code);
       res.status(500).json({ API: error });
     }
-  }
+  },
+  listar: async (req, res) => {
+    try { {
+      }
+      const resposta = await modelColaborador.listar();
+
+      console.log(resposta);
+      res.status(500).json({ API: resposta });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ API: error });
+    }
+  },
 };
 export default controllerColaborador;

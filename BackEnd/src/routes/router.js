@@ -14,7 +14,7 @@ routers.get('/', controllerRaiz.raiz)
 routers.post('/cadastrar', controllerUsuario.cadastrar)
 routers.post('/login', controllerUsuario.login)
 
-routers.post('/colaborador', controllerColaborador.cadastrar)
+routers.get('/colaborador', controllerColaborador.listar)
 
 routers.get('/veiculos', controllerVeiculo.listar)
 

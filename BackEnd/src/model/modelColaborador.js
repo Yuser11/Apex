@@ -19,6 +19,17 @@ const modelColaborador = {
     } catch (error) {
       return error;
     }
+  },
+  listar: async ()=>{
+     try {
+      const resultado = await conexao.query(
+        "SELECT NOME , MARCA , ANO , QUILOMETRAGEM , VALOR , TRACAO , DATA_CADASTRO , DESCRICAO FROM veiculo ",
+      );
+      console.log(resultado);
+      return resultado;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

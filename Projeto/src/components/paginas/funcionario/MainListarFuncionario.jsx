@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 function MainListarFuncionario() {
-  const urlDadosFuncionario = "";
+  const urlDadosFuncionario = "http://localhost:3001/profissionais";
   const [Funcionarios, setFuncionarios] = useState([]);
 
   useEffect(() => {
@@ -35,9 +35,11 @@ function MainListarFuncionario() {
           <tbody>
             {Funcionarios.map((Funcionario) => (
               <tr key={Funcionario.id}>
-                <td>{Funcionario.id}</td>
-                <td>{Funcionario.name}</td>
-                <td>{Funcionario.username}</td>
+                <td>{Funcionario.nome}</td>
+                <td>{Funcionario.data_nascimento}</td>
+                <td>{Funcionario.cpf}</td>
+                <td>{Funcionario.modalidade}</td>
+                <td>{Funcionario.regra}</td>
                 <td>
                   <Link to={`/editar-Funcionario/${Funcionario.id}`}>
                     Editar
