@@ -9,7 +9,7 @@ const controllerColaborador = {
         !nome ||
         !idade ||
         !cidade ||
-        !estado ||
+        !estado || 
         !bairro ||
         !nif
       ) {

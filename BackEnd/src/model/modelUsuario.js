@@ -39,7 +39,7 @@ const modelUsuario = {
     try {
       console.log(email, senha);
       const [resultado] = await conexao.query(
-        "SELECT ID, EMPRESA_ID, NOME, EMAIL, SENHA, CPF, MODALIDADE, DATA_INGRESSO, DATA_CADASTRO, REGRA FROM profissional WHERE EMAIL = ?",
+        "SELECT ID, empresa_id, nome, email, senha, cpf, modalidade, data_ingresso, data_cadastro, regra FROM PROFISSIONAL WHERE email = ?",
         [email],
       );
       console.log(resultado[0]);
@@ -47,7 +47,7 @@ const modelUsuario = {
         return null
       }
       console.log(senha, resultado[0].SENHA);
-      const validar = await bcrypt.compare(senha, resultado[0].SENHA);
+      const validar = await bcrypt.compare(senha, resultado[0].senha);
       console.log(validar)
       if (validar) {
         const acessToken = jwt.sign(
