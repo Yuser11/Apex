@@ -23,7 +23,7 @@ const modelColaborador = {
   listar: async ()=>{
      try {
       const resultado = await conexao.query(
-        "SELECT NOME , MARCA , ANO , QUILOMETRAGEM , VALOR , TRACAO , DATA_CADASTRO , DESCRICAO FROM veiculo ",
+        "SELECT `ID`, `EMPRESA_ID`, `NOME`, `DATA_NASCIMENTO`, `CPF`, `EMAIL`, `SENHA`, `MODALIDADE`, `DATA_INGRESSO`, `DATA_CADASTRO`, `REGRA` FROM `profissional` WHERE 1",
       );
       console.log(resultado);
       return resultado;

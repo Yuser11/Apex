@@ -11,10 +11,10 @@ routers.use(express.json());
  
 routers.get('/', controllerRaiz.raiz)
 
-routers.post('/cadastrar', controllerUsuario.cadastrar)
+routers.post('/api/cadastrar', controllerUsuario.cadastrar)
 routers.post('/login', controllerUsuario.login)
 
-routers.get('/colaborador', controllerColaborador.listar)
+routers.get('/profissionais', controllerColaborador.listar)
 
 routers.get('/veiculos', controllerVeiculo.listar)
 

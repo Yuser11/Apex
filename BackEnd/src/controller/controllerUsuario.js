@@ -15,6 +15,14 @@ const controllerUsuario = {
         modalidade,
         dataIngresso,
         regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
       } = req.body;
       if (
         !nome ||
@@ -24,7 +32,15 @@ const controllerUsuario = {
         !senha ||
         !modalidade ||
         !dataIngresso ||
-        !regra
+        !regra ||
+        //endereco
+        !cep ||
+        !numero ||
+        !bairro ||
+        !rua ||
+        !estado ||
+        !cidade ||
+        !complemento
       ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
@@ -37,9 +53,17 @@ const controllerUsuario = {
         modalidade,
         dataIngresso,
         regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
       ]);
       console.log(resposta);
-      if (resposta.code === "ER_DUP_ENTRY") {
+      if (!resposta) {
         res.status(500).json({ API: "DUPLICADO" });
       } else if (resposta.affectedRows === 1)
         res.status(201).json({ API: "INSERIDO" });

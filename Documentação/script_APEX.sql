@@ -6,11 +6,12 @@ CREATE TABLE EMPRESA(
     nome varchar(100) not null,  
     cnpj char(14) not null unique,
     email varchar(100) not null unique,
-    localizacao varchar(100) not null,
+    endereco_id int(11) not null,
     data_criacao date not null,
     telefone char(14) not null,
     observacoes text,
     primary key(id)
+    constraint fk_empresa_endereco foreign key (endereco_id) references ENDERECO(id) on delete restrict on update cascade
 );
 
 CREATE TABLE GALERIA(
@@ -29,10 +30,12 @@ CREATE TABLE PROFISSIONAL(
     cpf char(11) not null, 
     email varchar(100) unique not null ,
     senha varchar(150) unique not null ,
-    modalidade char(1) not null, 
+    modalidade varchar(10) not null, 
     data_ingresso date not null,
     data_cadastro date not null default (current_date),
-    regra char(1) not null, 
+    regra varchar(10) not null,
+        endereco_id int(11) not null,
+ 
     primary key(id),
     constraint fk_profissional_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade
 );
@@ -67,13 +70,13 @@ CREATE TABLE CLIENTE(
     id int(11) not null auto_increment,
     empresa_id int(11) not null,   
     nome varchar(100) not null,
+    cpf char(14) not null unique,
     email varchar(100) unique,
     data_cadastro datetime default (current_date),
     telefone char(14) not null,
-    endereco_id int(11) not null,
     genero char(1) not null,
     data_nascimento date not null,
-    cpf char(14) not null unique,
+    endereco_id int(11) not null,
     observacoes text,
     primary key(id),
     constraint fk_cliente_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade,

@@ -15,11 +15,11 @@ const modelVeiculo = {
   listar: async () => {
     try {
       const resultado = await conexao.query(
-        "SELECT NOME , MARCA , ANO , QUILOMETRAGEM , VALOR , TRACAO , DATA_CADASTRO , DESCRICAO FROM veiculo ",
+        "SELECT nome , marca , ano , quilometragem , valor , tracao , data_cadastro , DESCRICAO FROM veiculo ",
       );
       console.log(resultado);
       return resultado;
-    } catch (error) {
+    } catch (error) { 
       throw error;
     }
   },

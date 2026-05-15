@@ -28,18 +28,22 @@ function MainListarFuncionario() {
             <tr>
               <th>id:</th>
               <th>Nome:</th>
-              <th>Sobrenome:</th>
+              <th>Data de nascimento:</th>
+              <th>CPF:</th>
+              <th>MODALIDADE:</th>
+              <th>REGRA:</th>
               <th>Ações:</th>
             </tr>
           </thead>
           <tbody>
             {Funcionarios.map((Funcionario) => (
-              <tr key={Funcionario.id}>
-                <td>{Funcionario.nome}</td>
-                <td>{Funcionario.data_nascimento}</td>
-                <td>{Funcionario.cpf}</td>
-                <td>{Funcionario.modalidade}</td>
-                <td>{Funcionario.regra}</td>
+              <tr key={Funcionario.ID}>
+                <td>{Funcionario.ID}</td>
+                <td>{Funcionario.NOME}</td>
+                <td>{Funcionario.DATA_NASCIMENTO.slice(0,10)}</td>
+                <td>{Funcionario.CPF}</td>
+                <td>{Funcionario.MODALIDADE}</td>
+                <td>{Funcionario.REGRA}</td>
                 <td>
                   <Link to={`/editar-Funcionario/${Funcionario.id}`}>
                     Editar

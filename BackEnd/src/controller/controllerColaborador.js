@@ -43,10 +43,10 @@ const controllerColaborador = {
   listar: async (req, res) => {
     try { {
       }
-      const resposta = await modelColaborador.listar();
+      const [resposta] = await modelColaborador.listar();
 
       console.log(resposta);
-      res.status(500).json({ API: resposta });
+      res.status(200).json(resposta);
     } catch (error) {
       console.log(error);
       res.status(500).json({ API: error });

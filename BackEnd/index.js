@@ -2,10 +2,10 @@
 // import { conexao } from "./db";
 import cors from 'cors'
 import express from "express";
-import conexao from "../config/db.js";
-import routers from "./routes/router.js";
+import conexao from "./config/db.js";
+import routers from "./src/routes/router.js";
 import fileUpload from 'express-fileupload'
-import verificarToken from './middlewares/token.js';
+import verificarToken from './src/middlewares/token.js';
 
 const app = express();
 
