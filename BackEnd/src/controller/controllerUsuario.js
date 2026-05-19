@@ -44,6 +44,22 @@ const controllerUsuario = {
       ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
+      console.log(nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,)
       const resposta = await modelUsuario.cadastrarUsuario([
         nome,
         dataNascimento,

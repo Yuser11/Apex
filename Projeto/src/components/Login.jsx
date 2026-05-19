@@ -9,7 +9,7 @@ function LoginApex() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let logado = localStorage.getItem('token');
+    let logado = sessionStorage.getItem('token');
     if (logado) {
       navigate('/');
     }
@@ -33,7 +33,8 @@ function LoginApex() {
       const json = await resposta.json()
       console.log(json)
       if (resposta.status === 200) {
-        localStorage.setItem("token",json.acessToken );
+        sessionStorage.setItem("token",json.acessToken );
+        sessionStorage.setItem("idUsuario",json.idUsuario );
         navigate('/');
       }
       else{

@@ -1,11 +1,10 @@
 import { useActionState, useState } from "react";
-import Dropzone from "../../DropzoneComponent";
 
 function MainCadastrarFuncionario() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
-  const [nascimento, setNascimento] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
   const [modalidade, setModalidade] = useState("");
   const [cep, setCep] = useState("");
@@ -13,7 +12,13 @@ function MainCadastrarFuncionario() {
   const [estado, setEstado] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
-  const [arquivos, setArquivos] = useState([]);
+  const [senha, setSenha] = useState("");
+  const [senhaOculta, setSenhaOculta] = useState(true);
+  const [dataIngresso, setDataIngresso] = useState("");
+  const [regra, setRegra] = useState("");
+  const [numero, setNumero] = useState("");
+  const [bairro, setBairro] = useState("");
+  const token = sessionStorage.getItem("token")
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -23,6 +28,7 @@ function MainCadastrarFuncionario() {
       let dadosCep = await resposta.json();
       setEndereco(dadosCep.logradouro);
       setCidade(dadosCep.localidade);
+      setBairro(dadosCep.bairro)
       setEstado(dadosCep.uf);
       console.log(dadosCep);
     } catch (erro) {
@@ -32,21 +38,21 @@ function MainCadastrarFuncionario() {
 
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
-      let dadosFuncionario = JSON.stringify(
-        Object.fromEntries(formData.entries()),
-      );
+      let dadosFuncionario = JSON.stringify(Object.fromEntries(formData.entries()));
+      console.log(dadosFuncionario)
       // Simula uma espera em segundos
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
-          "https://jsonplaceholder.typicode.com/posts",
+          "http://localhost:3001/api/cadastrar",
           {
             method: "POST",
             body: dadosFuncionario,
             headers: {
               "Content-type": "application/json; charset=UTF-8",
-            },
+              "Authorization" : `Bearer ${token}`
+            }
           },
         );
         console.log(resposta);
@@ -58,6 +64,21 @@ function MainCadastrarFuncionario() {
           if (resposta.ok === true) {
             alert("Cadastrado com sucesso");
             setNome("");
+            setEmail("");
+            setCpf("");
+            setDataNascimento("");
+            setTelefone("");
+            setModalidade("");
+            setCep("");
+            setCidade("");
+            setEstado("");
+            setEndereco("");
+            setComplemento("");
+            setSenha("");
+            dataIngresso("");
+            setRegra("");
+            setNumero("");
+            setBairro("");
           } else {
             alert("Erro ao cadastrar!");
           }
@@ -92,17 +113,16 @@ function MainCadastrarFuncionario() {
             />
           </div>
           <div className="col-md-4">
-            <label htmlFor="email" className="form-label">
-              Email:
+            <label htmlFor="dataNascimento" className="form-label">
+              Data de nascimento:
             </label>
             <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+              type="date"
               className="form-control"
-              id="email"
-              name="email"
-              placeholder="Digite seu melhor email"
+              id="dataNascimento"
+              name="dataNascimento"
               required
             />
           </div>
@@ -119,23 +139,49 @@ function MainCadastrarFuncionario() {
               name="cpf"
               placeholder="Digite seu CPF"
               required
+              maxLength={11}
+
             />
           </div>
 
           <div className="col-md-4">
-            <label htmlFor="nascimento" className="form-label">
-              Data de nascimento:
+            <label htmlFor="email" className="form-label">
+              Email:
             </label>
             <input
-              value={nascimento}
-              onChange={(e) => setNascimento(e.target.value)}
-              type="date"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
               className="form-control"
-              id="nascimento"
-              name="nascimento"
+              id="email"
+              name="email"
+              placeholder="Digite o email"
               required
             />
           </div>
+
+          <div className="col-md-4">
+            <label htmlFor="senha" className="form-label">
+              Senha:
+            </label>
+            <div className="d-flex">
+
+              <input
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                type={senhaOculta ? 'password' : 'text'}
+                className="form-control"
+                id="senha"
+                name="senha"
+                placeholder={senhaOculta ? '********' : 'Digite sua senha'}
+                required
+              />
+              <div onClick={() => setSenhaOculta(!senhaOculta)}>
+                mudar
+              </div>
+            </div>
+          </div>
+
           <div className="col-md-4">
             <label htmlFor="telefone" className="form-label">
               Telefone:
@@ -148,21 +194,50 @@ function MainCadastrarFuncionario() {
               id="telefone"
               name="telefone"
               required
+              maxLength={11}
             />
           </div>
+
           <div className="col-md-4">
             <label htmlFor="modalidade" className="form-label">
               Modalidade:
             </label>
-            <input
-              value={modalidade}
+            <select name="modalidade"
               onChange={(e) => setModalidade(e.target.value)}
-              type="text"
               className="form-control"
-              id="modalidade"
-              name="modalidade"
+            >
+              <option value="presencial">Presencial</option>
+              <option value="hibrido" selected>Híbrido</option>
+              <option value="remoto">Remoto</option>
+            </select>
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="dataIngresso" className="form-label">
+              Data de Ingresso:
+            </label>
+            <input
+              value={dataIngresso}
+              onChange={(e) => setDataIngresso(e.target.value)}
+              type="date"
+              className="form-control"
+              id="dataIngresso"
+              name="dataIngresso"
               required
             />
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="regra" className="form-label">
+              Regra:
+            </label>
+            <select name="regra"
+              onChange={(e) => setRegra(e.target.value)}
+              className="form-control"
+            >
+              <option value="admin">Admin</option>
+              <option value="usuario" selected>Usuário</option>
+            </select>
           </div>
 
           <div className="col-md-3">
@@ -195,6 +270,21 @@ function MainCadastrarFuncionario() {
             />
           </div>
           <div className="col-md-3">
+            <label htmlFor="bairro" className="form-label">
+              Bairro:
+            </label>
+            <input
+              value={bairro}
+              onChange={(e) => setBairro(e.target.value)}
+              type="text"
+              className="form-control"
+              id="bairro"
+              name="bairro"
+              required
+            />
+          </div>
+        
+          <div className="col-md-2">
             <label htmlFor="estado" className="form-label">
               Estado
             </label>
@@ -209,8 +299,8 @@ function MainCadastrarFuncionario() {
             />
           </div>
 
-          <div className="col-12">
-            <label htmlFor="endereco" className="form-label">
+          <div className="col-8">
+            <label htmlFor="rua" className="form-label">
               Endereço:
             </label>
             <input
@@ -218,9 +308,23 @@ function MainCadastrarFuncionario() {
               onChange={(e) => setEndereco(e.target.value)}
               type="text"
               className="form-control"
-              id="endereco"
-              name="endereco"
+              id="rua"
+              name="rua"
               placeholder="Rua, Avenida..."
+              required
+            />
+          </div>
+          <div className="col-2">
+            <label htmlFor="numero" className="form-label">
+              Número:
+            </label>
+            <input
+              value={numero}
+              onChange={(e) => setNumero(e.target.value)}
+              type="num"
+              className="form-control"
+              id="numero"
+              name="numero"
               required
             />
           </div>
@@ -239,10 +343,6 @@ function MainCadastrarFuncionario() {
             />
           </div>
 
-          <div className="col-12 ">
-            <Dropzone />
-          </div>
-          
           <div className="col-12 ">
             <button
               disabled={pendente}

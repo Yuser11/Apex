@@ -1,96 +1,81 @@
-    CREATE DATABASE APEX;
-    USE APEX;
-
-CREATE TABLE EMPRESA(
-    id int(11) not null auto_increment,
-    nome varchar(100) not null,  
-    cnpj char(14) not null unique,
-    email varchar(100) not null unique,
-    endereco_id int(11) not null,
-    data_criacao date not null,
-    telefone char(14) not null,
-    observacoes text,
-    primary key(id)
-    constraint fk_empresa_endereco foreign key (endereco_id) references ENDERECO(id) on delete restrict on update cascade
-);
-
-CREATE TABLE GALERIA(
-    id int(11) not null auto_increment,
-    empresa_id int(11) not null,
-    imagem varchar(11) not null,
-    primary key(id),
-    constraint fk_galeria_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade
-);
-
-CREATE TABLE PROFISSIONAL(
-    id int(11) not null auto_increment,
-    empresa_id int(11) not null,
-    nome varchar(100) not null,  
-    data_nascimento date not null,
-    cpf char(11) not null, 
-    email varchar(100) unique not null ,
-    senha varchar(150) unique not null ,
-    modalidade varchar(10) not null, 
-    data_ingresso date not null,
-    data_cadastro date not null default (current_date),
-    regra varchar(10) not null,
-        endereco_id int(11) not null,
- 
-    primary key(id),
-    constraint fk_profissional_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade
-);
-
-CREATE TABLE VEICULO(
-    id int(11) not null auto_increment primary key,
-    empresa_id int(11) not null,
-    nome varchar(100) not null,
-    marca varchar(20) not null,
-    ano int(4) not null,
-    quilometragem int(6) not null,
-    valor decimal(10,2) not null,
-    tracao char(3) not null,
-    data_cadastro date not null default (current_date),
-    descricao text,
-    constraint fk_carro_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade
-);
-
+CREATE DATABASE APEX; USE APEX;
 CREATE TABLE ENDERECO(
-    id int(11) not null auto_increment,
-    cep char(8) not null,
-    numero char(6) not null,
-    bairro varchar(100) not null,
-    rua varchar(100) not null, 
-    estado char(2) not null,
-    cidade varchar(40),
-    complemento text,
-    primary key(id)
-);
-
-CREATE TABLE CLIENTE(
-    id int(11) not null auto_increment,
-    empresa_id int(11) not null,   
-    nome varchar(100) not null,
-    cpf char(14) not null unique,
-    email varchar(100) unique,
-    data_cadastro datetime default (current_date),
-    telefone char(14) not null,
-    genero char(1) not null,
-    data_nascimento date not null,
-    endereco_id int(11) not null,
-    observacoes text,
-    primary key(id),
-    constraint fk_cliente_empresa foreign key (empresa_id) references EMPRESA(id) on delete restrict on update cascade,
-    constraint fk_cliente_endereco foreign key (endereco_id) references ENDERECO(id) on delete restrict on update cascade
-);
-
-CREATE TABLE COMPRA(
-    id int(11) not null auto_increment,
-    empresa_id int(11) not null,
-    cliente_id int(11) not null,
-    veiculo_id int(11) not null,
-    data_compra datetime default(current_time) not null,
-    primary key(id),
-    constraint fk_compra_empresa foreign key (empresa_id)  references EMPRESA(id) on delete restrict on update cascade,
-    constraint fk_compra_cliente foreign key (cliente_id) references CLIENTE(id) on delete restrict on update cascade,
-    constraint fk_compra_veiculo foreign key (veiculo_id) references VEICULO(id) on delete restrict on update cascade
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    cep CHAR(8) NOT NULL,
+    numero CHAR(6) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    rua VARCHAR(100) NOT NULL,
+    estado CHAR(2) NOT NULL,
+    cidade VARCHAR(40),
+    complemento TEXT,
+    PRIMARY KEY(id)
+); CREATE TABLE EMPRESA(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    endereco_id INT(11) NOT NULL,
+    data_criacao DATE NOT NULL,
+    telefone CHAR(14) NOT NULL,
+    observacoes TEXT,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_empresa_endereco FOREIGN KEY(endereco_id) REFERENCES ENDERECO(id) ON DELETE RESTRICT ON UPDATE CASCADE
+); CREATE TABLE GALERIA(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INT(11) NOT NULL,
+    imagem VARCHAR(11) NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_galeria_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE
+); CREATE TABLE PROFISSIONAL(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INT(11) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    cpf CHAR(11) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(150) UNIQUE NOT NULL,
+    modalidade VARCHAR(10) NOT NULL,
+    data_ingresso DATE NOT NULL,
+    data_cadastro DATE NOT NULL DEFAULT(CURRENT_DATE),
+    regra VARCHAR(10) NOT NULL,
+    endereco_id INT(11) NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_profissional_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE
+); CREATE TABLE VEICULO(
+    id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    empresa_id INT(11) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    marca VARCHAR(20) NOT NULL,
+    ano INT(4) NOT NULL,
+    quilometragem INT(6) NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    tracao CHAR(3) NOT NULL,
+    data_cadastro DATE NOT NULL DEFAULT(CURRENT_DATE),
+    descricao TEXT,
+    CONSTRAINT fk_carro_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE
+); CREATE TABLE CLIENTE(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INT(11) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(14) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE,
+    data_cadastro DATETIME DEFAULT(CURRENT_DATE),
+    telefone CHAR(14) NOT NULL,
+    genero CHAR(1) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    endereco_id INT(11) NOT NULL,
+    observacoes TEXT,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_cliente_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_cliente_endereco FOREIGN KEY(endereco_id) REFERENCES ENDERECO(id) ON DELETE RESTRICT ON UPDATE CASCADE
+); CREATE TABLE COMPRA(
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INT(11) NOT NULL,
+    cliente_id INT(11) NOT NULL,
+    veiculo_id INT(11) NOT NULL,
+    data_compra DATETIME DEFAULT(CURRENT_TIME) NOT NULL,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_compra_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_compra_cliente FOREIGN KEY(cliente_id) REFERENCES CLIENTE(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT fk_compra_veiculo FOREIGN KEY(veiculo_id) REFERENCES VEICULO(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
