@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 function MainListarFuncionario() {
-  const urlDadosFuncionario = "http://localhost:3001/profissionais";
+  const urlDadosFuncionarios = "http://localhost:3001/profissionais";
   const [Funcionarios, setFuncionarios] = useState([]);
 
   useEffect(() => {
     async function buscarDadosFuncionario() {
       try {
-        let resposta = await fetch(urlDadosFuncionario);
+        let resposta = await fetch(urlDadosFuncionarios);
         let dadosFuncionario = await resposta.json();
         setFuncionarios(dadosFuncionario);
       } catch (erro) {
@@ -40,15 +40,17 @@ function MainListarFuncionario() {
               <tr key={Funcionario.ID}>
                 <td>{Funcionario.ID}</td>
                 <td>{Funcionario.NOME}</td>
-                <td>{Funcionario.DATA_NASCIMENTO.slice(0,10)}</td>
+                <td>{Funcionario.DATA_NASCIMENTO.slice(0, 10)}</td>
                 <td>{Funcionario.CPF}</td>
                 <td>{Funcionario.MODALIDADE}</td>
                 <td>{Funcionario.REGRA}</td>
                 <td>
-                  <Link to={`/editar-Funcionario/${Funcionario.id}`}>
-                    Editar
-                  </Link>
-                  <button className="me-2">Editar</button>
+
+                  <button className="me-2">
+                    <Link to={`/editar-Funcionario/${Funcionario.id}`}>
+                      Editar
+                    </Link>
+                  </button>
                   <button>Excluir</button>
                 </td>
               </tr>

@@ -52,5 +52,19 @@ const controllerColaborador = {
       res.status(500).json({ API: error });
     }
   },
+  listarPorId: async (req, res) => {
+    try { {
+      }
+      const id = req.params.id
+      console.log(id)
+      const [resposta] = await modelColaborador.listar();
+
+      console.log(resposta);
+      res.status(200).json(resposta);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ API: error });
+    }
+  }
 };
 export default controllerColaborador;

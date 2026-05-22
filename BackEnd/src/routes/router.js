@@ -15,6 +15,8 @@ routers.post('/api/cadastrar', controllerUsuario.cadastrar)
 routers.post('/login', controllerUsuario.login)
 
 routers.get('/profissionais', controllerColaborador.listar)
+routers.get('/profissionais/:id', controllerColaborador.listarPorId)
+routers.put('/profissionais/:id', controllerColaborador.atualizarPorId)
 
 routers.get('/veiculos', controllerVeiculo.listar)
 

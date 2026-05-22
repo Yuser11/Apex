@@ -1,141 +1,363 @@
+import { useActionState, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { useState, useActionState, useEffect } from "react";
+
 function MainEditarFuncionario() {
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [modalidade, setModalidade] = useState("");
+  const [cep, setCep] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [estado, setEstado] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [complemento, setComplemento] = useState("");
+  const [senha, setSenha] = useState("");
+  const [senhaOculta, setSenhaOculta] = useState(true);
+  const [dataIngresso, setDataIngresso] = useState("");
+  const [regra, setRegra] = useState("");
+  const [numero, setNumero] = useState("");
+  const [bairro, setBairro] = useState("");
+  const token = sessionStorage.getItem("token")
 
-    const { id } = useParams();
-    const [nome, setNome] = useState('');
-    const [sobrenome, setSobrenome] = useState('');
-    const [email, setEmail] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [estado, setEstado] = useState('');
-    const [endereco, setEndereco] = useState('');
 
-    let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
+  let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
+  const {id} = useParams()
 
-    async function buscarDadosCep() {
-        try {
-            let resposta = await fetch(urlViaCep);
-            let dadosCep = await resposta.json();
-            setEndereco(dadosCep.logradouro);
-            console.log(dadosCep);
-        }
-        catch (erro) {
-            console.log(erro);
-        }
+  const urlDadosFuncionario = "http://localhost:3001/profissionais";
+
+  useEffect(() => {
+    async function buscarDadosFuncionario() {
+      try {
+        console.log(id)
+        let resposta = await fetch(urlDadosFuncionario);
+        let dadosFuncionario = await resposta.json();
+      } catch (erro) {
+        console.log(erro);
+      }
     }
+    buscarDadosFuncionario();
+  }, []);
 
-    const [estadoAtualizar, acaoAtualizar, pendente]
-        = useActionState(
-            async (estadoAnterior, formData) => {
-                let dadosFuncionario = JSON.stringify(
-                    Object.fromEntries(formData.entries()));
-                // Simula uma espera em segundos
-                await new Promise((resolve) => setTimeout(
-                    resolve, 2000
-                ));
-                console.log(dadosFuncionario);
-                try {
-                    let resposta = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-                        method: 'POST',
-                        body: dadosFuncionario,
-                        headers: {
-                            'Content-type': 'application/json; charset=UTF-8',
-                        },
-                    })
-                    console.log(resposta);
-                    console.log(resposta.status);
-                    console.log(resposta.ok);
-
-                    if (resposta.status === 201) {
-                        console.log('Resposta do servidor ok!');
-                        if (resposta.ok === true) {
-                            alert('Cadastrado com sucesso');
-                            setNome('');
-                            setSobrenome('');
-                        } else {
-                            alert('Erro ao cadastrar!');
-                        }
-                    } else {
-                        console.log('Resposta do servidor erro!');
-                    }
-                } catch (erro) {
-                    console.log(erro);
-                }
-
-
+  const [estadoCadastro, acaoCadastro, pendente] = useActionState(
+    async (estadoAnterior, formData) => {
+      let dadosFuncionario = JSON.stringify(Object.fromEntries(formData.entries()));
+      console.log(dadosFuncionario)
+      // Simula uma espera em segundos
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      console.log(dadosFuncionario);
+      try {
+        let resposta = await fetch(
+          "http://localhost:3001/api/cadastrar",
+          {
+            method: "POST",
+            body: dadosFuncionario,
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              "Authorization" : `Bearer ${token}`
             }
+          },
         );
+        console.log(resposta);
+        console.log(resposta.status);
+        console.log(resposta.ok);
 
-    useEffect(() => {
-        async function getDadosFuncionario() {
-            let resposta = await
-                fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-            let dadosFuncionario = await resposta.json();
-            console.log(dadosFuncionario);
-            setNome(dadosFuncionario.name);
-            setSobrenome(dadosFuncionario.username);
-            setEmail(dadosFuncionario.email);
-            setEndereco(dadosFuncionario.address.street);
-            setCidade(dadosFuncionario.address.city);
-            setEstado(dadosFuncionario.address.suite);
-
+        if (resposta.status === 201) {
+          console.log("Resposta do servidor ok!");
+          if (resposta.ok === true) {
+            alert("Cadastrado com sucesso");
+            setNome("");
+            setEmail("");
+            setCpf("");
+            setDataNascimento("");
+            setTelefone("");
+            setModalidade("");
+            setCep("");
+            setCidade("");
+            setEstado("");
+            setEndereco("");
+            setComplemento("");
+            setSenha("");
+            dataIngresso("");
+            setRegra("");
+            setNumero("");
+            setBairro("");
+          } else {
+            alert("Erro ao cadastrar!");
+          }
+        } else {
+          console.log("Resposta do servidor erro!");
         }
-        getDadosFuncionario();
+      } catch (erro) {
+        console.log(erro);
+      }
+    },
+  );
 
-    }, [id]);
+  return (
+    <>
+      <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
+        </div>
+        <form action={acaoCadastro} className="row g-3" id="meuForm" >
+          <div className="col-md-4">
+            <label htmlFor="nome" className="form-label">
+              Nome Completo:
+            </label>
+            <input
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              type="text"
+              className="form-control"
+              id="nome"
+              name="nome"
+              required
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="dataNascimento" className="form-label">
+              Data de nascimento:
+            </label>
+            <input
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+              type="date"
+              className="form-control"
+              id="dataNascimento"
+              name="dataNascimento"
+              required
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="cpf" className="form-label">
+              CPF:
+            </label>
+            <input
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              type="text"
+              className="form-control"
+              id="cpf"
+              name="cpf"
+              placeholder="Digite seu CPF"
+              required
+              maxLength={11}
 
-    return (
-        <>
-            <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <div
-                    className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-                >
-                    <h1 className="h2">Editar Funcionario: {id}</h1>
-                </div>
+            />
+          </div>
 
-                <form action={acaoAtualizar} className="row g-3">
-                    <div className="col-md-6">
-                        <label htmlFor="nome" className="form-label">Nome:</label>
-                        <input value={nome} onChange={(e) => setNome(e.target.value)} type="text" className="form-control" id="nome" name="nome" required />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="sobrenome" className="form-label">Sobrenome:</label>
-                        <input value={sobrenome} onChange={(e) => setSobrenome(e.target.value)} type="text" className="form-control" id="sobrenome" name="sobrenome" required />
-                    </div>
-                    <div className="col-12">
-                        <label htmlFor="email" className="form-label">Email:</label>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="email" name="email" placeholder="Digite seu melhor email" required />
-                    </div>
-                    <div className="col-md-2">
-                        <label htmlFor="cep" className="form-label">Cep:</label>
-                        <input value={cep} onBlur={(e) => buscarDadosCep(e.target.value)} onChange={(e) => setCep(e.target.value)} type="text" className="form-control" id="cep" name="cep" required />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="cidade" className="form-label">Cidade:</label>
-                        <input value={cidade} onChange={(e) => setCidade(e.target.value)} type="text" className="form-control" id="cidade" name="cidade" required />
-                    </div>
-                    <div className="col-md-4">
-                        <label htmlFor="estado" className="form-label">Estado</label>
-                        <input value={estado} onChange={(e) => setEstado(e.target.value)} type="text" className="form-control" id="estado" name="estado" required />
+          <div className="col-md-4">
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              placeholder="Digite o email"
+              required
+            />
+          </div>
 
-                    </div>
+          <div className="col-md-4">
+            <label htmlFor="senha" className="form-label">
+              Senha:
+            </label>
+            <div className="d-flex">
 
-                    <div className="col-12">
-                        <label htmlFor="endereco" className="form-label">Endereço:</label>
-                        <input value={endereco} onChange={(e) => setEndereco(e.target.value)} type="text" className="form-control" id="endereco" name="endereco" placeholder="Rua, Avenida..." required />
-                    </div>
+              <input
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                type={senhaOculta ? 'password' : 'text'}
+                className="form-control"
+                id="senha"
+                name="senha"
+                placeholder={senhaOculta ? '********' : 'Digite sua senha'}
+                required
+              />
+              <div onClick={() => setSenhaOculta(!senhaOculta)}>
+                mudar
+              </div>
+            </div>
+          </div>
 
-                    <div className="col-12">
-                        <button disabled={pendente} type="submit" className="btn btn-primary">
-                            {pendente ? 'Atualizando...' : 'Atualizar'}
-                        </button>
-                    </div>
-                </form>
+          <div className="col-md-4">
+            <label htmlFor="telefone" className="form-label">
+              Telefone:
+            </label>
+            <input
+              value={telefone}
+              onChange={(e) => setTelefone(e.target.value)}
+              type="text"
+              className="form-control"
+              id="telefone"
+              name="telefone"
+              required
+              maxLength={11}
+            />
+          </div>
 
+          <div className="col-md-4">
+            <label htmlFor="modalidade" className="form-label">
+              Modalidade:
+            </label>
+            <select name="modalidade"
+              onChange={(e) => setModalidade(e.target.value)}
+              className="form-control"
+            >
+              <option value="presencial">Presencial</option>
+              <option value="hibrido" selected>Híbrido</option>
+              <option value="remoto">Remoto</option>
+            </select>
+          </div>
 
-            </main>
-        </>
-    );
+          <div className="col-md-4">
+            <label htmlFor="dataIngresso" className="form-label">
+              Data de Ingresso:
+            </label>
+            <input
+              value={dataIngresso}
+              onChange={(e) => setDataIngresso(e.target.value)}
+              type="date"
+              className="form-control"
+              id="dataIngresso"
+              name="dataIngresso"
+              required
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="regra" className="form-label">
+              Regra:
+            </label>
+            <select name="regra"
+              onChange={(e) => setRegra(e.target.value)}
+              className="form-control"
+            >
+              <option value="admin">Admin</option>
+              <option value="usuario" selected>Usuário</option>
+            </select>
+          </div>
+
+          <div className="col-md-3">
+            <label htmlFor="cep" className="form-label">
+              Cep:
+            </label>
+            <input
+              value={cep}
+              onChange={(e) => setCep(e.target.value)}
+              type="text"
+              className="form-control"
+              id="cep"
+              name="cep"
+              required
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="cidade" className="form-label">
+              Cidade:
+            </label>
+            <input
+              value={cidade}
+              onChange={(e) => setCidade(e.target.value)}
+              type="text"
+              className="form-control"
+              id="cidade"
+              name="cidade"
+              required
+            />
+          </div>
+          <div className="col-md-3">
+            <label htmlFor="bairro" className="form-label">
+              Bairro:
+            </label>
+            <input
+              value={bairro}
+              onChange={(e) => setBairro(e.target.value)}
+              type="text"
+              className="form-control"
+              id="bairro"
+              name="bairro"
+              required
+            />
+          </div>
+        
+          <div className="col-md-2">
+            <label htmlFor="estado" className="form-label">
+              Estado
+            </label>
+            <input
+              value={estado}
+              onChange={(e) => setEstado(e.target.value)}
+              type="text"
+              className="form-control"
+              id="estado"
+              name="estado"
+              required
+            />
+          </div>
+
+          <div className="col-8">
+            <label htmlFor="rua" className="form-label">
+              Endereço:
+            </label>
+            <input
+              value={endereco}
+              onChange={(e) => setEndereco(e.target.value)}
+              type="text"
+              className="form-control"
+              id="rua"
+              name="rua"
+              placeholder="Rua, Avenida..."
+              required
+            />
+          </div>
+          <div className="col-2">
+            <label htmlFor="numero" className="form-label">
+              Número:
+            </label>
+            <input
+              value={numero}
+              onChange={(e) => setNumero(e.target.value)}
+              type="num"
+              className="form-control"
+              id="numero"
+              name="numero"
+              required
+            />
+          </div>
+          <div className="col-12">
+            <label htmlFor="complemento" className="form-label">
+              Complemento:
+            </label>
+            <input
+              value={complemento}
+              onChange={(e) => setComplemento(e.target.value)}
+              type="text"
+              className="form-control"
+              id="complemento"
+              name="complemento"
+              placeholder="Apartamento..."
+            />
+          </div>
+
+          <div className="col-12 ">
+            <button
+              disabled={pendente}
+              type="submit"
+              className="btn btn-primary"
+            >
+              {pendente ? "Cadastrando..." : "Cadastrar"}
+            </button>
+          </div>
+        </form>
+      </main>
+    </>
+  );
 }
 export default MainEditarFuncionario;
