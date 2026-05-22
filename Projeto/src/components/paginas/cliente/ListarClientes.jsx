@@ -1,24 +1,22 @@
-import Sidebar from "../../template/Sidebar";
 import Navbar from "../../template/Navbar";
 import SelecionarTema from "../../SelecionarTema";
 import AlternadorDeTema from "../../AlternadorDeTema";
-import MainCadastrarAluno from "./MainCadastrarAluno";
+import MainListarCliente from "./MainListarCliente";
 import SidebarCollapse from "../../template/SidebarCollapse";
-function CadastrarAluno() {
+function ListarCliente() {
     return (
-        <>  
-             <title>Cadastro de aluno</title>
+        <>
             <AlternadorDeTema />
             <SelecionarTema />
             <Navbar />
             <div className="container-fluid">
                 <div className="row">
                     <SidebarCollapse />
-                    <MainCadastrarAluno />
+                    <MainListarCliente />
                 </div>
             </div>
 
         </>
     );
 }
-export default CadastrarAluno;
+export default ListarCliente;

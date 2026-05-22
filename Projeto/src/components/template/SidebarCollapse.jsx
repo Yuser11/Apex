@@ -1,5 +1,7 @@
 import { Link } from "react-router";
 function SidebarCollapse() {
+    const regra = sessionStorage.getItem("regra");
+
     return (
         <>
             <div className="sidebar rr-sidebar border border-right col-md-3 col-lg-2 p-0">
@@ -49,17 +51,13 @@ function SidebarCollapse() {
                                     <li >
                                         <Link to='/login'>
                                             <img src="/src/assets/img/sidebar/add-user.png" alt="" />
-
                                             CADASTRAR
-
                                         </Link>
                                     </li>
                                     <li >
                                         <Link>
                                             <img src="/src/assets/img/sidebar/listar.png" alt="" />
-
                                             LISTAR
-
                                         </Link>
                                     </li>
                                 </ul>
@@ -70,48 +68,89 @@ function SidebarCollapse() {
                                     FUNCIONÁRIO
                                 </Link>
                                 <ul className="sub-menu">
-                                    <li >
-                                        <Link to='/cadastro-funcionario'>
-                                            <img src="/src/assets/img/sidebar/add-user.png" alt="" />
-
-                                            CADASTRAR
-
-                                        </Link>
-                                    </li>
+                                    {regra === "admin" && (<>
+                                        <li >
+                                            <Link to='/cadastro-funcionario'>
+                                                <img src="/src/assets/img/sidebar/add-user.png" alt="" />
+                                                CADASTRAR
+                                            </Link>
+                                        </li>
+                                    </>
+                                    )}
                                     <li >
                                         <Link to='/listar-funcionario'>
                                             <img src="/src/assets/img/sidebar/listar.png" alt="" />
-
                                             LISTAR
-
                                         </Link>
                                     </li>
                                 </ul>
-
-
-
+                            </li>
+                            <li className="menu-hover" >
+                                <Link>
+                                    <img src="/src/assets/img/sidebar/3-user.png" alt="" />
+                                    CLIENTES
+                                </Link>
+                                <ul className="sub-menu ">
+                                    <li >
+                                        <Link to='/cadastro-cliente'>
+                                            <img src="/src/assets/img/sidebar/add-user.png" alt="" />
+                                            CADASTRAR
+                                        </Link>
+                                    </li>
+                                    <li >
+                                        <Link to='/listar-cliente'>
+                                            <img src="/src/assets/img/sidebar/listar.png" alt="" />
+                                            LISTAR
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li className="menu-hover" >
+                                <Link to='/vendas'>
+                                    <img src="/src/assets/img/sidebar/bag.png" alt="" />
+                                    PRODUTOS
+                                </Link>
+                                <ul className="sub-menu">
+                                    {regra === "admin" && (
+                                        <>
+                                            <li >
+                                                <Link to='/cadastro-veiculos'>
+                                                    <img src="/src/assets/img/sidebar/add-user.png" alt="" />
+                                                    CADASTRAR
+                                                </Link>
+                                            </li>
+                                        </>
+                                    )}
+                                    <li >
+                                        <Link to='/listar-veiculos'>
+                                            <img src="/src/assets/img/sidebar/listar.png" alt="" />
+                                            LISTAR
+                                        </Link>
+                                    </li>
+                                    <li >
+                                        <Link to='/vendas'>
+                                            <img src="/src/assets/img/sidebar/listar.png" alt="" />
+                                            VENDER
+                                        </Link>
+                                    </li>
+                                </ul>
                             </li>
                             <li >
                                 <Link>
                                     <img src="/src/assets/img/sidebar/time-circle.png" alt="" />
-
                                     HISTÓRICO DE VENDAS
-
                                 </Link>
                             </li>
                             <li >
                                 <Link to='/vendas'>
                                     <img src="/src/assets/img/sidebar/bag.png" alt="" />
                                     PRODUTOS
-
                                 </Link>
                             </li>
                             <li >
                                 <Link to='/login' onClick={() => sessionStorage.removeItem('token')}>
                                     <img src="/src/assets/img/sidebar/logout.png" alt="" />
-
                                     SAIR
-
                                 </Link>
                             </li>
                         </ul>

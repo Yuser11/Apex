@@ -35,6 +35,7 @@ function LoginApex() {
       if (resposta.status === 200) {
         sessionStorage.setItem("token",json.acessToken );
         sessionStorage.setItem("idUsuario",json.idUsuario );
+        sessionStorage.setItem("regra",json.regra );
         navigate('/');
       }
       else{

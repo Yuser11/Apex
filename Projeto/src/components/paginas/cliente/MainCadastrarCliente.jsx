@@ -1,33 +1,27 @@
-import { useActionState, useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useActionState, useState } from "react";
 import { toast } from 'react-toastify'
 
-
-function MainEditarFuncionario() {
+function MainCadastrarCliente() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [telefoneFixo, setTelefoneFixo] = useState("");
-  const [contatoEmergencia, setContatoEmergencia] = useState("");
+  const [telefoneFixo, setTelefoneFixo] = useState(null);
+  const [contatoEmergencia, setContatoEmergencia] = useState(null);
   const [modalidade, setModalidade] = useState("");
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setSenha] = useState("mudar123");
   const [senhaOculta, setSenhaOculta] = useState(true);
   const [dataIngresso, setDataIngresso] = useState("");
   const [regra, setRegra] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
   const token = sessionStorage.getItem("token")
-
-
-  const { id } = useParams()
-
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -39,52 +33,12 @@ function MainEditarFuncionario() {
       setCidade(dadosCep.localidade);
       setBairro(dadosCep.bairro)
       setEstado(dadosCep.uf);
+      setComplemento(dadosCep.complemento);
       console.log(dadosCep);
     } catch (erro) {
       console.log(erro);
     }
   }
-
-
-  const urlDadosFuncionario = `http://localhost:3001/profissionais/${id}`;
-  useEffect(() => {
-    async function buscarDadosFuncionario() {
-      try {
-        console.log(id)
-        let resposta = await fetch(urlDadosFuncionario);
-        let dadosFuncionario = await resposta.json();
-        console.log(dadosFuncionario)
-        setNome(dadosFuncionario.nome);
-        setSenha('mudar123');
-        setEmail(dadosFuncionario.email);
-        setCpf(dadosFuncionario.cpf);
-        setDataNascimento(dadosFuncionario.data_nascimento.slice(0, 10));
-        setModalidade(dadosFuncionario.modalidade);
-        setDataIngresso(dadosFuncionario.data_ingresso.slice(0, 10));
-        setRegra(dadosFuncionario.regra);
-
-        setCep(dadosFuncionario.cep);
-        setCidade(dadosFuncionario.cidade);
-        setEstado(dadosFuncionario.estado);
-        setEndereco(dadosFuncionario.rua);
-        setNumero(dadosFuncionario.numero);
-        setBairro(dadosFuncionario.bairro);
-        setComplemento(dadosFuncionario.complemento);
-
-        setTelefone(dadosFuncionario.movel);
-        setTelefoneFixo(dadosFuncionario.fixo);
-        setContatoEmergencia(dadosFuncionario.emergencia);
-
-        
-
-        console.log(dadosFuncionario.data_nascimento.slice(0, 10))
-        console.log(dadosFuncionario.data_ingresso.slice(0, 10))
-      } catch (erro) {
-        console.log(erro);
-      }
-    }
-    buscarDadosFuncionario();
-  }, []);
 
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
@@ -95,9 +49,9 @@ function MainEditarFuncionario() {
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
-          `http://localhost:3001/api/profissionais/${id}`,
+          "http://localhost:3001/api/cadastrar",
           {
-            method: "PUT",
+            method: "POST",
             body: dadosFuncionario,
             headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -109,14 +63,35 @@ function MainEditarFuncionario() {
         console.log(resposta.status);
         console.log(resposta.ok);
 
-        if (resposta.status === 204) {
-          console.log("Atualizado com sucesso!");
-              toast.success("Atualizado com sucesso!")
-              
-              
-            } else {
-              console.log("Erro ao atualizar!");
-              toast.error("Erro ao atualizar!")
+        if (resposta.status === 201) {
+          console.log("Resposta do servidor ok!");
+          if (resposta.ok === true) {
+            toast.success("Cadastrado com sucesso");
+            setNome("");
+            setEmail("");
+            setCpf("");
+            setDataNascimento("");
+            setRegra("");
+            setModalidade("");
+            setSenha("mudar123");
+            setDataIngresso("");
+
+            setCidade("");
+            setEstado("");
+            setCep("");
+            setEndereco("");
+            setComplemento("");
+            setNumero("");
+            setBairro("");
+
+            setTelefone("");
+            setTelefoneFixo("");
+            setContatoEmergencia("");
+          } else {
+            toast.error("Erro ao cadastrar!");
+          }
+        } else {
+            toast.error("Erro ao cadastrar!");
         }
       } catch (erro) {
         console.log(erro);
@@ -128,7 +103,7 @@ function MainEditarFuncionario() {
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="h2">Editar Funcionario - {nome}</h1>
+          <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
         <form action={acaoCadastro} className="row g-3" id="meuForm" >
 
@@ -250,7 +225,7 @@ function MainEditarFuncionario() {
 
           <div className="col-md-4">
             <label htmlFor="contatoEmergencia" className="form-label">
-              Contato de Emergencia:
+              Contato Emergencia:
             </label>
             <input
               value={contatoEmergencia}
@@ -273,7 +248,7 @@ function MainEditarFuncionario() {
               className="form-control"
             >
               <option value="presencial">Presencial</option>
-              <option value="hibrido">Híbrido</option>
+              <option value="hibrido" selected>Híbrido</option>
               <option value="remoto">Remoto</option>
             </select>
           </div>
@@ -302,7 +277,7 @@ function MainEditarFuncionario() {
               className="form-control"
             >
               <option value="admin">Admin</option>
-              <option value="usuario">Usuário</option>
+              <option value="usuario" selected>Usuário</option>
             </select>
           </div>
 
@@ -314,10 +289,11 @@ function MainEditarFuncionario() {
               value={cep}
               onBlur={(e) => buscarDadosCep(e.target.value)}
               onChange={(e) => setCep(e.target.value)}
-              type="text"
+              type="number"
               className="form-control"
               id="cep"
               name="cep"
+              maxLength={8}
               required
             />
           </div>
@@ -423,4 +399,4 @@ function MainEditarFuncionario() {
     </>
   );
 }
-export default MainEditarFuncionario;
+export default MainCadastrarCliente;

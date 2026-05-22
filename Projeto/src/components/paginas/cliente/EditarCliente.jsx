@@ -1,10 +1,9 @@
-import Sidebar from "../../template/Sidebar";
 import Navbar from "../../template/Navbar";
 import SelecionarTema from "../../SelecionarTema";
 import AlternadorDeTema from "../../AlternadorDeTema";
 import SidebarCollapse from "../../template/SidebarCollapse";
-import MainEditarAluno from "./MainEditarAluno";
-function EditarAluno() {
+import MainEditarCliente from "./MainEditarCliente";
+function EditarCliente() {
     return (
         <>
             <AlternadorDeTema />
@@ -13,10 +12,10 @@ function EditarAluno() {
             <div className="container-fluid">
                 <div className="row">
                     <SidebarCollapse />
-                    <MainEditarAluno />
+                    <MainEditarCliente />
                 </div>
             </div>
         </>
     );
 }
-export default EditarAluno;
+export default EditarCliente;

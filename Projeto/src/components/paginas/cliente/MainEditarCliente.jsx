@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { toast } from 'react-toastify'
 
 
-function MainEditarFuncionario() {
+function MainEditarCliente() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
@@ -128,7 +128,7 @@ function MainEditarFuncionario() {
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="h2">Editar Funcionario - {nome}</h1>
+          <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
         <form action={acaoCadastro} className="row g-3" id="meuForm" >
 
@@ -423,4 +423,4 @@ function MainEditarFuncionario() {
     </>
   );
 }
-export default MainEditarFuncionario;
+export default MainEditarCliente;

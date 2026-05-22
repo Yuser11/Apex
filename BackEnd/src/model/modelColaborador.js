@@ -1,4 +1,5 @@
 import conexao from "../../config/db.js";
+import bcrypt from "bcrypt";
 
 const modelColaborador = {
   cadastrarColaborador: async ([
@@ -113,6 +114,8 @@ const modelColaborador = {
       console.log(profissional.endereco_id);
       console.log(profissional.telefone_id);
 
+      const senhaHash = await bcrypt.hash(senha, 12);
+      console.log({ senha: senhaHash });
       const [resultadoProfissional] = await conexao.query(
         "UPDATE PROFISSIONAL SET nome= ?, data_nascimento= ?, cpf= ?, email= ?,senha= ?,modalidade= ?,data_ingresso= ?, regra= ? WHERE id = ?",
         [
@@ -120,7 +123,7 @@ const modelColaborador = {
           dataNascimento,
           cpf,
           email,
-          senha,
+          senhaHash,
           modalidade,
           dataIngresso,
           regra,
@@ -173,9 +176,7 @@ const modelColaborador = {
   },
   deletar: async (id) => {
     try {
-      console.log(
-        id
-      );
+      console.log(id);
 
       console.log(
         "SELECT endereco_id, telefone_id from PROFISSIONAL WHERE id = ?",
@@ -190,22 +191,18 @@ const modelColaborador = {
       console.log(profissional.telefone_id);
 
       const [resultadoProfissional] = await conexao.query(
-        "DELETE FROM `profissional` WHERE id = ?",
-        [
-          id
-        ],
+        "DELETE FROM PROFISSIONAL WHERE id = ?",
+        [id],
       );
 
       const [resultadoTelefone] = await conexao.query(
-        "DELETE FROM `endereco` WHERE id = ?",
+        "DELETE FROM TELEFONE WHERE id = ?",
         [profissional.telefone_id],
       );
 
       const [resultadoEndereco] = await conexao.query(
-        "DELETE FROM `endereco` WHERE 0 id = ?",
-        [
-          profissional.endereco_id
-        ],
+        "DELETE FROM ENDERECO WHERE id = ?",
+        [profissional.endereco_id],
       );
 
       console.log(resultadoProfissional);

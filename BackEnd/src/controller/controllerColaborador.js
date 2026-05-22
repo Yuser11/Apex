@@ -74,14 +74,24 @@ const controllerColaborador = {
       }
       const id = req.params.id;
       console.log(id);
-      const [resposta] = await modelColaborador.deletar(id);
+      const resposta = await modelColaborador.deletar(id);
 
       console.log(resposta);
-      res.status(200).json(resposta);
+      if (resposta.errno === "1062") {
+        res.status(400).json({msg:"valor duplicado"});
+      }
+      if (resposta === "sucesso") {
+        res.status(204).json(resposta);
+      }
+      else{
+        res.status(500).json(resposta);
+
+      }
     } catch (error) {
       console.log(error);
       res.status(500).json({ API: error });
     }
+
   },
   atualizarPorId: async (req, res) => {
     try {

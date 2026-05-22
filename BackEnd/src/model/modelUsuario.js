@@ -48,7 +48,7 @@ const modelUsuario = {
         const telefone_id = (
           await conexao.query(
             "INSERT INTO `telefone`(`movel`, `fixo`,`emergencia`) VALUES (?,?,?)",
-            [telefone, telefoneFixo,contatoEmergencia],
+            [telefone, telefoneFixo, contatoEmergencia],
           )
         )[0].insertId;
         console.log(endereco_id);
@@ -103,7 +103,7 @@ const modelUsuario = {
       if (!resultado[0]) {
         return null;
       }
-      console.log(senha, resultado[0].SENHA);
+      console.log(senha, resultado[0].senha);
       const validar = await bcrypt.compare(senha, resultado[0].senha);
       console.log(validar);
       if (validar) {
@@ -118,7 +118,11 @@ const modelUsuario = {
             expiresIn: "25m",
           },
         );
-        return { acessToken };
+        return {
+          acessToken,
+          idUsuario: resultado[0].id,
+          regra: resultado[0].regra,
+        };
       } else {
         return null;
       }

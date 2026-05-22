@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from "react-router";
 import { toast } from 'react-toastify'
 
-function MainListarFuncionario() {
+function MainListarCliente() {
   const urlDadosFuncionarios = "http://localhost:3001/profissionais";
   const [Funcionarios, setFuncionarios] = useState([]);
   const token = sessionStorage.getItem("token")
 
   useEffect(() => {
-    async function buscarDadosFuncionario() {
+    async function buscarDadosCliente() {
       try {
         let resposta = await fetch(urlDadosFuncionarios);
         let dadosFuncionario = await resposta.json();
@@ -18,7 +18,7 @@ function MainListarFuncionario() {
         console.log(erro);
       }
     }
-    buscarDadosFuncionario();
+    buscarDadosCliente();
   }, []);
   const regra = sessionStorage.getItem("regra");
   const toastId = React.useRef(null);
@@ -110,4 +110,4 @@ function MainListarFuncionario() {
     </>
   );
 }
-export default MainListarFuncionario;
+export default MainListarCliente;

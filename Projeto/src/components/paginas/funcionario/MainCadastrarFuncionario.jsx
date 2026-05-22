@@ -1,4 +1,5 @@
 import { useActionState, useState } from "react";
+import { toast } from 'react-toastify'
 
 function MainCadastrarFuncionario() {
   const [nome, setNome] = useState("");
@@ -48,7 +49,7 @@ function MainCadastrarFuncionario() {
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
-          "http://localhost:3001/cadastrar",
+          "http://localhost:3001/api/cadastrar",
           {
             method: "POST",
             body: dadosFuncionario,
@@ -65,7 +66,7 @@ function MainCadastrarFuncionario() {
         if (resposta.status === 201) {
           console.log("Resposta do servidor ok!");
           if (resposta.ok === true) {
-            alert("Cadastrado com sucesso");
+            toast.success("Cadastrado com sucesso");
             setNome("");
             setEmail("");
             setCpf("");
@@ -87,10 +88,10 @@ function MainCadastrarFuncionario() {
             setTelefoneFixo("");
             setContatoEmergencia("");
           } else {
-            alert("Erro ao cadastrar!");
+            toast.error("Erro ao cadastrar!");
           }
         } else {
-          console.log("Resposta do servidor erro!");
+            toast.error("Erro ao cadastrar!");
         }
       } catch (erro) {
         console.log(erro);
