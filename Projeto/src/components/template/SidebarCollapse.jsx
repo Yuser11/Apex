@@ -107,7 +107,7 @@ function SidebarCollapse() {
                                 </Link>
                             </li>
                             <li >
-                                <Link to='/login' onClick={() => localStorage.removeItem('token')}>
+                                <Link to='/login' onClick={() => sessionStorage.removeItem('token')}>
                                     <img src="/src/assets/img/sidebar/logout.png" alt="" />
 
                                     SAIR

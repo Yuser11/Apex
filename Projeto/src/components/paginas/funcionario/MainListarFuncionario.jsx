@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,React} from "react";
 import { Link } from "react-router";
+import { toast } from 'react-toastify'
+
 function MainListarFuncionario() {
   const urlDadosFuncionarios = "http://localhost:3001/profissionais";
   const [Funcionarios, setFuncionarios] = useState([]);
@@ -16,7 +18,12 @@ function MainListarFuncionario() {
     }
     buscarDadosFuncionario();
   }, []);
+    const toastId = React.useRef(null);
 
+  function Excluir() {
+    alert("poi")
+  }
+  const dismiss = () =>  toast.dismiss(toastId.current);
   return (
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -37,13 +44,13 @@ function MainListarFuncionario() {
           </thead>
           <tbody>
             {Funcionarios.map((Funcionario) => (
-              <tr key={Funcionario.ID}>
-                <td>{Funcionario.ID}</td>
-                <td>{Funcionario.NOME}</td>
-                <td>{Funcionario.DATA_NASCIMENTO.slice(0, 10)}</td>
-                <td>{Funcionario.CPF}</td>
-                <td>{Funcionario.MODALIDADE}</td>
-                <td>{Funcionario.REGRA}</td>
+              <tr key={Funcionario.id}>
+                <td>{Funcionario.id}</td>
+                <td>{Funcionario.nome}</td>
+                <td>{Funcionario.data_nascimento.slice(0, 10)}</td>
+                <td>{Funcionario.cpf}</td>
+                <td>{Funcionario.modalidade}</td>
+                <td>{Funcionario.regra}</td>
                 <td>
 
                   <button className="me-2">
@@ -51,7 +58,14 @@ function MainListarFuncionario() {
                       Editar
                     </Link>
                   </button>
-                  <button>Excluir</button>
+                  <button onClick={() => toast.info(
+                    <>
+                      <div >Deseja excluir?</div>
+                      <button className="bg-danger " onClick={Excluir}>SIM</button>
+                            <button onClick={dismiss}>Dismiss</button>
+                      <button onClick={dismiss} className="bg-success">NÃO</button>
+
+                    </>)}>Excluir</button>
                 </td>
               </tr>
             ))}

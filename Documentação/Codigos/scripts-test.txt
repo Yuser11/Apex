@@ -6,10 +6,14 @@ VALUES
 (1,'demiurgo','acapulco','9999',676767,999000.00,'2x4','feijao com farinha'),
 (1,'pleroma','gnose','8888',999,999999.00,'4x2','feijao com farinha')
 
-INSERT INTO `empresa`(`nome`, `cnpj`, `email`, `endereco_id`, `data_criacao`, `telefone`, `observacoes`)
+INSERT INTO `empresa`(`nome`, `cnpj`, `email`, `endereco_id`, `data_criacao`, `telefone_id`, `observacoes`)
 VALUES 
-('empresa','14143131','empresa@gmail.com',1,'1999-9-28','(14)99020-8787','welcome to the mato')
+('empresa','14143131','empresa@gmail.com',1,'1999-9-28',1,'welcome to the mato')
 
 INSERT INTO `endereco`(`cep`, `numero`, `bairro`, `rua`, `estado`, `cidade`, `complemento`) 
 VALUES 
 ('1414','332','monte','tem','SP','GARCA','feijao com farinha')
+
+//APEX_NEO
+
+INSERT INTO `telefone`(`movel`, `fixo`) VALUES (887501304,3341212)

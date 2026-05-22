@@ -6,13 +6,15 @@ function MainCadastrarFuncionario() {
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [telefoneFixo, setTelefoneFixo] = useState(null);
+  const [contatoEmergencia, setContatoEmergencia] = useState(null);
   const [modalidade, setModalidade] = useState("");
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
-  const [senha, setSenha] = useState("");
+  const [senha, setSenha] = useState("mudar123");
   const [senhaOculta, setSenhaOculta] = useState(true);
   const [dataIngresso, setDataIngresso] = useState("");
   const [regra, setRegra] = useState("");
@@ -30,6 +32,7 @@ function MainCadastrarFuncionario() {
       setCidade(dadosCep.localidade);
       setBairro(dadosCep.bairro)
       setEstado(dadosCep.uf);
+      setComplemento(dadosCep.complemento);
       console.log(dadosCep);
     } catch (erro) {
       console.log(erro);
@@ -45,13 +48,13 @@ function MainCadastrarFuncionario() {
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
-          "http://localhost:3001/api/cadastrar",
+          "http://localhost:3001/cadastrar",
           {
             method: "POST",
             body: dadosFuncionario,
             headers: {
               "Content-type": "application/json; charset=UTF-8",
-              "Authorization" : `Bearer ${token}`
+              "Authorization": `Bearer ${token}`
             }
           },
         );
@@ -67,18 +70,22 @@ function MainCadastrarFuncionario() {
             setEmail("");
             setCpf("");
             setDataNascimento("");
-            setTelefone("");
+            setRegra("");
             setModalidade("");
-            setCep("");
+            setSenha("mudar123");
+            setDataIngresso("");
+
             setCidade("");
             setEstado("");
+            setCep("");
             setEndereco("");
             setComplemento("");
-            setSenha("");
-            dataIngresso("");
-            setRegra("");
             setNumero("");
             setBairro("");
+
+            setTelefone("");
+            setTelefoneFixo("");
+            setContatoEmergencia("");
           } else {
             alert("Erro ao cadastrar!");
           }
@@ -98,6 +105,7 @@ function MainCadastrarFuncionario() {
           <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
         <form action={acaoCadastro} className="row g-3" id="meuForm" >
+
           <div className="col-md-4">
             <label htmlFor="nome" className="form-label">
               Nome Completo:
@@ -112,6 +120,7 @@ function MainCadastrarFuncionario() {
               required
             />
           </div>
+
           <div className="col-md-4">
             <label htmlFor="dataNascimento" className="form-label">
               Data de nascimento:
@@ -126,6 +135,7 @@ function MainCadastrarFuncionario() {
               required
             />
           </div>
+
           <div className="col-md-4">
             <label htmlFor="cpf" className="form-label">
               CPF:
@@ -140,11 +150,10 @@ function MainCadastrarFuncionario() {
               placeholder="Digite seu CPF"
               required
               maxLength={11}
-
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-7">
             <label htmlFor="email" className="form-label">
               Email:
             </label>
@@ -160,7 +169,7 @@ function MainCadastrarFuncionario() {
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-5">
             <label htmlFor="senha" className="form-label">
               Senha:
             </label>
@@ -189,12 +198,43 @@ function MainCadastrarFuncionario() {
             <input
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
-              type="text"
+              type="tel"
               className="form-control"
               id="telefone"
               name="telefone"
               required
-              maxLength={11}
+              maxLength={9}
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="telefoneFixo" className="form-label">
+              Telefone Fixo:
+            </label>
+            <input
+              value={telefoneFixo}
+              onChange={(e) => setTelefoneFixo(e.target.value)}
+              type="tel"
+              className="form-control"
+              id="telefoneFixo"
+              name="telefoneFixo"
+              required
+              maxLength={8}
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="contatoEmergencia" className="form-label">
+              Contato Emergencia:
+            </label>
+            <input
+              value={contatoEmergencia}
+              onChange={(e) => setContatoEmergencia(e.target.value)}
+              type="tel"
+              className="form-control"
+              id="contatoEmergencia"
+              name="contatoEmergencia"
+              required
+              maxLength={9}
             />
           </div>
 
@@ -248,10 +288,11 @@ function MainCadastrarFuncionario() {
               value={cep}
               onBlur={(e) => buscarDadosCep(e.target.value)}
               onChange={(e) => setCep(e.target.value)}
-              type="text"
+              type="number"
               className="form-control"
               id="cep"
               name="cep"
+              maxLength={8}
               required
             />
           </div>
@@ -283,7 +324,7 @@ function MainCadastrarFuncionario() {
               required
             />
           </div>
-        
+
           <div className="col-md-2">
             <label htmlFor="estado" className="form-label">
               Estado
