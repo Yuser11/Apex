@@ -1,5 +1,7 @@
 import { useActionState, useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { toast } from 'react-toastify'
+
 
 function MainEditarFuncionario() {
   const [nome, setNome] = useState("");
@@ -7,6 +9,8 @@ function MainEditarFuncionario() {
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [telefone, setTelefone] = useState("");
+  const [telefoneFixo, setTelefoneFixo] = useState("");
+  const [contatoEmergencia, setContatoEmergencia] = useState("");
   const [modalidade, setModalidade] = useState("");
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
@@ -22,17 +26,59 @@ function MainEditarFuncionario() {
   const token = sessionStorage.getItem("token")
 
 
+  const { id } = useParams()
+
+
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
-  const {id} = useParams()
 
-  const urlDadosFuncionario = "http://localhost:3001/profissionais";
+  async function buscarDadosCep() {
+    try {
+      let resposta = await fetch(urlViaCep);
+      let dadosCep = await resposta.json();
+      setEndereco(dadosCep.logradouro);
+      setCidade(dadosCep.localidade);
+      setBairro(dadosCep.bairro)
+      setEstado(dadosCep.uf);
+      console.log(dadosCep);
+    } catch (erro) {
+      console.log(erro);
+    }
+  }
 
+
+  const urlDadosFuncionario = `http://localhost:3001/profissionais/${id}`;
   useEffect(() => {
     async function buscarDadosFuncionario() {
       try {
         console.log(id)
         let resposta = await fetch(urlDadosFuncionario);
         let dadosFuncionario = await resposta.json();
+        console.log(dadosFuncionario)
+        setNome(dadosFuncionario.nome);
+        setSenha('mudar123');
+        setEmail(dadosFuncionario.email);
+        setCpf(dadosFuncionario.cpf);
+        setDataNascimento(dadosFuncionario.data_nascimento.slice(0, 10));
+        setModalidade(dadosFuncionario.modalidade);
+        setDataIngresso(dadosFuncionario.data_ingresso.slice(0, 10));
+        setRegra(dadosFuncionario.regra);
+
+        setCep(dadosFuncionario.cep);
+        setCidade(dadosFuncionario.cidade);
+        setEstado(dadosFuncionario.estado);
+        setEndereco(dadosFuncionario.rua);
+        setNumero(dadosFuncionario.numero);
+        setBairro(dadosFuncionario.bairro);
+        setComplemento(dadosFuncionario.complemento);
+
+        setTelefone(dadosFuncionario.movel);
+        setTelefoneFixo(dadosFuncionario.fixo);
+        setContatoEmergencia(dadosFuncionario.emergencia);
+
+        
+
+        console.log(dadosFuncionario.data_nascimento.slice(0, 10))
+        console.log(dadosFuncionario.data_ingresso.slice(0, 10))
       } catch (erro) {
         console.log(erro);
       }
@@ -49,13 +95,13 @@ function MainEditarFuncionario() {
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
-          "http://localhost:3001/api/cadastrar",
+          `http://localhost:3001/profissionais/${id}`,
           {
-            method: "POST",
+            method: "PUT",
             body: dadosFuncionario,
             headers: {
               "Content-type": "application/json; charset=UTF-8",
-              "Authorization" : `Bearer ${token}`
+              "Authorization": `Bearer ${token}`
             }
           },
         );
@@ -63,31 +109,14 @@ function MainEditarFuncionario() {
         console.log(resposta.status);
         console.log(resposta.ok);
 
-        if (resposta.status === 201) {
-          console.log("Resposta do servidor ok!");
-          if (resposta.ok === true) {
-            alert("Cadastrado com sucesso");
-            setNome("");
-            setEmail("");
-            setCpf("");
-            setDataNascimento("");
-            setTelefone("");
-            setModalidade("");
-            setCep("");
-            setCidade("");
-            setEstado("");
-            setEndereco("");
-            setComplemento("");
-            setSenha("");
-            dataIngresso("");
-            setRegra("");
-            setNumero("");
-            setBairro("");
-          } else {
-            alert("Erro ao cadastrar!");
-          }
-        } else {
-          console.log("Resposta do servidor erro!");
+        if (resposta.status === 204) {
+          console.log("Atualizado com sucesso!");
+              toast.success("Atualizado com sucesso!")
+              
+              
+            } else {
+              console.log("Erro ao atualizar!");
+              toast.error("Erro ao atualizar!")
         }
       } catch (erro) {
         console.log(erro);
@@ -102,6 +131,7 @@ function MainEditarFuncionario() {
           <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
         <form action={acaoCadastro} className="row g-3" id="meuForm" >
+
           <div className="col-md-4">
             <label htmlFor="nome" className="form-label">
               Nome Completo:
@@ -116,6 +146,7 @@ function MainEditarFuncionario() {
               required
             />
           </div>
+
           <div className="col-md-4">
             <label htmlFor="dataNascimento" className="form-label">
               Data de nascimento:
@@ -130,6 +161,7 @@ function MainEditarFuncionario() {
               required
             />
           </div>
+
           <div className="col-md-4">
             <label htmlFor="cpf" className="form-label">
               CPF:
@@ -144,11 +176,10 @@ function MainEditarFuncionario() {
               placeholder="Digite seu CPF"
               required
               maxLength={11}
-
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-7">
             <label htmlFor="email" className="form-label">
               Email:
             </label>
@@ -164,7 +195,7 @@ function MainEditarFuncionario() {
             />
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-5">
             <label htmlFor="senha" className="form-label">
               Senha:
             </label>
@@ -193,12 +224,43 @@ function MainEditarFuncionario() {
             <input
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
-              type="text"
+              type="tel"
               className="form-control"
               id="telefone"
               name="telefone"
               required
-              maxLength={11}
+              maxLength={9}
+            />
+          </div>
+          <div className="col-md-4">
+            <label htmlFor="telefoneFixo" className="form-label">
+              Telefone Fixo:
+            </label>
+            <input
+              value={telefoneFixo}
+              onChange={(e) => setTelefoneFixo(e.target.value)}
+              type="tel"
+              className="form-control"
+              id="telefoneFixo"
+              name="telefoneFixo"
+              required
+              maxLength={8}
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="contatoEmergencia" className="form-label">
+              Contato de Emergencia:
+            </label>
+            <input
+              value={contatoEmergencia}
+              onChange={(e) => setContatoEmergencia(e.target.value)}
+              type="tel"
+              className="form-control"
+              id="contatoEmergencia"
+              name="contatoEmergencia"
+              required
+              maxLength={9}
             />
           </div>
 
@@ -211,7 +273,7 @@ function MainEditarFuncionario() {
               className="form-control"
             >
               <option value="presencial">Presencial</option>
-              <option value="hibrido" selected>Híbrido</option>
+              <option value="hibrido">Híbrido</option>
               <option value="remoto">Remoto</option>
             </select>
           </div>
@@ -240,7 +302,7 @@ function MainEditarFuncionario() {
               className="form-control"
             >
               <option value="admin">Admin</option>
-              <option value="usuario" selected>Usuário</option>
+              <option value="usuario">Usuário</option>
             </select>
           </div>
 
@@ -250,6 +312,7 @@ function MainEditarFuncionario() {
             </label>
             <input
               value={cep}
+              onBlur={(e) => buscarDadosCep(e.target.value)}
               onChange={(e) => setCep(e.target.value)}
               type="text"
               className="form-control"
@@ -286,7 +349,7 @@ function MainEditarFuncionario() {
               required
             />
           </div>
-        
+
           <div className="col-md-2">
             <label htmlFor="estado" className="form-label">
               Estado

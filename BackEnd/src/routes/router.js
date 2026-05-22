@@ -15,8 +15,9 @@ routers.post('/api/cadastrar', controllerUsuario.cadastrar)
 routers.post('/login', controllerUsuario.login)
 
 routers.get('/profissionais', controllerColaborador.listar)
-routers.get('/profissionais/:id', controllerColaborador.listarPorId)
-routers.put('/profissionais/:id', controllerColaborador.atualizarPorId)
+routers.get('/api/profissionais/:id', controllerColaborador.listarPorId)
+routers.put('/api/profissionais/:id', controllerColaborador.atualizarPorId)
+routers.delete('/api/profissionais/:id', controllerColaborador.deletar)
 
 routers.get('/veiculos', controllerVeiculo.listar)
 

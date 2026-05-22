@@ -41,7 +41,8 @@ const controllerColaborador = {
     }
   },
   listar: async (req, res) => {
-    try { {
+    try {
+      {
       }
       const [resposta] = await modelColaborador.listar();
 
@@ -53,11 +54,12 @@ const controllerColaborador = {
     }
   },
   listarPorId: async (req, res) => {
-    try { {
+    try {
+      {
       }
-      const id = req.params.id
-      console.log(id)
-      const [resposta] = await modelColaborador.listar();
+      const id = req.params.id;
+      console.log(id);
+      const [resposta] = await modelColaborador.listarPorId(id);
 
       console.log(resposta);
       res.status(200).json(resposta);
@@ -65,6 +67,117 @@ const controllerColaborador = {
       console.log(error);
       res.status(500).json({ API: error });
     }
-  }
+  },
+  deletar: async (req, res) => {
+    try {
+      {
+      }
+      const id = req.params.id;
+      console.log(id);
+      const [resposta] = await modelColaborador.deletar(id);
+
+      console.log(resposta);
+      res.status(200).json(resposta);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ API: error });
+    }
+  },
+  atualizarPorId: async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      const {
+        nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+      } = req.body;
+      console.log(req.body);
+      console.log(
+        nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+      );
+
+      console.log(id);
+      console.log(req.body);
+      const resposta = await modelColaborador.atualizarPorId(
+        nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+        id,
+      );
+
+      console.log(resposta);
+      if (resposta.errno === "1062") {
+        res.status(200).json({msg:"valor duplicado"});
+      }
+      if (resposta === "sucesso") {
+        res.status(204).json(resposta);
+      }
+      else{
+        res.status(500).json(resposta);
+
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ API: error });
+    }
+  },
 };
 export default controllerColaborador;

@@ -23,6 +23,11 @@ const controllerUsuario = {
         estado,
         cidade,
         complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
       } = req.body;
       if (
         !nome ||
@@ -40,11 +45,16 @@ const controllerUsuario = {
         !rua ||
         !estado ||
         !cidade ||
+        !complemento ||
+        //endereco
+        !estado ||
+        !cidade ||
         !complemento
       ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
-      console.log(nome,
+      console.log(
+        nome,
         dataNascimento,
         cpf,
         email,
@@ -59,7 +69,13 @@ const controllerUsuario = {
         rua,
         estado,
         cidade,
-        complemento,)
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+      );
       const resposta = await modelUsuario.cadastrarUsuario([
         nome,
         dataNascimento,
@@ -77,6 +93,11 @@ const controllerUsuario = {
         estado,
         cidade,
         complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
       ]);
       console.log(resposta);
       if (!resposta) {
