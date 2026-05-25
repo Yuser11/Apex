@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import React from 'react';
+import React from "react";
 import { Link } from "react-router";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 function MainListarFuncionario() {
   const urlDadosFuncionarios = "http://localhost:3001/profissionais";
   const [Funcionarios, setFuncionarios] = useState([]);
-  const token = sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     async function buscarDadosFuncionario() {
@@ -29,8 +29,8 @@ function MainListarFuncionario() {
         {
           method: "DELETE",
           headers: {
-            "Authorization": `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         },
       );
       console.log(resposta);
@@ -41,7 +41,6 @@ function MainListarFuncionario() {
         console.log("Resposta do servidor ok!");
         if (resposta.ok === true) {
           toast.success("Deletado com sucesso");
-
         } else {
           toast.error(resposta.data);
         }
@@ -69,9 +68,10 @@ function MainListarFuncionario() {
               <th>CPF:</th>
               <th>MODALIDADE:</th>
               <th>REGRA:</th>
-              {regra === "admin" && (<>
-                <th>Ações:</th>
-              </>
+              {regra === "admin" && (
+                <>
+                  <th>Ações:</th>
+                </>
               )}
             </tr>
           </thead>
@@ -87,21 +87,34 @@ function MainListarFuncionario() {
                 {regra === "admin" && (
                   <>
                     <td>
-
                       <button className="me-2">
                         <Link to={`/editar-funcionario/${Funcionario.id}`}>
                           Editar
                         </Link>
                       </button>
-                      <button onClick={() => toast.info(
-                        <>
-                          <div >Deseja excluir?</div>
-                          <button className="bg-danger " onClick={() => Excluir(Funcionario.id)}>SIM</button>
-                          <button onClick={dismiss} className="bg-success">NÃO</button>
-
-                        </>)}>Excluir</button>
+                      <button
+                        onClick={() =>
+                          toast.info(
+                            <>
+                              <div>Deseja excluir?</div>
+                              <button
+                                className="bg-danger "
+                                onClick={() => Excluir(Funcionario.id)}
+                              >
+                                SIM
+                              </button>
+                              <button onClick={dismiss} className="bg-success">
+                                NÃO
+                              </button>
+                            </>,
+                          )
+                        }
+                      >
+                        Excluir
+                      </button>
                     </td>
-                  </>)}
+                  </>
+                )}
               </tr>
             ))}
           </tbody>

@@ -6,14 +6,39 @@ VALUES
 (1,'demiurgo','acapulco','9999',676767,999000.00,'2x4','feijao com farinha'),
 (1,'pleroma','gnose','8888',999,999999.00,'4x2','feijao com farinha')
 
+
+
+
+
+INSERT INTO `telefone`(`movel`, `fixo`) VALUES (887501304,3341212);
+INSERT INTO `endereco`(`cep`, `numero`, `bairro`, `rua`, `estado`, `cidade`, `complemento`) 
+VALUES 
+('1414','332','monte','tem','SP','GARCA','feijao com farinha');
 INSERT INTO `empresa`(`nome`, `cnpj`, `email`, `endereco_id`, `data_criacao`, `telefone_id`, `observacoes`)
 VALUES 
 ('empresa','14143131','empresa@gmail.com',1,'1999-9-28',1,'welcome to the mato')
 
-INSERT INTO `endereco`(`cep`, `numero`, `bairro`, `rua`, `estado`, `cidade`, `complemento`) 
-VALUES 
-('1414','332','monte','tem','SP','GARCA','feijao com farinha')
 
-//APEX_NEO
 
-INSERT INTO `telefone`(`movel`, `fixo`) VALUES (887501304,3341212)
+INSERT INTO ENDERECO( cep, numero, bairro, rua, estado, cidade, complemento) VALUES (?,?,?,?,?,?,?) [
+  '01010001',
+  '676',
+  'Centro',
+  'Rua São Bento',
+  'SP',
+  'São Paulo',
+  'de 320 ao fim - lado par'
+]
+INSERT INTO telefone(movel, fixo,emergencia) VALUES (?,?,?) [ '141414000', '14141400', '141414000' ] ;
+INSERT INTO PROFISSIONAL (empresa_id,endereco_id,nome,data_nascimento,cpf,email,senha,modalidade,data_ingresso,regra,telefone_id)VALUES(1,?,?,?,?,?,?,?,?,?,?) [
+  2,
+  'yuri',
+  '2007-05-04',
+  '12345678901',
+  'yuri@admin',
+  '$2b$12$JreKhNJ7o40ulk6SYDpG0OEa3zGVp3FY4EKUV1y7cEbLJcmP7KEpu',
+  'presencial',
+  '2026-05-01',
+  'admin',
+  2
+] ;

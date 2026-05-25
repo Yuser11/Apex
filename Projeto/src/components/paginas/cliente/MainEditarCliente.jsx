@@ -1,7 +1,6 @@
 import { useActionState, useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { toast } from 'react-toastify'
-
+import { toast } from "react-toastify";
 
 function MainEditarCliente() {
   const [nome, setNome] = useState("");
@@ -23,11 +22,9 @@ function MainEditarCliente() {
   const [regra, setRegra] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
-  const token = sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
 
-
-  const { id } = useParams()
-
+  const { id } = useParams();
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -37,7 +34,7 @@ function MainEditarCliente() {
       let dadosCep = await resposta.json();
       setEndereco(dadosCep.logradouro);
       setCidade(dadosCep.localidade);
-      setBairro(dadosCep.bairro)
+      setBairro(dadosCep.bairro);
       setEstado(dadosCep.uf);
       console.log(dadosCep);
     } catch (erro) {
@@ -45,17 +42,16 @@ function MainEditarCliente() {
     }
   }
 
-
-  const urlDadosFuncionario = `http://localhost:3001/profissionais/${id}`;
+  const urlDadosFuncionario = `http://localhost:3001/clientes/${id}`;
   useEffect(() => {
     async function buscarDadosFuncionario() {
       try {
-        console.log(id)
+        console.log(id);
         let resposta = await fetch(urlDadosFuncionario);
         let dadosFuncionario = await resposta.json();
-        console.log(dadosFuncionario)
+        console.log(dadosFuncionario);
         setNome(dadosFuncionario.nome);
-        setSenha('mudar123');
+        setSenha("mudar123");
         setEmail(dadosFuncionario.email);
         setCpf(dadosFuncionario.cpf);
         setDataNascimento(dadosFuncionario.data_nascimento.slice(0, 10));
@@ -75,10 +71,8 @@ function MainEditarCliente() {
         setTelefoneFixo(dadosFuncionario.fixo);
         setContatoEmergencia(dadosFuncionario.emergencia);
 
-        
-
-        console.log(dadosFuncionario.data_nascimento.slice(0, 10))
-        console.log(dadosFuncionario.data_ingresso.slice(0, 10))
+        console.log(dadosFuncionario.data_nascimento.slice(0, 10));
+        console.log(dadosFuncionario.data_ingresso.slice(0, 10));
       } catch (erro) {
         console.log(erro);
       }
@@ -88,10 +82,10 @@ function MainEditarCliente() {
 
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
-      let dadosFuncionario = JSON.stringify(Object.fromEntries(formData.entries()));
-      console.log(dadosFuncionario)
-      // Simula uma espera em segundos
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      let dadosFuncionario = JSON.stringify(
+        Object.fromEntries(formData.entries()),
+      );
+      console.log(dadosFuncionario);
       console.log(dadosFuncionario);
       try {
         let resposta = await fetch(
@@ -101,8 +95,8 @@ function MainEditarCliente() {
             body: dadosFuncionario,
             headers: {
               "Content-type": "application/json; charset=UTF-8",
-              "Authorization": `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           },
         );
         console.log(resposta);
@@ -111,12 +105,10 @@ function MainEditarCliente() {
 
         if (resposta.status === 204) {
           console.log("Atualizado com sucesso!");
-              toast.success("Atualizado com sucesso!")
-              
-              
-            } else {
-              console.log("Erro ao atualizar!");
-              toast.error("Erro ao atualizar!")
+          toast.success("Atualizado com sucesso!");
+        } else {
+          console.log("Erro ao atualizar!");
+          toast.error("Erro ao atualizar!");
         }
       } catch (erro) {
         console.log(erro);
@@ -130,8 +122,7 @@ function MainEditarCliente() {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
-        <form action={acaoCadastro} className="row g-3" id="meuForm" >
-
+        <form action={acaoCadastro} className="row g-3" id="meuForm">
           <div className="col-md-4">
             <label htmlFor="nome" className="form-label">
               Nome Completo:
@@ -173,9 +164,10 @@ function MainEditarCliente() {
               className="form-control"
               id="cpf"
               name="cpf"
-              placeholder="Digite seu CPF"
+              placeholder="Digite o CPF"
               required
-              maxLength={11}
+              pattern="\d*"
+              maxlength="11"
             />
           </div>
 
@@ -200,20 +192,17 @@ function MainEditarCliente() {
               Senha:
             </label>
             <div className="d-flex">
-
               <input
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                type={senhaOculta ? 'password' : 'text'}
+                type={senhaOculta ? "password" : "text"}
                 className="form-control"
                 id="senha"
                 name="senha"
-                placeholder={senhaOculta ? '********' : 'Digite sua senha'}
+                placeholder={senhaOculta ? "********" : "Digite sua senha"}
                 required
               />
-              <div onClick={() => setSenhaOculta(!senhaOculta)}>
-                mudar
-              </div>
+              <div onClick={() => setSenhaOculta(!senhaOculta)}>mudar</div>
             </div>
           </div>
 
@@ -268,7 +257,8 @@ function MainEditarCliente() {
             <label htmlFor="modalidade" className="form-label">
               Modalidade:
             </label>
-            <select name="modalidade"
+            <select
+              name="modalidade"
               onChange={(e) => setModalidade(e.target.value)}
               className="form-control"
             >
@@ -297,7 +287,8 @@ function MainEditarCliente() {
             <label htmlFor="regra" className="form-label">
               Regra:
             </label>
-            <select name="regra"
+            <select
+              name="regra"
               onChange={(e) => setRegra(e.target.value)}
               className="form-control"
             >

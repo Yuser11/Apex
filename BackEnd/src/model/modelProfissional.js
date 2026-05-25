@@ -1,23 +1,92 @@
 import conexao from "../../config/db.js";
 import bcrypt from "bcrypt";
 
-const modelColaborador = {
-  cadastrarColaborador: async ([
-    id_usuario,
+const modelProfissional = {
+  cadastrar: async ([
     nome,
-    idade,
-    cidade,
-    estado,
+    dataNascimento,
+    cpf,
+    email,
+    senha,
+    modalidade,
+    dataIngresso,
+    regra,
+
+    //endereco
+    cep,
+    numero,
     bairro,
-    nif,
+    rua,
+    estado,
+    cidade,
+    complemento,
+
+    //telefone
+    telefone,
+    telefoneFixo,
+    contatoEmergencia,
   ]) => {
     try {
-      const [resultado] = await conexao.query(
-        "INSERT INTO COLABORADOR ( id_usuario,nome,idade,cidade,estado,bairro,nf)VALUES(?,?,?,?,?,?,?)",
-        [id_usuario, nome, idade, cidade, estado, bairro, nif],
+      const senhaHash = await bcrypt.hash(senha, 12);
+      console.log({ senha: senhaHash });
+      const [[duplicado]] = await conexao.query(
+        "SELECT id from PROFISSIONAL WHERE email = ?",
+        [email],
       );
-      return resultado;
+      console.log(duplicado);
+
+      if (!duplicado) {
+        console.log("novo");
+        const endereco_id = (
+          await conexao.query(
+            "INSERT INTO endereco( cep, numero, bairro, rua, estado, cidade, complemento) VALUES (?,?,?,?,?,?,?)",
+            [cep, numero, bairro, rua, estado, cidade, complemento],
+          )
+        )[0].insertId;
+        const telefone_id = (
+          await conexao.query(
+            "INSERT INTO telefone(movel, fixo,emergencia) VALUES (?,?,?)",
+            [telefone, telefoneFixo, contatoEmergencia],
+          )
+        )[0].insertId;
+        console.log(endereco_id);
+        const [resultado] = await conexao.query(
+          "INSERT INTO PROFISSIONAL (empresa_id,endereco_id,nome,data_nascimento,cpf,email,senha,modalidade,data_ingresso,regra,telefone_id)VALUES(1,?,?,?,?,?,?,?,?,?,?)",
+          [
+            endereco_id,
+            nome,
+            dataNascimento,
+            cpf,
+            email,
+            senhaHash,
+            modalidade,
+            dataIngresso,
+            regra,
+            telefone_id,
+          ],
+        );
+        console.log(
+          "INSERT INTO PROFISSIONAL (empresa_id,endereco_id,nome,data_nascimento,cpf,email,senha,modalidade,data_ingresso,regra,telefone_id)VALUES(1,?,?,?,?,?,?,?,?,?,?)",
+          [
+            endereco_id,
+            nome,
+            dataNascimento,
+            cpf,
+            email,
+            senhaHash,
+            modalidade,
+            dataIngresso,
+            regra,
+            telefone_id,
+          ],
+        );
+        return resultado;
+      } else {
+        console.log("duplicado");
+        return null;
+      }
     } catch (error) {
+      console.log(error);
       return error;
     }
   },
@@ -231,4 +300,4 @@ const modelColaborador = {
   },
 };
 
-export default modelColaborador;
+export default modelProfissional;

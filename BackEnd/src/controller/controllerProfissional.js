@@ -1,50 +1,116 @@
-import modelColaborador from "../model/modelColaborador.js";
+import modelProfissional from "../model/modelProfissional.js";
 
-const controllerColaborador = {
+const controllerProfissional = {
   cadastrar: async (req, res) => {
     try {
-      const { id_usuario, nome, idade, cidade, estado, bairro, nif } = req.body;
+      const {
+        nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+      } = req.body;
       if (
-        !id_usuario ||
         !nome ||
-        !idade ||
-        !cidade ||
-        !estado ||
+        !dataNascimento ||
+        !cpf ||
+        !email ||
+        !senha ||
+        !modalidade ||
+        !dataIngresso ||
+        !regra ||
+        //endereco
+        !cep ||
+        !numero ||
         !bairro ||
-        !nif
+        !rua ||
+        !estado ||
+        !cidade ||
+        !complemento ||
+        //endereco
+        !estado ||
+        !cidade ||
+        !complemento
       ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
-      const resposta = await modelColaborador.cadastrarColaborador([
-        id_usuario,
+      console.log(
         nome,
-        idade,
-        cidade,
-        estado,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
         bairro,
-        nif,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
+      );
+      const resposta = await modelProfissional.cadastrar([
+        nome,
+        dataNascimento,
+        cpf,
+        email,
+        senha,
+        modalidade,
+        dataIngresso,
+        regra,
+        //endereco
+        cep,
+        numero,
+        bairro,
+        rua,
+        estado,
+        cidade,
+        complemento,
+
+        //telefone
+        telefone,
+        telefoneFixo,
+        contatoEmergencia,
       ]);
-
       console.log(resposta);
-      if (resposta.errno) {
-        res.status(500).json({ API: resposta });
-      }
-
-      if (resposta.code === "ER_DUP_ENTRY") {
+      if (!resposta) {
         res.status(500).json({ API: "DUPLICADO" });
       } else if (resposta.affectedRows === 1)
         res.status(201).json({ API: "INSERIDO" });
     } catch (error) {
       console.log(error);
       console.log(error.code);
-      res.status(500).json({ API: error });
     }
   },
   listar: async (req, res) => {
     try {
       {
       }
-      const [resposta] = await modelColaborador.listar();
+      const [resposta] = await modelProfissional.listar();
 
       console.log(resposta);
       res.status(200).json(resposta);
@@ -59,7 +125,7 @@ const controllerColaborador = {
       }
       const id = req.params.id;
       console.log(id);
-      const [resposta] = await modelColaborador.listarPorId(id);
+      const [resposta] = await modelProfissional.listarPorId(id);
 
       console.log(resposta);
       res.status(200).json(resposta);
@@ -74,24 +140,21 @@ const controllerColaborador = {
       }
       const id = req.params.id;
       console.log(id);
-      const resposta = await modelColaborador.deletar(id);
+      const resposta = await modelProfissional.deletar(id);
 
       console.log(resposta);
       if (resposta.errno === "1062") {
-        res.status(400).json({msg:"valor duplicado"});
+        res.status(400).json({ msg: "valor duplicado" });
       }
       if (resposta === "sucesso") {
         res.status(204).json(resposta);
-      }
-      else{
+      } else {
         res.status(500).json(resposta);
-
       }
     } catch (error) {
       console.log(error);
       res.status(500).json({ API: error });
     }
-
   },
   atualizarPorId: async (req, res) => {
     try {
@@ -147,7 +210,7 @@ const controllerColaborador = {
 
       console.log(id);
       console.log(req.body);
-      const resposta = await modelColaborador.atualizarPorId(
+      const resposta = await modelProfissional.atualizarPorId(
         nome,
         dataNascimento,
         cpf,
@@ -175,14 +238,12 @@ const controllerColaborador = {
 
       console.log(resposta);
       if (resposta.errno === "1062") {
-        res.status(200).json({msg:"valor duplicado"});
+        res.status(200).json({ msg: "valor duplicado" });
       }
       if (resposta === "sucesso") {
         res.status(204).json(resposta);
-      }
-      else{
+      } else {
         res.status(500).json(resposta);
-
       }
     } catch (error) {
       console.log(error);
@@ -190,4 +251,4 @@ const controllerColaborador = {
     }
   },
 };
-export default controllerColaborador;
+export default controllerProfissional;

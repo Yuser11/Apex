@@ -1,27 +1,25 @@
 import { useActionState, useState } from "react";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 function MainCadastrarCliente() {
   const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
+  const [email, setEmail] = useState("");
+  const [genero, setGenero] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [telefoneFixo, setTelefoneFixo] = useState(null);
-  const [contatoEmergencia, setContatoEmergencia] = useState(null);
-  const [modalidade, setModalidade] = useState("");
+  const [observacoes, setObservacoes] = useState("");
+
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [endereco, setEndereco] = useState("");
   const [complemento, setComplemento] = useState("");
-  const [senha, setSenha] = useState("mudar123");
-  const [senhaOculta, setSenhaOculta] = useState(true);
-  const [dataIngresso, setDataIngresso] = useState("");
-  const [regra, setRegra] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
-  const token = sessionStorage.getItem("token")
+
+  const [telefone, setTelefone] = useState("");
+  const [telefoneFixo, setTelefoneFixo] = useState(null);
+  const token = sessionStorage.getItem("token");
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -31,7 +29,7 @@ function MainCadastrarCliente() {
       let dadosCep = await resposta.json();
       setEndereco(dadosCep.logradouro);
       setCidade(dadosCep.localidade);
-      setBairro(dadosCep.bairro)
+      setBairro(dadosCep.bairro);
       setEstado(dadosCep.uf);
       setComplemento(dadosCep.complemento);
       console.log(dadosCep);
@@ -42,23 +40,17 @@ function MainCadastrarCliente() {
 
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
-      let dadosFuncionario = JSON.stringify(Object.fromEntries(formData.entries()));
-      console.log(dadosFuncionario)
-      // Simula uma espera em segundos
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log(dadosFuncionario);
+      let dadosCliente = JSON.stringify(Object.fromEntries(formData.entries()));
+      console.log(dadosCliente);
       try {
-        let resposta = await fetch(
-          "http://localhost:3001/api/cadastrar",
-          {
-            method: "POST",
-            body: dadosFuncionario,
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-              "Authorization": `Bearer ${token}`
-            }
+        let resposta = await fetch("http://localhost:3001/api/cliente/cadastrar", {
+          method: "POST",
+          body: dadosCliente,
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         console.log(resposta);
         console.log(resposta.status);
         console.log(resposta.ok);
@@ -71,10 +63,8 @@ function MainCadastrarCliente() {
             setEmail("");
             setCpf("");
             setDataNascimento("");
-            setRegra("");
-            setModalidade("");
-            setSenha("mudar123");
-            setDataIngresso("");
+            setObservacoes("");
+            setGenero("");
 
             setCidade("");
             setEstado("");
@@ -86,12 +76,11 @@ function MainCadastrarCliente() {
 
             setTelefone("");
             setTelefoneFixo("");
-            setContatoEmergencia("");
           } else {
             toast.error("Erro ao cadastrar!");
           }
         } else {
-            toast.error("Erro ao cadastrar!");
+          toast.error("Erro ao cadastrar!");
         }
       } catch (erro) {
         console.log(erro);
@@ -103,11 +92,10 @@ function MainCadastrarCliente() {
     <>
       <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
+          <h1 className="h2">Cadastrar Cliente - {nome}</h1>
         </div>
-        <form action={acaoCadastro} className="row g-3" id="meuForm" >
-
-          <div className="col-md-4">
+        <form action={acaoCadastro} className="row g-3" id="meuForm">
+          <div className="col-md-6">
             <label htmlFor="nome" className="form-label">
               Nome Completo:
             </label>
@@ -122,22 +110,7 @@ function MainCadastrarCliente() {
             />
           </div>
 
-          <div className="col-md-4">
-            <label htmlFor="dataNascimento" className="form-label">
-              Data de nascimento:
-            </label>
-            <input
-              value={dataNascimento}
-              onChange={(e) => setDataNascimento(e.target.value)}
-              type="date"
-              className="form-control"
-              id="dataNascimento"
-              name="dataNascimento"
-              required
-            />
-          </div>
-
-          <div className="col-md-4">
+          <div className="col-md-6">
             <label htmlFor="cpf" className="form-label">
               CPF:
             </label>
@@ -148,13 +121,14 @@ function MainCadastrarCliente() {
               className="form-control"
               id="cpf"
               name="cpf"
-              placeholder="Digite seu CPF"
+              placeholder="Digite o CPF"
               required
-              maxLength={11}
+              pattern="\d*"
+              maxlength="11"
             />
           </div>
 
-          <div className="col-md-7">
+          <div className="col-md-8">
             <label htmlFor="email" className="form-label">
               Email:
             </label>
@@ -170,28 +144,33 @@ function MainCadastrarCliente() {
             />
           </div>
 
-          <div className="col-md-5">
-            <label htmlFor="senha" className="form-label">
-              Senha:
+          <div className="col-md-4">
+            <label htmlFor="genero" className="form-label">
+              Genero:
             </label>
-            <div className="d-flex">
-
-              <input
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                type={senhaOculta ? 'password' : 'text'}
-                className="form-control"
-                id="senha"
-                name="senha"
-                placeholder={senhaOculta ? '********' : 'Digite sua senha'}
-                required
-              />
-              <div onClick={() => setSenhaOculta(!senhaOculta)}>
-                mudar
-              </div>
-            </div>
+            <select
+              name="genero"
+              onChange={(e) => setGenero(e.target.value)}
+              className="form-control"
+            >
+              <option value="F">Feminino</option>
+              <option value="M">Masculino</option>
+            </select>
           </div>
-
+          <div className="col-md-4">
+            <label htmlFor="dataNascimento" className="form-label">
+              Data de nascimento:
+            </label>
+            <input
+              value={dataNascimento}
+              onChange={(e) => setDataNascimento(e.target.value)}
+              type="date"
+              className="form-control"
+              id="dataNascimento"
+              name="dataNascimento"
+              required
+            />
+          </div>
           <div className="col-md-4">
             <label htmlFor="telefone" className="form-label">
               Telefone:
@@ -223,62 +202,18 @@ function MainCadastrarCliente() {
             />
           </div>
 
-          <div className="col-md-4">
-            <label htmlFor="contatoEmergencia" className="form-label">
-              Contato Emergencia:
+          <div className="col-12">
+            <label htmlFor="observacoes" className="form-label">
+              Observacoes:
             </label>
             <input
-              value={contatoEmergencia}
-              onChange={(e) => setContatoEmergencia(e.target.value)}
-              type="tel"
+              value={observacoes}
+              onChange={(e) => setObservacoes(e.target.value)}
+              type="text"
               className="form-control"
-              id="contatoEmergencia"
-              name="contatoEmergencia"
-              required
-              maxLength={9}
+              id="observacoes"
+              name="observacoes"
             />
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="modalidade" className="form-label">
-              Modalidade:
-            </label>
-            <select name="modalidade"
-              onChange={(e) => setModalidade(e.target.value)}
-              className="form-control"
-            >
-              <option value="presencial">Presencial</option>
-              <option value="hibrido" selected>Híbrido</option>
-              <option value="remoto">Remoto</option>
-            </select>
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="dataIngresso" className="form-label">
-              Data de Ingresso:
-            </label>
-            <input
-              value={dataIngresso}
-              onChange={(e) => setDataIngresso(e.target.value)}
-              type="date"
-              className="form-control"
-              id="dataIngresso"
-              name="dataIngresso"
-              required
-            />
-          </div>
-
-          <div className="col-md-4">
-            <label htmlFor="regra" className="form-label">
-              Regra:
-            </label>
-            <select name="regra"
-              onChange={(e) => setRegra(e.target.value)}
-              className="form-control"
-            >
-              <option value="admin">Admin</option>
-              <option value="usuario" selected>Usuário</option>
-            </select>
           </div>
 
           <div className="col-md-3">

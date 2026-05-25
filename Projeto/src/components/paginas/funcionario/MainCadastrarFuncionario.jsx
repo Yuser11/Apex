@@ -1,5 +1,5 @@
 import { useActionState, useState } from "react";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 function MainCadastrarFuncionario() {
   const [nome, setNome] = useState("");
@@ -21,7 +21,7 @@ function MainCadastrarFuncionario() {
   const [regra, setRegra] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
-  const token = sessionStorage.getItem("token")
+  const token = sessionStorage.getItem("token");
 
   let urlViaCep = `https://viacep.com.br/ws/${cep}/json/ `;
 
@@ -31,7 +31,7 @@ function MainCadastrarFuncionario() {
       let dadosCep = await resposta.json();
       setEndereco(dadosCep.logradouro);
       setCidade(dadosCep.localidade);
-      setBairro(dadosCep.bairro)
+      setBairro(dadosCep.bairro);
       setEstado(dadosCep.uf);
       setComplemento(dadosCep.complemento);
       console.log(dadosCep);
@@ -42,23 +42,20 @@ function MainCadastrarFuncionario() {
 
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
-      let dadosFuncionario = JSON.stringify(Object.fromEntries(formData.entries()));
-      console.log(dadosFuncionario)
-      // Simula uma espera em segundos
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      let dadosFuncionario = JSON.stringify(
+        Object.fromEntries(formData.entries()),
+      );
+      console.log(dadosFuncionario);
       console.log(dadosFuncionario);
       try {
-        let resposta = await fetch(
-          "http://localhost:3001/api/cadastrar",
-          {
-            method: "POST",
-            body: dadosFuncionario,
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-              "Authorization": `Bearer ${token}`
-            }
+        let resposta = await fetch("http://localhost:3001/api/cadastrar", {
+          method: "POST",
+          body: dadosFuncionario,
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${token}`,
           },
-        );
+        });
         console.log(resposta);
         console.log(resposta.status);
         console.log(resposta.ok);
@@ -91,7 +88,7 @@ function MainCadastrarFuncionario() {
             toast.error("Erro ao cadastrar!");
           }
         } else {
-            toast.error("Erro ao cadastrar!");
+          toast.error("Erro ao cadastrar!");
         }
       } catch (erro) {
         console.log(erro);
@@ -105,8 +102,7 @@ function MainCadastrarFuncionario() {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Cadastrar Funcionario - {nome}</h1>
         </div>
-        <form action={acaoCadastro} className="row g-3" id="meuForm" >
-
+        <form action={acaoCadastro} className="row g-3" id="meuForm">
           <div className="col-md-4">
             <label htmlFor="nome" className="form-label">
               Nome Completo:
@@ -148,9 +144,10 @@ function MainCadastrarFuncionario() {
               className="form-control"
               id="cpf"
               name="cpf"
-              placeholder="Digite seu CPF"
+              placeholder="Digite o CPF"
               required
-              maxLength={11}
+              pattern="\d*"
+              maxlength="11"
             />
           </div>
 
@@ -175,20 +172,17 @@ function MainCadastrarFuncionario() {
               Senha:
             </label>
             <div className="d-flex">
-
               <input
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
-                type={senhaOculta ? 'password' : 'text'}
+                type={senhaOculta ? "password" : "text"}
                 className="form-control"
                 id="senha"
                 name="senha"
-                placeholder={senhaOculta ? '********' : 'Digite sua senha'}
+                placeholder={senhaOculta ? "********" : "Digite sua senha"}
                 required
               />
-              <div onClick={() => setSenhaOculta(!senhaOculta)}>
-                mudar
-              </div>
+              <div onClick={() => setSenhaOculta(!senhaOculta)}>mudar</div>
             </div>
           </div>
 
@@ -243,12 +237,15 @@ function MainCadastrarFuncionario() {
             <label htmlFor="modalidade" className="form-label">
               Modalidade:
             </label>
-            <select name="modalidade"
+            <select
+              name="modalidade"
               onChange={(e) => setModalidade(e.target.value)}
               className="form-control"
             >
               <option value="presencial">Presencial</option>
-              <option value="hibrido" selected>Híbrido</option>
+              <option value="hibrido" selected>
+                Híbrido
+              </option>
               <option value="remoto">Remoto</option>
             </select>
           </div>
@@ -272,12 +269,15 @@ function MainCadastrarFuncionario() {
             <label htmlFor="regra" className="form-label">
               Regra:
             </label>
-            <select name="regra"
+            <select
+              name="regra"
               onChange={(e) => setRegra(e.target.value)}
               className="form-control"
             >
               <option value="admin">Admin</option>
-              <option value="usuario" selected>Usuário</option>
+              <option value="usuario" selected>
+                Usuário
+              </option>
             </select>
           </div>
 

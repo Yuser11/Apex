@@ -1,31 +1,32 @@
-import express from 'express'
-import controllerRaiz from '../controller/controllerRoot.js';
-import controllerUsuario from '../controller/controllerUsuario.js';
-import controllerColaborador from '../controller/controllerColaborador.js';
-import controllerImage from '../controller/controllerImage.js';
-import controllerVeiculo from '../controller/controllerVeiculo.js';
+import express from "express";
+import controllerRaiz from "../controller/controllerRoot.js";
+import controllerUsuario from "../controller/controllerUsuario.js";
+import controllerProfissional from "../controller/controllerProfissional.js";
+import controllerCliente from "../controller/controllerCliente.js";
+
+// import controllerImage from "../controller/controllerImage.js";
+// import controllerVeiculo from "../controller/controllerVeiculo.js";
 
 const routers = express();
 
 routers.use(express.json());
- 
-routers.get('/', controllerRaiz.raiz)
 
-routers.post('/api/cadastrar', controllerUsuario.cadastrar)
-routers.post('/login', controllerUsuario.login)
+routers.get("/", controllerRaiz.raiz);
 
-routers.get('/profissionais', controllerColaborador.listar)
-routers.get('/api/profissionais/:id', controllerColaborador.listarPorId)
-routers.put('/api/profissionais/:id', controllerColaborador.atualizarPorId)
-routers.delete('/api/profissionais/:id', controllerColaborador.deletar)
+routers.post("/api/cadastrar", controllerProfissional.cadastrar);
+routers.post("/login", controllerUsuario.login);
 
-routers.get('/veiculos', controllerVeiculo.listar)
+routers.get("/profissionais", controllerProfissional.listar);
+routers.get("/api/profissionais/:id", controllerProfissional.listarPorId);
+routers.put("/api/profissionais/:id", controllerProfissional.atualizarPorId);
+routers.delete("/api/profissionais/:id", controllerProfissional.deletar);
 
-routers.post('/image', controllerImage.salvar)
+routers.post("/api/cliente/cadastrar", controllerCliente.cadastrar);
+routers.get("/clientes", controllerCliente.listar);
+routers.get("/api/clientes/:id", controllerCliente.listarPorId);
 
-//* JSON WEB TOKEN -- JWT
-//* AUTENTICAÇÃO E AUTORIZAÇÃO
+// routers.get('/veiculos', controllerVeiculo.listar)
 
-//* HEADER, PAYLOAD, SIGNATURE
+// routers.post('/image', controllerImage.salvar)
 
-export default routers
+export default routers;

@@ -1,5 +1,5 @@
-CREATE DATABASE APEX_NEO; USE
-    APEX_NEO;
+CREATE DATABASE APEX; USE
+    APEX;
 CREATE TABLE ENDERECO(
     id INT(11) NOT NULL AUTO_INCREMENT,
     cep CHAR(8) NOT NULL,
@@ -21,10 +21,10 @@ CREATE TABLE ENDERECO(
     nome VARCHAR(100) NOT NULL,
     cnpj CHAR(14) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    endereco_id INT(11) NOT NULL,
-    telefone_id INT(11) NOT NULL,
     data_criacao DATE NOT NULL,
     observacoes TEXT,
+    endereco_id INT(11) NOT NULL,
+    telefone_id INT(11) NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT fk_empresa_endereco FOREIGN KEY(endereco_id) REFERENCES ENDERECO(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_empresa_telefone FOREIGN KEY(telefone_id) REFERENCES TELEFONE(id) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -61,15 +61,14 @@ CREATE TABLE PROFISSIONAL(
     CONSTRAINT fk_carro_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE
 ); CREATE TABLE CLIENTE(
     id INT(11) NOT NULL AUTO_INCREMENT,
-    empresa_id INT(11) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     cpf CHAR(14) NOT NULL UNIQUE,
-    email VARCHAR(100) UNIQUE,
-    data_cadastro DATETIME DEFAULT(CURRENT_DATE),
-    telefone CHAR(14) NOT NULL,
     genero CHAR(1) NOT NULL,
     data_nascimento DATE NOT NULL,
+    email VARCHAR(100) UNIQUE,
     observacoes TEXT,
+    data_cadastro DATETIME DEFAULT(CURRENT_DATE),
+    empresa_id INT(11) NOT NULL,
     endereco_id INT(11) NOT NULL,
     telefone_id INT(11) NOT NULL,
     PRIMARY KEY(id),
@@ -89,11 +88,11 @@ CREATE TABLE PROFISSIONAL(
 );
 CREATE TABLE GALERIA(
     id INT(11) NOT NULL AUTO_INCREMENT,
-    empresa_id INT(11),
+    imagem VARCHAR(150) NOT NULL,
     cliente_id INT(11),
+    empresa_id INT(11),
     profissional_id INT(11),
     veiculo_id INT(11),
-    imagem VARCHAR(150) NOT NULL,
     PRIMARY KEY(id),
     CONSTRAINT fk_galeria_empresa FOREIGN KEY(empresa_id) REFERENCES EMPRESA(id) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT fk_galeria_profissional FOREIGN KEY(profissional_id) REFERENCES PROFISSIONAL(id) ON DELETE RESTRICT ON UPDATE CASCADE,

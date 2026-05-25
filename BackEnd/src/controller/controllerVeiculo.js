@@ -1,6 +1,5 @@
 import modelVeiculo from "../model/modelVeiculo.js";
 const controllerVeiculo = {
-
   cadastrar: async (req, res) => {
     try {
       const { nome, quantidade, valor, codigo } = req.body;
@@ -73,7 +72,7 @@ const controllerVeiculo = {
         id,
         nome,
         quantidade,
-        valor
+        valor,
       ]);
       console.log(resposta.affectedRows);
       if (resposta.affectedRows === 1) {
