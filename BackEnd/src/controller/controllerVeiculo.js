@@ -41,7 +41,7 @@ const controllerVeiculo = {
     try {
       const id = req.params.id;
       console.log(req);
-      const resposta = await modelProduto.deletar(id);
+      const resposta = await modelVeiculo.deletar(id);
       console.log(resposta[0]);
       if (resposta.affectedRows === 1) {
         res.status(204).json({ MSG: "Registro deletado com sucesso" });
@@ -56,7 +56,7 @@ const controllerVeiculo = {
   listarPorID: async (req, res) => {
     try {
       const id = req.params.id;
-      const resposta = await modelProduto.listarPorID(id);
+      const resposta = await modelVeiculo.listarPorID(id);
       console.log(resposta[0]);
       res.status(200).json(resposta);
     } catch (error) {
@@ -68,7 +68,7 @@ const controllerVeiculo = {
     try {
       const id = req.params.id;
       const { nome, quantidade, valor } = req.body;
-      const resposta = await modelProduto.atualizarPorID([
+      const resposta = await modelVeiculo.atualizarPorID([
         id,
         nome,
         quantidade,
