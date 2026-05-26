@@ -83,7 +83,7 @@ const controllerCliente = {
       ]);
       console.log(resposta);
       if (!resposta) {
-        res.status(500).json({ API: "DUPLICADO" });
+        res.status(400).json({ API: "DUPLICADO" });
       } else if (resposta.affectedRows === 1)
         res.status(201).json({ API: "INSERIDO" });
     } catch (error) {
