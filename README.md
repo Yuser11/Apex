@@ -1,28 +1,43 @@
-# APEX
-[![npm](https://img.shields.io/npm/v/react-dropzone.svg?style=flat-square)](https://www.npmjs.com/package/react-dropzone)
+# Apex
 
+# Descrição do projeto  
+O APEX é uma aplicação web desenvolvida para o gerenciamento de uma concessionária, com o objetivo central de otimizar e automatizar seus processos internos; O projeto resolve a necessidade de maior agilidade e eficiência na administração, facilitando a organização de grandes fluxos de processos e o registro de atividades para garantir que a empresa se mantenha competitiva e operante
 
-Projeto de desenvolvimento de um dashboard interativo e funcional para a empresa apex
+# Tecnologias utilizadas
+- `JavaScript`
+- `CSS`
+- `Bootstrap 5.3`
+- `React`
+- `HTML 5`
 
-O código fonte pode ser encontrado em https://github.com/Yuser11/Apex
+# Bibliotecas utilizadas
+"devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.27",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "postcss": "^8.5.8",
+    "vite": "^7.3.1"
+  }
 
-
-## Instalação
-Para a instalação do site, os comandos devem ser usados no terminal:
+# Como Rodas o Projeto
+Passo a passo para quem quiser testar na própria máquina:
 
 ```bash
+#  Clone este repositorio 
 git clone https://github.com/Yuser11/Apex.git
-cd Apex/Projeto
-npm i 
+
+# Acesse a pasta do projeto 
+cd Apex
+
+# Instale as dependências 
+npm install
+
+# Inicie a aplicação
 npm run dev
-```
-
-
-## Suporte
-
-### Desenvolvedores
-
-<a href="https://github.com/Yuser11" target="_blank"><img src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Ftse3.mm.bing.net%2Fth%2Fid%2FOIP.4A4iwzRKJEz5nWjYh8rwDwHaHa%3Fpid%3DApi&sp=1774350343T6aa7372b4d9c0ce660b798b6b6e816bdf42f87bb399ca861b549df5e3fb79b28" width="50" height="50">yuri</a>
-<a href="https://github.com/josesilva1533" target="_blank"><img src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Ftse3.mm.bing.net%2Fth%2Fid%2FOIP.4A4iwzRKJEz5nWjYh8rwDwHaHa%3Fpid%3DApi&sp=1774350343T6aa7372b4d9c0ce660b798b6b6e816bdf42f87bb399ca861b549df5e3fb79b28" width="50" height="50">jose</a>
-<a href="https://github.com/mateuslalva" target="_blank"><img src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Ftse3.mm.bing.net%2Fth%2Fid%2FOIP.4A4iwzRKJEz5nWjYh8rwDwHaHa%3Fpid%3DApi&sp=1774350343T6aa7372b4d9c0ce660b798b6b6e816bdf42f87bb399ca861b549df5e3fb79b28" width="50" height="50">mateus</a>
-<a href="https://github.com/MuriloRamos07" target="_blank"><img src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Ftse3.mm.bing.net%2Fth%2Fid%2FOIP.4A4iwzRKJEz5nWjYh8rwDwHaHa%3Fpid%3DApi&sp=1774350343T6aa7372b4d9c0ce660b798b6b6e816bdf42f87bb399ca861b549df5e3fb79b28" width="50" height="50">murilo</a>
