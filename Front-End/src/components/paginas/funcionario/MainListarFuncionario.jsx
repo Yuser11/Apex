@@ -86,7 +86,7 @@ function MainListarFuncionario() {
                 <td>{Funcionario.cpf}</td>
                 <td>{Funcionario.modalidade}</td>
                 <td>{Funcionario.cep}</td>
-                <td>{Funcionario.telefone}</td>
+                <td>{Funcionario.movel}</td>
                 <td>{Funcionario.regra}</td>
                 {regra === "admin" && (
                   <>

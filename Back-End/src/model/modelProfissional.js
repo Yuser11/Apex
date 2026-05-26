@@ -93,7 +93,11 @@ const modelProfissional = {
   listar: async () => {
     try {
       const resultado = await conexao.query(
-        "SELECT id, empresa_id, nome, data_nascimento, cpf, email, senha, modalidade, data_ingresso, data_cadastro, regra FROM profissional WHERE 1",
+        `SELECT  PROFISSIONAL.id, PROFISSIONAL.empresa_id, PROFISSIONAL.nome, PROFISSIONAL.data_nascimento, PROFISSIONAL.cpf, PROFISSIONAL.email, PROFISSIONAL.modalidade, PROFISSIONAL.data_ingresso, PROFISSIONAL.data_cadastro, PROFISSIONAL.regra, ENDERECO.cep, TELEFONE.movel
+        FROM PROFISSIONAL 
+        JOIN ENDERECO ON ENDERECO.id = PROFISSIONAL.endereco_id
+        JOIN TELEFONE ON TELEFONE.id = PROFISSIONAL.telefone_id
+        WHERE 1`,
       );
       console.log(resultado);
       return resultado;
