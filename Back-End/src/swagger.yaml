@@ -1,0 +1,448 @@
+openapi: 3.0.0
+
+info:
+  title: API Apex
+  version: 1.0.0
+  description: API de gerenciamento de usuários, clientes e profissionais
+
+servers:
+  - url: http://localhost:3001
+    description: Desenvolvimento
+
+  - url: https://api.meusistema.com
+    description: Produção
+
+tags:
+  - name: Root
+  - name: Usuario
+  - name: Profissional
+  - name: Cliente
+
+paths:
+
+  /:
+    get:
+      tags:
+        - Root
+
+      summary: Rota principal da API
+
+      responses:
+        '200':
+          description: API online
+
+  /api/Cadastrar:
+    post:
+      tags:
+        - Profissional
+
+      summary: Cadastrar novo usuário
+
+      security:
+        - BearerAuth: []
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cadastrar'
+
+      responses:
+        '201':
+          description: Usuário cadastrado com sucesso
+
+        '401':
+          description: Token inválido ou não informado
+
+        '500':
+          description: Erro interno do servidor
+
+  /login:
+    post:
+      tags:
+        - Usuario
+
+      summary: Realizar login
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+
+      responses:
+        '200':
+          description: Login realizado com sucesso
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  token:
+                    type: string
+                    example: JWT_TOKEN
+
+        '401':
+          description: Credenciais inválidas
+
+        '500':
+          description: Erro interno do servidor
+
+  /profissionais:
+    get:
+      tags:
+        - Profissional
+
+      summary: Listar todos os profissionais
+
+
+      responses:
+        '201':
+          description: Lista de profissionais
+
+        '500':
+          description: Erro interno do servidor
+
+  /api/profissionais/:id:
+    get:
+      tags:
+        - Profissional
+
+      summary: Listar unico profissional
+
+      security:
+        - BearerAuth: []
+
+      responses:
+        '200':
+          description: Profissional
+
+        '500':
+          description: Erro interno do servidor
+
+    put:
+      tags:
+        - Profissional
+
+      summary: Editar profissional e seus relacionados
+
+      security:
+        - BearerAuth: []
+
+      responses:
+        '204':
+          description: Sucesso
+
+        '500':
+          description: Erro interno do servidor
+
+    delete:
+      tags:
+        - Profissional
+
+      summary: Deletar profissional e seus relacionados
+
+      security:
+        - BearerAuth: []
+
+      responses:
+        '204':
+          description: Sucesso
+
+        '500':
+          description: Erro interno do servidor
+
+  /api/cliente/cadastrar:
+    post:
+      tags:
+        - Cliente
+
+      summary: Criar registro de cliente com relacionmentos 
+
+      security:
+        - BearerAuth: []
+
+      responses:
+        '201':
+          description: Criado com sucesso
+
+        '400':
+          description: Duplicado
+
+        '500':
+          description: Erro interno do servidor
+ 
+  /clientes:
+    get:
+      tags:
+        - Cliente
+
+      summary: Listar todos os clientes
+
+
+      responses:
+        '200':
+          description: Lista dos clientes
+
+        '500':
+          description: Erro interno do servidor
+ 
+  /api/clientes/:id:
+    get:
+      tags:
+        - Cliente
+
+      summary: Listar unico cliente
+
+      responses:
+        '200':
+          description: Dados do cliente
+
+        '500':
+          description: Erro interno do servidor
+
+components:
+
+  securitySchemes:
+
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+    Usuario:
+      type: object
+
+      required:
+        - email
+        - senha
+
+      properties:
+
+        nome:
+          type: string
+          example: João Silva
+
+        email:
+          type: string
+          example: joao@email.com
+
+        senha:
+          type: string
+          example: 123456
+
+    Login:
+      type: object
+
+      required:
+        - email
+        - senha
+
+      properties:
+
+        email:
+          type: string
+          example: joao@email.com
+
+        senha:
+          type: string
+          example: 123456
+
+    Profissional:
+      type: object
+
+      required:
+       - nome
+       - dataNascimento
+       - cpf
+       - email
+       - senha
+       - modalidade
+       - dataIngresso
+       - regra
+       - cep
+       - numero
+       - bairro
+       - rua
+       - estado
+       - cidade
+       - complemento
+       - telefone
+       - telefoneFixo
+       - contatoEmergencia
+
+      properties:
+
+        nome:
+          type: string
+          example: "yuri"
+
+        dataNascimento:
+          type: date
+          example: 2009-03-20
+
+        cpf:
+          type: number
+          example: 55000000
+
+        email:
+          type: email
+          example: "yuri@gmail"
+
+        senha:
+          type: text
+          example: "123"
+
+        modalidade:
+          type: text
+          example: "presencial"
+
+        dataIngresso:
+          type: date
+          example: 2020-03-20
+
+        regra:
+          type: text
+          example: "admin"
+
+        cep:
+          type: text
+          example: "01010001"
+
+        numero:
+          type: number
+          example: 01010001
+
+        bairro:
+          type: text
+          example: "monte verde"
+
+        rua:
+          type: text
+          example: "rua das flores"
+
+        estado:
+          type: text
+          example: "SP"
+
+        cidade:
+          type: text
+          example: "garca"
+
+        complemento:
+          type: text
+          example: "ao lado do..."
+
+        telefone:
+          type: number
+          example: 12345678901
+
+        telefoneFixo:
+          type: number
+          example: 1234567890
+
+        contatoEmergencia:
+          type: number
+          example: 12345678901
+
+    AtualizarProduto:
+      type: object
+
+      properties:
+
+        nome:
+          type: string
+          example: Notebook Atualizado
+
+        preco:
+          type: number
+          example: 7000
+    Profissional:
+      type: object
+
+      required:
+       - nome
+       - dataNascimento
+       - cpf
+       - email
+       - genero
+       - cep
+       - numero
+       - bairro
+       - rua
+       - estado
+       - cidade
+       - complemento
+       - telefone
+       - telefoneFixo
+       - contatoEmergencia
+
+      properties:
+
+        nome:
+          type: string
+          example: "yuri"
+
+        dataNascimento:
+          type: date
+          example: 2009-03-20
+
+        cpf:
+          type: number
+          example: 55000000
+
+        email:
+          type: email
+          example: "yuri@gmail"
+
+        genero:
+          type: char
+          example: "F"
+
+        cep:
+          type: text
+          example: "01010001"
+
+        numero:
+          type: number
+          example: 01010001
+
+        bairro:
+          type: text
+          example: "monte verde"
+
+        rua:
+          type: text
+          example: "rua das flores"
+
+        estado:
+          type: text
+          example: "SP"
+
+        cidade:
+          type: text
+          example: "garca"
+
+        complemento:
+          type: text
+          example: "ao lado do..."
+
+        telefone:
+          type: number
+          example: 12345678901
+
+        telefoneFixo:
+          type: number
+          example: 1234567890
+
+        contatoEmergencia:
+          type: number
+          example: 12345678901

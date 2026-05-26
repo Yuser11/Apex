@@ -24,7 +24,7 @@ const controllerProfissional = {
         //telefone
         telefone,
         telefoneFixo,
-        contatoEmergencia,
+        contatoEmergencia
       } = req.body;
       if (
         !nome ||
