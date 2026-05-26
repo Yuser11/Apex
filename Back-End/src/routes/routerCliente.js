@@ -1,6 +1,5 @@
 import express from "express";
-import controllerRaiz from "../controller/controllerRoot.js";
-
+import controllerCliente from "../controller/controllerCliente.js";
 
 // import controllerImage from "../controller/controllerImage.js";
 // import controllerVeiculo from "../controller/controllerVeiculo.js";
@@ -9,10 +8,8 @@ const routers = express();
 
 routers.use(express.json());
 
-routers.get("/", controllerRaiz.raiz);
-
-// routers.get('/veiculos', controllerVeiculo.listar)
-
-// routers.post('/image', controllerImage.salvar)
+routers.post("/api/cliente/cadastrar", controllerCliente.cadastrar);
+routers.get("/clientes", controllerCliente.listar);
+routers.get("/api/clientes/:id", controllerCliente.listarPorId);
 
 export default routers;

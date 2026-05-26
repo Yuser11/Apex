@@ -14,7 +14,7 @@ servers:
 
 tags:
   - name: Root
-  - name: Usuario
+  - name: Login
   - name: Profissional
   - name: Cliente
 
@@ -47,7 +47,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cadastrar'
+              $ref: '#/components/schemas/Profissional'
 
       responses:
         '201':
@@ -62,7 +62,7 @@ paths:
   /login:
     post:
       tags:
-        - Usuario
+        - Login
 
       summary: Realizar login
 
@@ -72,7 +72,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Login'
+              $ref: '#/components/schemas/Profissional'
 
       responses:
         '200':
@@ -109,12 +109,18 @@ paths:
         '500':
           description: Erro interno do servidor
 
-  /api/profissionais/:id:
+  /api/profissionais/{id}:
     get:
       tags:
         - Profissional
 
       summary: Listar unico profissional
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Id do profissional
 
       security:
         - BearerAuth: []
@@ -134,6 +140,14 @@ paths:
 
       security:
         - BearerAuth: []
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profissional'
 
       responses:
         '204':
@@ -168,6 +182,14 @@ paths:
       security:
         - BearerAuth: []
 
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cliente'
+
       responses:
         '201':
           description: Criado com sucesso
@@ -181,7 +203,7 @@ paths:
   /clientes:
     get:
       tags:
-        - Cliente
+       - Cliente
 
       summary: Listar todos os clientes
 
@@ -218,27 +240,6 @@ components:
 
   schemas:
 
-    Usuario:
-      type: object
-
-      required:
-        - email
-        - senha
-
-      properties:
-
-        nome:
-          type: string
-          example: João Silva
-
-        email:
-          type: string
-          example: joao@email.com
-
-        senha:
-          type: string
-          example: 123456
-
     Login:
       type: object
 
@@ -254,7 +255,7 @@ components:
 
         senha:
           type: string
-          example: 123456
+          example: "123456"
 
     Profissional:
       type: object
@@ -353,19 +354,7 @@ components:
           type: number
           example: 12345678901
 
-    AtualizarProduto:
-      type: object
-
-      properties:
-
-        nome:
-          type: string
-          example: Notebook Atualizado
-
-        preco:
-          type: number
-          example: 7000
-    Profissional:
+    Cliente:
       type: object
 
       required:
@@ -437,12 +426,12 @@ components:
 
         telefone:
           type: number
-          example: 12345678901
+          example: 123456789
 
         telefoneFixo:
           type: number
-          example: 1234567890
+          example: 12345678
 
         contatoEmergencia:
           type: number
-          example: 12345678901
+          example: 123456789
