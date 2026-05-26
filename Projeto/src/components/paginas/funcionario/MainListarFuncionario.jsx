@@ -67,6 +67,8 @@ function MainListarFuncionario() {
               <th>Data de nascimento:</th>
               <th>CPF:</th>
               <th>MODALIDADE:</th>
+              <th>CEP:</th>
+              <th>TELEFONE:</th>
               <th>REGRA:</th>
               {regra === "admin" && (
                 <>
@@ -83,6 +85,8 @@ function MainListarFuncionario() {
                 <td>{Funcionario.data_nascimento.slice(0, 10)}</td>
                 <td>{Funcionario.cpf}</td>
                 <td>{Funcionario.modalidade}</td>
+                <td>{Funcionario.cep}</td>
+                <td>{Funcionario.telefone}</td>
                 <td>{Funcionario.regra}</td>
                 {regra === "admin" && (
                   <>
