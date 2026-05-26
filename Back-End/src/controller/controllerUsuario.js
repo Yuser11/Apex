@@ -7,7 +7,7 @@ const controllerUsuario = {
       const resposta = await modelUsuario.ValidarLogin(email, senha);
       console.log(resposta);
       if (!resposta) {
-        res.status(400).json(resposta);
+        res.status(401).json({msg:'Credenciais inválidas'});
       }
       res.status(200).json(resposta);
     } catch (error) {
