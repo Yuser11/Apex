@@ -2,14 +2,17 @@ import { useActionState, useState } from "react";
 import { toast } from "react-toastify";
 
 function MainCadastrarVeiculo() {
-    const [nome, setNome] = useState("");
+  const [nome, setNome] = useState("");
   const [marca, setMarca] = useState("");
   const [ano, setAno] = useState("");
   const [tracao, setTracao] = useState("");
   const [quilometragem, setQuilometragem] = useState("");
   const [valor, setValor] = useState("");
   const [descricao, setDescricao] = useState("");
+  const [file, setFile] = useState("");
 
+  const token = sessionStorage.getItem("token")
+  
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
       let dadosVeiculo = JSON.stringify(Object.fromEntries(formData.entries()));
@@ -59,7 +62,7 @@ function MainCadastrarVeiculo() {
         <form action={acaoCadastro} className="row g-3" id="meuForm">
           <div className="col-md-6">
             <label htmlFor="nome" className="form-label">
-              Nome Completo:
+              Nome do veiculo:
             </label>
             <input
               value={nome}
@@ -85,7 +88,6 @@ function MainCadastrarVeiculo() {
               name="marca"
               placeholder="Digite o CPF"
               required
-              pattern="\d*"
               maxlength="11"
             />
           </div>
@@ -115,50 +117,50 @@ function MainCadastrarVeiculo() {
               className="form-control"
             >
               <option value="4x4">4x4</option>
-              <option value="D">Masculino</option>
+              <option value="D">Dianteira</option>
+              <option value="T">Traseira</option>
             </select>
           </div>
           <div className="col-md-4">
-            <label htmlFor="dataNascimento" className="form-label">
-              Data de nascimento:
+            <label htmlFor="quilometragem" className="form-label">
+              Quilometragem:
             </label>
             <input
               value={quilometragem}
               onChange={(e) => setQuilometragem(e.target.value)}
-              type="date"
+              type="number"
               className="form-control"
-              id="dataNascimento"
-              name="dataNascimento"
+              id="quilometragem"
+              name="quilometragem"
               required
             />
           </div>
           <div className="col-md-4">
-            <label htmlFor="telefone" className="form-label">
-              Telefone:
+            <label htmlFor="valor" className="form-label">
+              Valor:
             </label>
             <input
               value={valor}
               onChange={(e) => setValor(e.target.value)}
-              type="tel"
+              type="number"
               className="form-control"
-              id="telefone"
-              name="telefone"
+              id="valor"
+              name="valor"
               required
               maxLength={9}
             />
           </div>
           <div className="col-md-4">
-            <label htmlFor="telefoneFixo" className="form-label">
-              Telefone Fixo:
+            <label htmlFor="descricao" className="form-label">
+              Descrição:
             </label>
             <input
-              value={descricao}
               onChange={(e) => setDescricao(e.target.value)}
-              type="tel"
+              value={descricao}
+              type="text"
               className="form-control"
-              id="telefoneFixo"
-              name="telefoneFixo"
-              required
+              id="descricao"
+              name="descricao"
               maxLength={8}
             />
           </div>
@@ -167,8 +169,8 @@ function MainCadastrarVeiculo() {
               Imagem do veiculos:
             </label>
             <input
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
+              value={file}
+              onChange={(e) => setFile(e.target.value)}
               type="file"
               className="form-control"
               id="file"

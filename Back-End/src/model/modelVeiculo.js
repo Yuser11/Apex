@@ -1,11 +1,12 @@
 import conexao from "../../config/db.js";
 
 const modelVeiculo = {
-  cadastrar: async ([nome, quantidade, valor, codigo]) => {
+  cadastrar: async ([nome, marca, ano, tracao, quilometragem, valor, descricao]) => {
     try {
+      console.log([nome, marca, ano, tracao, quilometragem, valor, descricao])
       const resultado = await conexao.query(
-        "INSERT INTO produto (NOME,QUANTIDADE,VALOR,CODIGO)VALUES(?,?,?,?)",
-        [nome, quantidade, valor, codigo],
+        "INSERT INTO VEICULO (nome,marca,ano,tracao,quilometragem,valor,descricao)VALUES(?,?,?,?,?,?,?)",
+        [ nome, marca, ano, tracao, quilometragem, valor, descricao]
       );
       return resultado;
     } catch (error) {

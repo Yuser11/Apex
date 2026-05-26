@@ -2,15 +2,29 @@ import modelVeiculo from "../model/modelVeiculo.js";
 const controllerVeiculo = {
   cadastrar: async (req, res) => {
     try {
-      const { nome, quantidade, valor, codigo } = req.body;
-      if (!nome || !quantidade || !valor || !codigo) {
+      const { nome, marca, ano, tracao, quilometragem, valor, descricao } =
+        req.body;
+      if (
+        !nome ||
+        !marca ||
+        !ano ||
+        !tracao ||
+        !quilometragem ||
+        !valor ||
+        !descricao
+      ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
+      console.log(req.body)
+      console.log([nome, marca, ano, tracao, quilometragem, valor, descricao]);
       const [resposta] = await modelVeiculo.cadastrar([
         nome,
-        quantidade,
+        marca,
+        ano,
+        tracao,
+        quilometragem,
         valor,
-        codigo,
+        descricao,
       ]);
       console.log(resposta);
       if (resposta.code === "ER_DUP_ENTRY") {
@@ -53,7 +67,7 @@ const controllerVeiculo = {
     }
   },
 
-  listarPorID: async (req, res) => {
+  listarPorId: async (req, res) => {
     try {
       const id = req.params.id;
       const resposta = await modelVeiculo.listarPorID(id);

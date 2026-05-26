@@ -22,6 +22,11 @@ import CadastrarCliente from './components/paginas/cliente/CadastrarCliente'
 import ListarCliente from './components/paginas/cliente/ListarClientes'
 import EditarCliente from './components/paginas/cliente/EditarCliente'
 
+import CadastrarVeiculo from './components/paginas/veiculo/CadastrarVeiculo'
+import ListarVeiculo from './components/paginas/veiculo/ListarVeiculo'
+import EditarVeiculo from './components/paginas/veiculo/EditarVeiculo'
+
+
 import Vendas from './components/paginas/vendas/Vendas'
 
 function App() {
@@ -68,6 +73,32 @@ function App() {
             </RotaProtegida>
           }
         />
+
+        <Route
+          path="/cadastro-veiculo"
+          element={
+            <RotaProtegida regrasPermitidas={["admin"]}>
+              <CadastrarVeiculo />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/listar-veiculo"
+          element={
+            <RotaProtegida regrasPermitidas={["admin", "usuario"]}>
+              <ListarVeiculo />
+            </RotaProtegida>
+          }
+        />
+        <Route
+          path="/editar-veiculo/:id"
+          element={
+            <RotaProtegida regrasPermitidas={["admin"]}>
+              <EditarVeiculo />
+            </RotaProtegida>
+          }
+        />
+
         <Route
           path="/cadastro-cliente"
           element={

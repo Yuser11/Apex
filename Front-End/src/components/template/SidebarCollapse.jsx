@@ -100,7 +100,7 @@ function SidebarCollapse() {
                   {regra === "admin" && (
                     <>
                       <li>
-                        <Link to="/cadastro-veiculos">
+                        <Link to="/cadastro-veiculo">
                           <img
                             src="/src/assets/img/sidebar/add-user.png"
                             alt=""
@@ -111,7 +111,7 @@ function SidebarCollapse() {
                     </>
                   )}
                   <li>
-                    <Link to="/listar-veiculos">
+                    <Link to="/listar-veiculo">
                       <img src="/src/assets/img/sidebar/listar.png" alt="" />
                       LISTAR
                     </Link>

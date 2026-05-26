@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { toast } from "react-toastify";
 
 function MainListarVeiculo() {
-  const urlDadosVeiculos = "http://localhost:3001/clientes";
+  const urlDadosVeiculos = "http://localhost:3001/veiculos";
   const [Veiculos, setVeiculos] = useState([]);
   const token = sessionStorage.getItem("token");
 
