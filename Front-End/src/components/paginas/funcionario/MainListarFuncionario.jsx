@@ -91,12 +91,10 @@ function MainListarFuncionario() {
                 {regra === "admin" && (
                   <>
                     <td>
-                      <button className="me-2">
-                        <Link to={`/editar-funcionario/${Funcionario.id}`}>
-                          Editar
-                        </Link>
-                      </button>
-                      <button
+                      <Link to={`/editar-funcionario/${Funcionario.id}`}>
+                        <i className="bi bi-pencil"></i>
+                      </Link>
+                      <span
                         onClick={() =>
                           toast.info(
                             <>
@@ -114,8 +112,8 @@ function MainListarFuncionario() {
                           )
                         }
                       >
-                        Excluir
-                      </button>
+                        <i className="bi bi-trash"></i>
+                      </span>
                     </td>
                   </>
                 )}

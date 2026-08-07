@@ -11,7 +11,7 @@ function LoginApex() {
   useEffect(() => {
     let logado = sessionStorage.getItem('token');
     if (logado) {
-      navigate('/');
+      navigate('/home');
     }
   }, [navigate]);
 

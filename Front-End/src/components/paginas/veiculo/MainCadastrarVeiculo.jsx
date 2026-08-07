@@ -9,23 +9,31 @@ function MainCadastrarVeiculo() {
   const [quilometragem, setQuilometragem] = useState("");
   const [valor, setValor] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [file, setFile] = useState("");
 
-  const token = sessionStorage.getItem("token")
-  
+  const token = sessionStorage.getItem("token");
+
   const [estadoCadastro, acaoCadastro, pendente] = useActionState(
     async (estadoAnterior, formData) => {
+      console.log(ano);
+      console.log(Object.fromEntries(formData.entries()));
+      console.log(Object.fromEntries(formData.entries()).ano);
       let dadosVeiculo = JSON.stringify(Object.fromEntries(formData.entries()));
       console.log(dadosVeiculo);
+
+      console.log(formData);
+
       try {
-        let resposta = await fetch("http://localhost:3001/api/veiculo/cadastrar", {
-          method: "POST",
-          body: dadosVeiculo,
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-            Authorization: `Bearer ${token}`,
+        let resposta = await fetch(
+          "http://localhost:3001/api/veiculo/cadastrar",
+          {
+            method: "POST",
+            body: dadosVeiculo,
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
         console.log(resposta);
         console.log(resposta.status);
         console.log(resposta.ok);
@@ -86,9 +94,9 @@ function MainCadastrarVeiculo() {
               className="form-control"
               id="marca"
               name="marca"
-              placeholder="Digite o CPF"
+              placeholder="Digite a Marca"
               required
-              maxlength="11"
+              maxLength="11"
             />
           </div>
 
@@ -99,11 +107,13 @@ function MainCadastrarVeiculo() {
             <input
               value={ano}
               onChange={(e) => setAno(e.target.value)}
-              type="ano"
+              type="number"
+              name="ano"
               className="form-control"
               id="ano"
               placeholder="Digite o ano"
               required
+              maxLength="4"
             />
           </div>
 
@@ -164,19 +174,18 @@ function MainCadastrarVeiculo() {
               maxLength={8}
             />
           </div>
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <label htmlFor="file" className="form-label">
               Imagem do veiculos:
             </label>
             <input
-              value={file}
-              onChange={(e) => setFile(e.target.value)}
               type="file"
+              onChange={handleFileChange}
               className="form-control"
-              id="file"
-              name="file"
+              
+
             />
-          </div>
+          </div> */}
 
           <div className="col-12 ">
             <button

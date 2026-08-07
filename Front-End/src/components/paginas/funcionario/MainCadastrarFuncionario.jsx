@@ -48,7 +48,7 @@ function MainCadastrarFuncionario() {
       console.log(dadosFuncionario);
       console.log(dadosFuncionario);
       try {
-        let resposta = await fetch("http://localhost:3001/api/cadastrar", {
+        let resposta = await fetch("http://localhost:3001/cadastrar", {
           method: "POST",
           body: dadosFuncionario,
           headers: {
@@ -198,7 +198,7 @@ function MainCadastrarFuncionario() {
               id="telefone"
               name="telefone"
               required
-              maxLength={9}
+              maxLength={11}
             />
           </div>
           <div className="col-md-4">
@@ -213,7 +213,7 @@ function MainCadastrarFuncionario() {
               id="telefoneFixo"
               name="telefoneFixo"
               required
-              maxLength={8}
+              maxLength={10}
             />
           </div>
 
@@ -229,7 +229,7 @@ function MainCadastrarFuncionario() {
               id="contatoEmergencia"
               name="contatoEmergencia"
               required
-              maxLength={9}
+              maxLength={11}
             />
           </div>
 

@@ -4,19 +4,21 @@ const modelVeiculo = {
   cadastrar: async ([nome, marca, ano, tracao, quilometragem, valor, descricao]) => {
     try {
       console.log([nome, marca, ano, tracao, quilometragem, valor, descricao])
+      console.log('passo')
       const resultado = await conexao.query(
-        "INSERT INTO VEICULO (nome,marca,ano,tracao,quilometragem,valor,descricao)VALUES(?,?,?,?,?,?,?)",
+        "INSERT INTO VEICULO (empresa_id,nome,marca,ano,tracao,quilometragem,valor,descricao)VALUES(1,?,?,?,?,?,?,?)",
         [ nome, marca, ano, tracao, quilometragem, valor, descricao]
       );
       return resultado;
     } catch (error) {
+      console.log(error)
       return error;
     }
   },
   listar: async () => {
     try {
       const resultado = await conexao.query(
-        "SELECT nome , marca , ano , quilometragem , valor , tracao , data_cadastro , DESCRICAO FROM veiculo ",
+        "SELECT id, nome , marca , ano , quilometragem , valor , tracao , data_cadastro , descricao FROM veiculo ",
       );
       console.log(resultado);
       return resultado;

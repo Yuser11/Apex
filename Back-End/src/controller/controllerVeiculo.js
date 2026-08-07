@@ -2,6 +2,8 @@ import modelVeiculo from "../model/modelVeiculo.js";
 const controllerVeiculo = {
   cadastrar: async (req, res) => {
     try {
+      console.log(req.body)
+      console.log(req.files)
       const { nome, marca, ano, tracao, quilometragem, valor, descricao } =
         req.body;
       if (
@@ -15,7 +17,6 @@ const controllerVeiculo = {
       ) {
         res.status(400).json({ msg: "insira todos os campos" });
       }
-      console.log(req.body)
       console.log([nome, marca, ano, tracao, quilometragem, valor, descricao]);
       const [resposta] = await modelVeiculo.cadastrar([
         nome,

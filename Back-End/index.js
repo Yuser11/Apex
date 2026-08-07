@@ -8,13 +8,14 @@ import routersCliente from "./src/routes/routerCliente.js";
 import routersProfissional from "./src/routes/routerProfissional.js";
 import routersUsuario from "./src/routes/routerUsuario.js";
 import routersVeiculo from './src/routes/routerVeiculo.js';
-import fileUpload from 'express-fileupload'
 import verificarToken from './src/middlewares/token.js';
 import swaggerUi from 'swagger-ui-express'
 import YAML from 'yamljs'
+import fileUpload from 'express-fileupload'
 
 const app = express();
 
+app.use(fileUpload());
 app.use(express.json());
 app.use(cors())
 app.use('/api',verificarToken);
@@ -23,7 +24,6 @@ app.use(routersCliente)
 app.use(routersProfissional)
 app.use(routersUsuario)
 app.use(routersVeiculo)
-app.use(fileUpload());
 const swaggerDocument = YAML.load('./src/swagger.yaml')
 app.use(
   '/docs',

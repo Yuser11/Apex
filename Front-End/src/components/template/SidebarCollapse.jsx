@@ -131,12 +131,6 @@ function SidebarCollapse() {
                 </Link>
               </li>
               <li>
-                <Link to="/vendas">
-                  <img src="/src/assets/img/sidebar/bag.png" alt="" />
-                  PRODUTOS
-                </Link>
-              </li>
-              <li>
                 <Link
                   to="/login"
                   onClick={() => sessionStorage.removeItem("token")}

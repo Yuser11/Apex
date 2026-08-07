@@ -32,21 +32,23 @@ function MainListarVeiculo() {
             <tr>
               <th>id:</th>
               <th>Nome:</th>
-              <th>Data de nascimento:</th>
-              <th>CPF:</th>
-              <th>Email:</th>
-              <th>Genero:</th>
+              <th>Marca:</th>
+              <th>Quilimetragem:</th>
+              <th>Valor:</th>
+              <th>Tração:</th>
+              <th>Descricão:</th>
             </tr>
           </thead>
           <tbody>
-            {Veiculos.map((Funcionario) => (
-              <tr key={Funcionario.id}>
-                <td>{Funcionario.id}</td>
-                <td>{Funcionario.nome}</td>
-                <td>{Funcionario.data_nascimento.slice(0, 10)}</td>
-                <td>{Funcionario.cpf}</td>
-                <td>{Funcionario.email}</td>
-                <td>{Funcionario.genero}</td>
+            {Veiculos.map((Veiculo) => (
+              <tr key={Veiculo.id}>
+                <td>{Veiculo.id}</td>
+                <td>{Veiculo.nome}</td>
+                <td>{Veiculo.marca}</td>
+                <td>{Veiculo.quilometragem}</td>
+                <td>{Veiculo.valor}</td>
+                <td>{Veiculo.tracao}</td>
+                <td>{Veiculo.descricao}</td>
 
               </tr>
             ))}
