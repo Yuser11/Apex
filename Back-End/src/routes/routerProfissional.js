@@ -8,7 +8,7 @@ const routers = express();
 
 routers.use(express.json());
 
-routers.post("/cadastrar", controllerProfissional.cadastrar);
+routers.post("/api/cadastrar", controllerProfissional.cadastrar);
 routers.get("/profissionais", controllerProfissional.listar);
 routers.get("/api/profissionais/:id", controllerProfissional.listarPorId);
 routers.put("/api/profissionais/:id", controllerProfissional.atualizarPorId);

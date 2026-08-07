@@ -19,7 +19,6 @@ tags:
   - name: Cliente
 
 paths:
-
   /:
     get:
       tags:
@@ -28,10 +27,10 @@ paths:
       summary: Rota principal da API
 
       responses:
-        '200':
+        "200":
           description: API online
 
-  /api/Cadastrar:
+  /api/cadastrar:
     post:
       tags:
         - Profissional
@@ -47,16 +46,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profissional'
+              $ref: "#/components/schemas/Profissional"
 
       responses:
-        '201':
+        "201":
           description: Usuário cadastrado com sucesso
 
-        '401':
+        "401":
           description: Token inválido ou não informado
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
   /login:
@@ -72,10 +71,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profissional'
+              $ref: "#/components/schemas/Profissional"
 
       responses:
-        '200':
+        "200":
           description: Login realizado com sucesso
 
           content:
@@ -88,10 +87,10 @@ paths:
                     type: string
                     example: JWT_TOKEN
 
-        '401':
+        "401":
           description: Credenciais inválidas
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
   /profissionais:
@@ -101,12 +100,11 @@ paths:
 
       summary: Listar todos os profissionais
 
-
       responses:
-        '201':
+        "201":
           description: Lista de profissionais
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
   /api/profissionais/{id}:
@@ -126,10 +124,10 @@ paths:
         - BearerAuth: []
 
       responses:
-        '200':
+        "200":
           description: Profissional
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
     put:
@@ -147,13 +145,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Profissional'
+              $ref: "#/components/schemas/Profissional"
 
       responses:
-        '204':
+        "204":
           description: Sucesso
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
     delete:
@@ -166,10 +164,10 @@ paths:
         - BearerAuth: []
 
       responses:
-        '204':
+        "204":
           description: Sucesso
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
   /api/cliente/cadastrar:
@@ -177,7 +175,7 @@ paths:
       tags:
         - Cliente
 
-      summary: Criar registro de cliente com relacionmentos 
+      summary: Criar registro de cliente com relacionmentos
 
       security:
         - BearerAuth: []
@@ -188,58 +186,61 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Cliente'
+              $ref: "#/components/schemas/Cliente"
 
       responses:
-        '201':
+        "201":
           description: Criado com sucesso
 
-        '400':
+        "400":
           description: Duplicado
 
-        '500':
+        "500":
           description: Erro interno do servidor
- 
+
   /clientes:
     get:
       tags:
-       - Cliente
+        - Cliente
 
       summary: Listar todos os clientes
 
-
       responses:
-        '200':
+        "200":
           description: Lista dos clientes
 
-        '500':
+        "500":
           description: Erro interno do servidor
- 
-  /api/clientes/:id:
+
+  /api/clientes/{id}:
     get:
       tags:
         - Cliente
 
       summary: Listar unico cliente
-
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          required: true
+          description: Id do profissional
       responses:
-        '200':
+        "200":
           description: Dados do cliente
 
-        '500':
+        "500":
           description: Erro interno do servidor
 
 components:
-
   securitySchemes:
-
     BearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
 
   schemas:
-
     Login:
       type: object
 
@@ -248,7 +249,6 @@ components:
         - senha
 
       properties:
-
         email:
           type: string
           example: joao@email.com
@@ -261,27 +261,26 @@ components:
       type: object
 
       required:
-       - nome
-       - dataNascimento
-       - cpf
-       - email
-       - senha
-       - modalidade
-       - dataIngresso
-       - regra
-       - cep
-       - numero
-       - bairro
-       - rua
-       - estado
-       - cidade
-       - complemento
-       - telefone
-       - telefoneFixo
-       - contatoEmergencia
+        - nome
+        - dataNascimento
+        - cpf
+        - email
+        - senha
+        - modalidade
+        - dataIngresso
+        - regra
+        - cep
+        - numero
+        - bairro
+        - rua
+        - estado
+        - cidade
+        - complemento
+        - telefone
+        - telefoneFixo
+        - contatoEmergencia
 
       properties:
-
         nome:
           type: string
           example: "yuri"
@@ -358,24 +357,23 @@ components:
       type: object
 
       required:
-       - nome
-       - dataNascimento
-       - cpf
-       - email
-       - genero
-       - cep
-       - numero
-       - bairro
-       - rua
-       - estado
-       - cidade
-       - complemento
-       - telefone
-       - telefoneFixo
-       - contatoEmergencia
+        - nome
+        - dataNascimento
+        - cpf
+        - email
+        - genero
+        - cep
+        - numero
+        - bairro
+        - rua
+        - estado
+        - cidade
+        - complemento
+        - telefone
+        - telefoneFixo
+        - contatoEmergencia
 
       properties:
-
         nome:
           type: string
           example: "yuri"

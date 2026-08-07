@@ -71,13 +71,13 @@ const modelCliente = {
   listarPorId: async (id) => {
     try {
       const [resultado] = await conexao.query(
-        `SELECT cliente.id, cliente.nome, cliente.data_nascimento, cliente.cpf, cliente.email, cliente.genero endereco.cep, endereco.numero, endereco.bairro, endereco.rua, endereco.estado, endereco.cidade, endereco.complemento, telefone.movel, telefone.fixo, telefone.emergencia
-         FROM CLIENTE
-         INNER JOIN ENDERECO 
-         ON CLIENTE.endereco_id=ENDERECO.id
-         INNER JOIN TELEFONE 
-         ON CLIENTE.telefone_id=TELEFONE.id
-         WHERE profissional.id = ?`,
+        `select cliente.id, cliente.nome, cliente.data_nascimento, cliente.cpf, cliente.email, cliente.genero, endereco.cep, endereco.numero, endereco.bairro, endereco.rua, endereco.estado, endereco.cidade, endereco.complemento, telefone.movel, telefone.fixo, telefone.emergencia
+         from cliente
+         inner join endereco 
+         on cliente.endereco_id=endereco.id
+         inner join telefone 
+         on cliente.telefone_id=telefone.id
+         where cliente.id = ?`,
         [id],
       );
       console.log(resultado);
